@@ -1,0 +1,86 @@
+.welcome-page,
+.avatar-page {
+  min-height: 100vh;
+  background-color: paleturquoise;
+}
+
+.welcome-page {
+  display: grid;
+  place-items: center;
+}
+
+.welcome__title {
+  width: 500px;
+  height: 100px;
+  margin-bottom: 4rem;
+  background-color: palevioletred;
+}
+
+.create-name-container {
+  width: 600px;
+  height: 300px;
+  background-color: palevioletred;
+}
+
+.avatar__title {
+  height: 20vh;
+  padding-top: 3rem;
+}
+
+.avatar__title h1 {
+  width: 600px;
+  margin: 0 auto;
+  background-color: palevioletred;
+  font-size: 3rem;
+}
+
+.avatar__container {
+  height: 80vh;
+  display: grid;
+  grid-template-columns: 40% 60%;
+}
+
+.avatar__preview {
+  display: grid;
+  place-items: center;
+}
+
+.avatar-image {
+  border-radius: 50%;
+}
+
+.avatar__preview .avatar-image {
+  width: 350px;
+  height: 350px;
+  background-color: lightslategray;
+}
+
+.join-btn-container {
+  width: 300px;
+  height: 80px;
+  background-color: rebeccapurple;
+}
+
+.default-avatars {
+  padding: 1rem;
+}
+
+.collection {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.collection .avatar-image {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 1rem;
+  background-color: lightslategray;
+}
+
+.upload-avatar {
+  width: 100px;
+  height: 100px;
+  background-color: teal;
+  margin: 1rem auto;
+}

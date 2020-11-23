@@ -1,0 +1,88 @@
+.chat-panel {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  background-color: paleturquoise;
+}
+
+.chat-info,
+.chat-panel {
+  height: 100%;
+}
+
+.user-container {
+  height: 15%;
+}
+
+.user-info {
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: seagreen;
+}
+
+.user-name,
+.menu-container {
+  height: 50%;
+}
+
+.user-avatar {
+  height: 80%;
+  width: 30%;
+  border-radius: 50%;
+  background-color: slategrey;
+}
+
+.user-name {
+  width: 50%;
+  background-color: burlywood;
+}
+
+.menu-container {
+  width: 5%;
+  background-color: thistle;
+}
+
+.active-users-container {
+  height: 85%;
+  padding: 1rem;
+  overflow-y: auto;
+  background-color: turquoise;
+}
+
+.active-users-container .user-info {
+  height: 20%;
+  margin-bottom: 1rem;
+}
+
+.active-users-container .user-name {
+  width: 60%;
+}
+
+.receptor-container {
+  height: 10%;
+}
+
+.receptor-container .user-info {
+  background-color: darkcyan;
+}
+
+.receptor-container .user-avatar {
+  width: 10%;
+}
+
+.receptor-container .user-name {
+  width: 80%;
+}
+
+.messages-container {
+  height: 80%;
+  overflow-y: auto;
+  background-color: sandybrown;
+}
+
+.chat-controls-container {
+  height: 10%;
+  background-color: seagreen;
+}
