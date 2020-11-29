@@ -4,6 +4,18 @@
   background-color: paleturquoise;
 }
 
+button {
+  padding: 0.25rem;
+  border-style: none;
+  border-radius: 1rem;
+  background-color: rebeccapurple;
+}
+
+button:active {
+  outline: none;
+  background-color: crimson;
+}
+
 .welcome-page {
   display: grid;
   place-items: center;
@@ -12,25 +24,53 @@
 .welcome__title {
   width: 500px;
   height: 100px;
+  display: grid;
+  align-content: center;
   margin-bottom: 4rem;
-  background-color: palevioletred;
+  font-size: 3rem;
 }
 
 .create-name-container {
   width: 600px;
   height: 300px;
-  background-color: palevioletred;
+}
+
+.form {
+  height: 100%;
+  padding: 2rem;
+  border: 2px solid lightblue;
+}
+
+.form div {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  font-size: 2.5rem;
+}
+
+.form-input input {
+  width: 100%;
+  height: 35px;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.form-btn {
+  height: 30%;
+  display: grid;
+  place-content: center;
+}
+
+.form-btn button {
+  width: 200px;
+  font-size: 1.5rem;
 }
 
 .avatar__title {
+  display: grid;
+  place-content: center;
   height: 20vh;
-  padding-top: 3rem;
-}
-
-.avatar__title h1 {
-  width: 600px;
-  margin: 0 auto;
-  background-color: palevioletred;
   font-size: 3rem;
 }
 
@@ -47,18 +87,28 @@
 
 .avatar-image {
   border-radius: 50%;
+  background-color: rebeccapurple;
 }
 
 .avatar__preview .avatar-image {
   width: 350px;
   height: 350px;
-  background-color: lightslategray;
 }
 
 .join-btn-container {
   width: 300px;
   height: 80px;
-  background-color: rebeccapurple;
+  display: grid;
+  place-content: center;
+}
+
+.join-btn-container button {
+  width: 200px;
+  font-size: 2rem;
+}
+
+.join-btn-container button:focus {
+  outline: none;
 }
 
 .default-avatars {
@@ -67,20 +117,12 @@
 
 .collection {
   display: flex;
-  justify-content: space-evenly;
   flex-wrap: wrap;
 }
 
 .collection .avatar-image {
-  width: 120px;
-  height: 120px;
-  margin-bottom: 1rem;
-  background-color: lightslategray;
-}
-
-.upload-avatar {
-  width: 100px;
-  height: 100px;
-  background-color: teal;
-  margin: 1rem auto;
+  width: 130px;
+  height: 130px;
+  margin-right: 1rem;
+  margin-bottom: 2rem;
 }
