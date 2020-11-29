@@ -6,12 +6,17 @@
 }
 
 .chat-info,
-.chat-panel {
+.no-chat {
   height: 100%;
+}
+
+.chat-info {
+  border-right: 3px solid lightblue;
 }
 
 .user-container {
   height: 15%;
+  border-bottom: 2px solid lightblue;
 }
 
 .user-info {
@@ -19,7 +24,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  background-color: seagreen;
+  font-weight: bold;
 }
 
 .user-name,
@@ -35,37 +40,80 @@
 }
 
 .user-name {
-  width: 50%;
-  background-color: burlywood;
+  width: 55%;
+  display: grid;
+  align-content: center;
+  font-size: 1rem;
 }
 
 .menu-container {
   width: 5%;
-  background-color: thistle;
+  display: grid;
+  place-content: center;
+}
+
+.no-active-users {
+  height: 85%;
+  display: grid;
+  place-content: center;
+}
+
+.no-active-users-container span {
+  display: block;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.no-active-users-container img {
+  width: 60%;
+  height: 60%;
+  display: block;
+  margin: 0 auto;
 }
 
 .active-users-container {
   height: 85%;
   padding: 1rem;
   overflow-y: auto;
-  background-color: turquoise;
 }
 
 .active-users-container .user-info {
   height: 20%;
   margin-bottom: 1rem;
+  border-bottom: 2px solid lightblue;
+}
+
+.active-users-container .user-info:hover {
+  cursor: pointer;
 }
 
 .active-users-container .user-name {
   width: 60%;
 }
 
-.receptor-container {
-  height: 10%;
+.no-chat {
+  display: grid;
+  place-content: center;
 }
 
-.receptor-container .user-info {
-  background-color: darkcyan;
+.no-chat-container span {
+  display: block;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 3rem;
+}
+
+.no-chat-container img {
+  width: 50%;
+  height: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+.receptor-container {
+  height: 10%;
+  border-bottom: 2px solid lightblue;
 }
 
 .receptor-container .user-avatar {
@@ -73,16 +121,17 @@
 }
 
 .receptor-container .user-name {
+  justify-content: start;
   width: 80%;
 }
 
 .messages-container {
   height: 80%;
   overflow-y: auto;
-  background-color: sandybrown;
+
+  border-bottom: 2px solid lightblue;
 }
 
 .chat-controls-container {
   height: 10%;
-  background-color: seagreen;
 }
