@@ -2,10 +2,10 @@
   "name": "chat-server-side",
   "version": "0.1.0",
   "private": "true",
-  "description": "Simple chat server using express and socket.io",
+  "description": "Simple websocket server using socket.io",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev-server": "clear && nodemon node server.js"
   },
   "keywords": [
     "chat-app",
@@ -16,7 +16,6 @@
   "author": "j.leonardo.bravo@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
     "socket.io": "^3.0.1"
   },
   "devDependencies": {
