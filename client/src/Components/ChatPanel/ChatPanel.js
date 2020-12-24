@@ -35,6 +35,10 @@ function ActiveUsersList({ users, getReceptor }) {
 }
 
 function Receptor({ receptor }) {
+   useEffect(() => {
+      document.title = receptor.name;
+   });
+
    return (
       <div className='receptor-container'>
          <div className='user-info' data-testid='receptor'>
