@@ -7,124 +7,110 @@ import noUsers from "../../chat-icons/no-active-users.png";
 import "./ChatPanel.css";
 
 function ActiveUsersList({ users, getReceptor }) {
-   return (
-      <div className='active-users-container'>
-         {users.map((user, index) => {
-            return (
-               <div
-                  className='user-info'
-                  data-testid='active-user'
-                  key={index}
-                  onClick={() => {
-                     getReceptor(user);
-                  }}
-               >
-                  <img
-                     src={user.avatar}
-                     alt={user.name}
-                     className='user-avatar'
-                  />
-                  <div className='user-name'>
-                     <span>{user.name}</span>
-                  </div>
-               </div>
-            );
-         })}
-      </div>
-   );
+	return (
+		<div className="active-users-container">
+			{users.map((user, index) => {
+				return (
+					<div
+						className="user-info"
+						data-testid="active-user"
+						key={index}
+						onClick={() => {
+							getReceptor(user);
+						}}
+					>
+						<img src={user.avatar} alt={user.name} className="user-avatar" />
+						<div className="user-name">
+							<span>{user.name}</span>
+						</div>
+					</div>
+				);
+			})}
+		</div>
+	);
 }
 
 function Receptor({ receptor }) {
-   useEffect(() => {
-      document.title = receptor.name;
-   });
+	useEffect(() => {
+		document.title = receptor.name;
+	});
 
-   return (
-      <div className='receptor-container'>
-         <div className='user-info' data-testid='receptor'>
-            <img
-               src={receptor.avatar}
-               alt={receptor.name}
-               className='user-avatar'
-            />
-            <div className='user-name'>
-               <span>{receptor.name}</span>
-            </div>
-            <div className='menu-container'></div>
-         </div>
-      </div>
-   );
+	return (
+		<div className="receptor-container">
+			<div className="user-info" data-testid="receptor">
+				<img src={receptor.avatar} alt={receptor.name} className="user-avatar" />
+				<div className="user-name">
+					<span>{receptor.name}</span>
+				</div>
+				<div className="menu-container"></div>
+			</div>
+		</div>
+	);
 }
 
 function ChatPanel({ user }) {
-   const [activeUsers, setActiveUsers] = useState([]);
-   const [chatReceptor, setReceptor] = useState(null);
+	const [activeUsers, setActiveUsers] = useState([]);
+	const [chatReceptor, setReceptor] = useState(null);
 
-   useEffect(() => {
-      socketClient.emit("new-user", user);
-   }, [user]);
+	useEffect(() => {
+		socketClient.emit("new-user", user);
+	}, [user]);
 
-   useEffect(() => {
-      if (process.env.NODE_ENV === "test") {
-         testSocket.on("test:active-users", (users) => {
-            setActiveUsers(users);
-         });
-      } else
-         socketClient.on("active-users", (users) => {
-            setActiveUsers(users.filter((user) => user.id !== socketClient.id));
-         });
+	useEffect(() => {
+		if (process.env.NODE_ENV === "test") {
+			testSocket.on("test:active-users", (users) => {
+				setActiveUsers(users);
+			});
+		} else
+			socketClient.on("active-users", (users) => {
+				setActiveUsers(users.filter((user) => user.id !== socketClient.id));
+			});
 
-      return () => {
-         if (process.env.NODE_ENV === "test")
-            testSocket.removeAllListeners("test:active-users");
-      };
-   }, []);
+		return () => {
+			if (process.env.NODE_ENV === "test") testSocket.removeAllListeners("test:active-users");
+		};
+	}, []);
 
-   return (
-      <section className='chat-panel'>
-         <div className='chat-info'>
-            <div className='user-container'>
-               <div className='user-info' data-testid='user-info'>
-                  <img
-                     src={user.avatar}
-                     alt='User avatar'
-                     className='user-avatar'
-                     loading='lazy'
-                  />
-                  <div className='user-name'>
-                     <span>{user.name}</span>
-                  </div>
-                  <div className='menu-container'></div>
-               </div>
-            </div>
-            {activeUsers.length === 0 ? (
-               <div className='no-active-users'>
-                  <div className='no-active-users-container'>
-                     <span>No active users</span>
-                     <img src={noUsers} alt='No users' loading='lazy' />
-                  </div>
-               </div>
-            ) : (
-               <ActiveUsersList users={activeUsers} getReceptor={setReceptor} />
-            )}
-         </div>
+	return (
+		<section className="chat-panel">
+			<div className="chat-info">
+				<div className="user-container">
+					<div className="user-info" data-testid="user-info">
+						<img src={user.avatar} alt="User avatar" className="user-avatar" loading="lazy" />
+						<div className="user-name">
+							<span>{user.name}</span>
+						</div>
+						<div className="menu-container"></div>
+					</div>
+				</div>
+				{activeUsers.length === 0 ? (
+					<div className="no-active-users">
+						<div className="no-active-users-container">
+							<span>No active users</span>
+							<img src={noUsers} alt="No users" loading="lazy" />
+						</div>
+					</div>
+				) : (
+					<ActiveUsersList users={activeUsers} getReceptor={setReceptor} />
+				)}
+			</div>
 
-         {!chatReceptor ? (
-            <div className='no-chat'>
-               <div className='no-chat-container'>
-                  <span>Talk to somebody</span>
-                  <img src={talk} alt='Start talk' loading='lazy' />
-               </div>
-            </div>
-         ) : (
-            <div className='chat' data-testid='chat'>
-               <Receptor receptor={chatReceptor} />
-               <div className='messages-container'></div>
-               <div className='chat-controls-container'></div>
-            </div>
-         )}
-      </section>
-   );
+			{!chatReceptor ? (
+				<div className="no-chat">
+					<div className="no-chat-container">
+						<span>Talk to somebody</span>
+						<img src={talk} alt="Start talk" loading="lazy" />
+					</div>
+				</div>
+			) : (
+				<div className="chat" data-testid="chat">
+					<Receptor receptor={chatReceptor} />
+					<div className="messages-container"></div>
+					<div className="chat-controls-container"></div>
+				</div>
+			)}
+		</section>
+	);
 }
 
 export default ChatPanel;

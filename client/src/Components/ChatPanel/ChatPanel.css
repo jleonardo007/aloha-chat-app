@@ -1,137 +1,137 @@
 .chat-panel {
-   min-height: 100vh;
-   display: grid;
-   grid-template-columns: 30% 70%;
-   background-color: paleturquoise;
+	min-height: 100vh;
+	display: grid;
+	grid-template-columns: 30% 70%;
+	background-color: paleturquoise;
 }
 
 .chat-info,
 .no-chat {
-   height: 100%;
+	height: 100%;
 }
 
 .chat-info {
-   border-right: 3px solid lightblue;
+	border-right: 3px solid lightblue;
 }
 
 .user-container {
-   height: 15%;
-   border-bottom: 2px solid lightblue;
+	height: 15%;
+	border-bottom: 2px solid lightblue;
 }
 
 .user-info {
-   height: 100%;
-   display: flex;
-   justify-content: space-evenly;
-   align-items: center;
-   font-weight: bold;
+	height: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	font-weight: bold;
 }
 
 .user-name,
 .menu-container {
-   height: 50%;
+	height: 50%;
 }
 
 .user-avatar {
-   height: 80%;
-   width: 30%;
-   border-radius: 50%;
-   background-color: slategrey;
+	height: 80%;
+	width: 30%;
+	border-radius: 50%;
+	background-color: slategrey;
 }
 
 .user-name {
-   width: 55%;
-   display: grid;
-   align-content: center;
-   font-size: 1rem;
+	width: 55%;
+	display: grid;
+	align-content: center;
+	font-size: 1rem;
 }
 
 .menu-container {
-   width: 5%;
-   display: grid;
-   place-content: center;
+	width: 5%;
+	display: grid;
+	place-content: center;
 }
 
 .no-active-users {
-   height: 85%;
-   display: grid;
-   place-content: center;
+	height: 85%;
+	display: grid;
+	place-content: center;
 }
 
 .no-active-users-container span {
-   display: block;
-   margin-bottom: 1rem;
-   text-align: center;
-   font-size: 2rem;
+	display: block;
+	margin-bottom: 1rem;
+	text-align: center;
+	font-size: 2rem;
 }
 
 .no-active-users-container img {
-   width: 60%;
-   height: 60%;
-   display: block;
-   margin: 0 auto;
+	width: 60%;
+	height: 60%;
+	display: block;
+	margin: 0 auto;
 }
 
 .active-users-container {
-   max-height: 85vh;
-   padding: 1rem;
-   overflow-y: auto;
+	max-height: 85vh;
+	padding: 1rem;
+	overflow-y: auto;
 }
 
 .active-users-container .user-info {
-   height: 20%;
-   margin-bottom: 1rem;
-   border-bottom: 2px solid lightblue;
+	height: 20%;
+	margin-bottom: 1rem;
+	border-bottom: 2px solid lightblue;
 }
 
 .active-users-container .user-info:hover {
-   cursor: pointer;
+	cursor: pointer;
 }
 
 .active-users-container .user-name {
-   width: 60%;
+	width: 60%;
 }
 
 .no-chat {
-   display: grid;
-   place-content: center;
+	display: grid;
+	place-content: center;
 }
 
 .no-chat-container span {
-   display: block;
-   margin-bottom: 1rem;
-   text-align: center;
-   font-size: 3rem;
+	display: block;
+	margin-bottom: 1rem;
+	text-align: center;
+	font-size: 3rem;
 }
 
 .no-chat-container img {
-   width: 50%;
-   height: 50%;
-   display: block;
-   margin: 0 auto;
+	width: 50%;
+	height: 50%;
+	display: block;
+	margin: 0 auto;
 }
 
 .receptor-container {
-   height: 10%;
-   border-bottom: 2px solid lightblue;
+	height: 10%;
+	border-bottom: 2px solid lightblue;
 }
 
 .receptor-container .user-avatar {
-   width: 10%;
+	width: 10%;
 }
 
 .receptor-container .user-name {
-   justify-content: start;
-   width: 80%;
+	justify-content: start;
+	width: 80%;
 }
 
 .messages-container {
-   height: 80%;
-   overflow-y: auto;
+	height: 80%;
+	overflow-y: auto;
 
-   border-bottom: 2px solid lightblue;
+	border-bottom: 2px solid lightblue;
 }
 
 .chat-controls-container {
-   height: 10%;
+	height: 10%;
 }
