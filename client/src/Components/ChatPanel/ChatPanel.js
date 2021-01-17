@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import socketClient from "../../socket-client";
 import testSocket from "../../test_utils/testSocket";
 
+import Menu from "../Menu/Menu";
+
 import talk from "../../chat-icons/charla.png";
 import noUsers from "../../chat-icons/no-active-users.png";
 import "./ChatPanel.css";
@@ -42,7 +44,15 @@ function Receptor({ receptor }) {
 				<div className="user-name">
 					<span>{receptor.name}</span>
 				</div>
-				<div className="menu-container"></div>
+				<div className="menu-container">
+					<Menu>
+						<ul className="menu">
+							<li className="menu__item">Select messages</li>
+							<li className="menu__item">Empty chat</li>
+							<li className="menu__item">Enter to send</li>
+						</ul>
+					</Menu>
+				</div>
 			</div>
 		</div>
 	);
@@ -80,7 +90,15 @@ function ChatPanel({ user }) {
 						<div className="user-name">
 							<span>{user.name}</span>
 						</div>
-						<div className="menu-container"></div>
+						<div className="menu-container">
+							<Menu>
+								<ul className="menu">
+									<li className="menu__item">Profile</li>
+									<li className="menu__item">Change theme</li>
+									<li className="menu__item">Change background</li>
+								</ul>
+							</Menu>
+						</div>
 					</div>
 				</div>
 				{activeUsers.length === 0 ? (
