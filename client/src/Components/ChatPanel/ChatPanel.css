@@ -95,6 +95,7 @@
 .menu-container {
 	display: grid;
 	place-content: center;
+	position: relative;
 }
 
 .user-container .user-avatar {
