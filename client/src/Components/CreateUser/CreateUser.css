@@ -4,14 +4,16 @@
 	background-color: paleturquoise;
 }
 
-button {
+.welcome-page button,
+.avatar-page button {
 	padding: 0.25rem;
 	border-style: none;
 	border-radius: 1rem;
 	background-color: rebeccapurple;
 }
 
-button:active {
+.welcome-page button:active,
+.avatar-page button:active {
 	outline: none;
 	background-color: crimson;
 }
