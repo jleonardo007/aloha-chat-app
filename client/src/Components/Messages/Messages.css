@@ -1,0 +1,33 @@
+.messages {
+	padding: 1rem;
+}
+
+.messages li {
+	display: flex;
+	margin-bottom: 1rem;
+}
+
+.message p {
+	min-width: 70px;
+	max-width: 400px;
+	min-height: 40px;
+	padding: 0.5rem;
+	border-radius: 0.55rem;
+	border: 2px solid saddlebrown;
+	text-align: justify;
+}
+
+.message-send {
+	margin-left: auto;
+}
+
+.message-received {
+	margin-right: auto;
+}
+
+.select-box {
+	align-self: center;
+	width: 30px;
+	height: 30px;
+	margin-right: 2rem;
+}
