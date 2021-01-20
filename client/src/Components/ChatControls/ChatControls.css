@@ -1,0 +1,76 @@
+.emoji-btn,
+.voice-note-btn {
+	width: 5%;
+	height: 3vw;
+	display: grid;
+	place-content: center;
+	border-radius: 50%;
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 2rem;
+}
+
+.emoji-btn,
+.message-input,
+.messages-input-container,
+.voice-note-btn:focus {
+	outline: none;
+}
+
+.messages-input-container {
+	width: 85%;
+	min-height: 3vw;
+	display: grid;
+	align-content: center;
+	border-radius: 1rem;
+	background: #fff;
+}
+
+.message-input {
+	max-height: 12vh;
+	padding: 0.5rem;
+	font-size: 1rem;
+	overflow-wrap: break-word;
+	overflow-y: auto;
+	text-align: justify;
+}
+
+.message-input::-webkit-scrollbar {
+	width: 5px;
+}
+
+.message-input::-webkit-scrollbar-track {
+	background: darkgray;
+}
+
+.message-input::-webkit-scrollbar-thumb {
+	background: lightslategrey;
+}
+
+.message-input[contenteditable]:empty::after {
+	content: "Write a message here";
+	cursor: text;
+	color: gray;
+}
+
+.message-input[contenteditable]:focus::after {
+	content: "";
+}
+
+.animated-mic {
+	animation-name: example;
+	animation-duration: 1.5s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes example {
+	0% {
+		opacity: 0;
+		color: black;
+	}
+	100% {
+		opacity: 1;
+		color: red;
+	}
+}
