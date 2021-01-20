@@ -3,6 +3,8 @@ import socketClient from "../../socket-client";
 import testSocket from "../../test_utils/testSocket";
 
 import Menu from "../Menu/Menu";
+import Messages from "../Messages/Messages";
+import ChatControls from "../ChatControls/ChatControls";
 
 import talk from "../../chat-icons/charla.png";
 import noUsers from "../../chat-icons/no-active-users.png";
@@ -123,8 +125,12 @@ function ChatPanel({ user }) {
 			) : (
 				<div className="chat" data-testid="chat">
 					<Receptor receptor={chatReceptor} />
-					<div className="messages-container"></div>
-					<div className="chat-controls-container"></div>
+					<div className="messages-container">
+						<Messages />
+					</div>
+					<div className="chat-controls-container">
+						<ChatControls />
+					</div>
 				</div>
 			)}
 		</section>
