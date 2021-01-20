@@ -15,7 +15,7 @@
 }
 
 .no-active-users {
-	height: 85%;
+	height: 92%;
 	display: grid;
 	place-content: center;
 }
@@ -53,18 +53,41 @@
 
 .user-container,
 .receptor-container {
-	height: 15%;
+	height: 8%;
 	border-bottom: 2px solid lightblue;
 }
 
+.chat {
+	max-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
 .messages-container {
-	height: 75%;
+	height: 84vh;
 	overflow-y: auto;
 	border-bottom: 2px solid lightblue;
 }
 
+.messages-container::-webkit-scrollbar {
+	width: 10px;
+}
+
+.messages-container::-webkit-scrollbar-track {
+	background: darkgray;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+	background: lightslategrey;
+}
+
 .chat-controls-container {
-	height: 10%;
+	min-height: 8%;
+	max-height: 15vh;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	padding: 1rem 0;
 }
 
 .user-info {
@@ -99,7 +122,7 @@
 }
 
 .user-container .user-avatar {
-	width: 20%;
+	width: 7vh;
 }
 
 .user-container .user-name {
@@ -111,9 +134,21 @@
 }
 
 .active-users-container {
-	max-height: 85vh;
+	max-height: 92vh;
 	padding: 1rem;
 	overflow-y: auto;
+}
+
+.active-users-container::-webkit-scrollbar {
+	width: 10px;
+}
+
+.active-users-container::-webkit-scrollbar-track {
+	background: darkgray;
+}
+
+.active-users-container::-webkit-scrollbar-thumb {
+	background: lightslategrey;
 }
 
 .active-users-container .user-info:hover {
@@ -133,8 +168,12 @@
 	width: 50%;
 }
 
+.active-users-container .user-name span {
+	word-break: break-all;
+}
+
 .receptor-container .user-avatar {
-	width: 10%;
+	width: 7vh;
 }
 
 .receptor-container .user-name {
