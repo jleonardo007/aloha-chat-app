@@ -45,6 +45,7 @@ function Receptor({ receptor }) {
 				<img src={receptor.avatar} alt={receptor.name} className="user-avatar" />
 				<div className="user-name">
 					<span>{receptor.name}</span>
+					<span className="action-label">Writing message...</span>
 				</div>
 				<div className="menu-container">
 					<Menu>
