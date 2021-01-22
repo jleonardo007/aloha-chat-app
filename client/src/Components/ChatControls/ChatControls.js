@@ -1,8 +1,17 @@
 import { GrEmoji } from "react-icons/gr";
 import { BsFillMicFill } from "react-icons/bs";
 import { BiSend } from "react-icons/bi";
+import Picker from "emoji-picker-react";
 
 import "./ChatControls.css";
+
+const emojiPickerStyle = {
+	width: "65%",
+	position: "absolute",
+	bottom: "12%",
+	zIndex: "1",
+	boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.4)",
+};
 
 function ChatControls() {
 	return (
@@ -14,6 +23,9 @@ function ChatControls() {
 				<span className="message-input" role="textbox" contentEditable></span>
 			</div>
 			<button className="voice-note-btn">{true ? <BsFillMicFill /> : <BiSend />}</button>
+			{!true ? (
+				<Picker pickerStyle={emojiPickerStyle} disableAutoFocus={true} disableSearchBar={true} />
+			) : null}
 		</>
 	);
 }
