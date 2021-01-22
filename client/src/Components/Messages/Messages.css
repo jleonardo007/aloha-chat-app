@@ -7,7 +7,7 @@
 	margin-bottom: 1rem;
 }
 
-.message p {
+.message p[class^="message"] {
 	min-width: 70px;
 	max-width: 400px;
 	min-height: 40px;
@@ -23,6 +23,85 @@
 
 .message-received {
 	margin-right: auto;
+}
+
+.voice-note-container {
+	width: 400px;
+	padding: 0.5rem;
+	border: 2px solid saddlebrown;
+	border-radius: 0.55rem;
+}
+
+.voice-note-send,
+.voice-note-received {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.voice-note-container .user-avatar {
+	width: 15%;
+}
+
+.voice-note {
+	width: 70%;
+	height: 45px;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.voice-note-received {
+	flex-direction: row;
+}
+
+.voice-note-send {
+	flex-direction: row-reverse;
+}
+
+.play-btn,
+.pause-btn {
+	font-size: 3rem;
+	cursor: pointer;
+}
+
+.audio-progress-bar {
+	width: 70%;
+	height: 5px;
+	display: grid;
+	align-content: center;
+	background-color: tomato;
+}
+
+.progress-bar-indicator {
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	background-color: teal;
+}
+
+.voice-note-status {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.voice-note-status span:first-child {
+	margin: 0 1rem;
+}
+
+.message-send .voice-note-status {
+	justify-content: flex-start;
+}
+
+.message-status-label {
+	display: block;
+	font-size: 1.2rem;
+	text-align: right;
+}
+
+.seen-status-color {
+	color: skyblue;
 }
 
 .select-box {
