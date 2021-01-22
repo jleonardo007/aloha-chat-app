@@ -58,13 +58,28 @@
 	content: "";
 }
 
-.animated-mic {
-	animation-name: example;
+.voice-note-btn:active {
+	border: 1px solid black;
+}
+
+.cancel-dialog {
+	display: flex;
+	justify-content: flex-end;
+	margin-right: 2rem;
+}
+
+.cancel-dialog span {
+	font-size: 1.5rem;
+}
+
+.animated-mic,
+.cancel-dialog {
+	animation-name: animated-block;
 	animation-duration: 1.5s;
 	animation-iteration-count: infinite;
 }
 
-@keyframes example {
+@keyframes animated-block {
 	0% {
 		opacity: 0;
 		color: black;
