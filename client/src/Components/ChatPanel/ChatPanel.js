@@ -27,6 +27,9 @@ function ActiveUsersList({ users, getReceptor }) {
 						<div className="user-name">
 							<span>{user.name}</span>
 						</div>
+						<div className="new-messages-counter">
+							<span>7</span>
+						</div>
 					</div>
 				);
 			})}
