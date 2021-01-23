@@ -20,17 +20,16 @@ function ChatControls() {
 	return (
 		<>
 			{true ? (
-				<button className="emoji-btn">
+				<button className="emoji-btn" aria-label="emoji button">
 					<GrEmoji />
 				</button>
 			) : (
-				<BsFillMicFill className="animated-mic" />
+				<BsFillMicFill className="animated-mic" data-testid="animated-mic" />
 			)}
-
 			<div className="messages-input-container">
 				{true ? (
 					<span className="message-input" role="textbox" contentEditable></span>
-				) : !true ? (
+				) : true ? (
 					<div className="cancel-dialog">
 						<p>
 							<span>
@@ -41,18 +40,25 @@ function ChatControls() {
 					</div>
 				) : (
 					<div className="selected-messages">
-						<span>8 messages selected</span>
-						<button className="delete-messages-btn">
+						<p>
+							<span aria-label="selected messages counter">8</span> messages selected
+						</p>
+						<button className="delete-messages-btn" aria-label="delete messages button">
 							<BsTrash />
 						</button>
 					</div>
 				)}
 			</div>
-			<button className="voice-note-btn" draggable>
-				{true ? <BsFillMicFill /> : <BiSend />}
+			<button className="voice-note-btn" draggable aria-label="voice note button">
+				{true ? <BsFillMicFill data-testid="mic-icon" /> : <BiSend data-testid="send-icon" />}
 			</button>
 			{!true ? (
-				<Picker pickerStyle={emojiPickerStyle} disableAutoFocus={true} disableSearchBar={true} />
+				<Picker
+					pickerStyle={emojiPickerStyle}
+					disableAutoFocus={true}
+					disableSearchBar={true}
+					data-testid="emoji-picker"
+				/>
 			) : null}
 		</>
 	);

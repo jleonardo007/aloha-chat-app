@@ -6,10 +6,13 @@ import "./Messages.css";
 
 function TextMessages({ status, content }) {
 	return (
-		<p className={`${status === "send" ? "message-send" : "message-received"}`}>
+		<p
+			className={`${status === "send" ? "message-send" : "message-received"}`}
+			aria-label="text message content"
+		>
 			{content}
 			<span className="message-status-label">
-				<BiCheckDouble className={!true ? "seen-status-color" : null} />
+				<BiCheckDouble className={!true ? "seen-status-color" : null} aria-label="message status" />
 			</span>
 		</p>
 	);
@@ -26,7 +29,11 @@ function VoiceNote({ user, message }) {
 				<img src={user.avatar} alt={user.name} className="user-avatar" />
 				<div className="voice-note">
 					<span>
-						{true ? <BsPlayFill className="play-btn" /> : <BsPauseFill className="pause-btn" />}
+						{true ? (
+							<BsPlayFill className="play-btn" data-testid="play-btn" />
+						) : (
+							<BsPauseFill className="pause-btn" data-testid="pause-btn" />
+						)}
 					</span>
 					<div className="audio-progress-bar">
 						<div className="progress-bar-indicator"></div>
@@ -37,7 +44,10 @@ function VoiceNote({ user, message }) {
 			<p className="voice-note-status">
 				<span className="voice-note-duration">0:50</span>
 				<span className="message-status-label">
-					<BiCheckDouble className={!true ? "seen-status-color" : null} />
+					<BiCheckDouble
+						className={!true ? "seen-status-color" : null}
+						aria-label="message status"
+					/>
 				</span>
 			</p>
 		</div>
@@ -46,7 +56,7 @@ function VoiceNote({ user, message }) {
 
 function Messages(/*{ messages }*/) {
 	return (
-		<ul className="messages">
+		<ul className="messages" aria-label="messages">
 			{mockMessages.map((message, index) => {
 				return (
 					<li className="message" key={index}>

@@ -25,7 +25,7 @@ function ActiveUsersList({ users, getReceptor }) {
 					>
 						<img src={user.avatar} alt={user.name} className="user-avatar" />
 						<div className="user-name">
-							<span>{user.name}</span>
+							<span data-testid="messages-counter">{user.name}</span>
 						</div>
 						<div className="new-messages-counter">
 							<span>7</span>
@@ -48,11 +48,13 @@ function Receptor({ receptor }) {
 				<img src={receptor.avatar} alt={receptor.name} className="user-avatar" />
 				<div className="user-name">
 					<span>{receptor.name}</span>
-					<span className="action-label">Writing message...</span>
+					<span className="action-label" data-testid="action-label">
+						Writing message...
+					</span>
 				</div>
 				<div className="menu-container">
 					<Menu>
-						<ul className="menu">
+						<ul className="menu" aria-label="chat settings">
 							<li className="menu__item">Select messages</li>
 							<li className="menu__item">Empty chat</li>
 							<li className="menu__item">Enter to send</li>
@@ -98,7 +100,7 @@ function ChatPanel({ user }) {
 						</div>
 						<div className="menu-container">
 							<Menu>
-								<ul className="menu">
+								<ul className="menu" aria-label="settings">
 									<li className="menu__item">Profile</li>
 									<li className="menu__item">Change theme</li>
 									<li className="menu__item">Change background</li>
