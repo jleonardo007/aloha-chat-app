@@ -2,6 +2,8 @@ import { GrEmoji } from "react-icons/gr";
 import { BsFillMicFill } from "react-icons/bs";
 import { BiSend } from "react-icons/bi";
 import { FaAngleLeft } from "react-icons/fa";
+import { BsTrash } from "react-icons/bs";
+
 import Picker from "emoji-picker-react";
 
 import "./ChatControls.css";
@@ -17,20 +19,32 @@ const emojiPickerStyle = {
 function ChatControls() {
 	return (
 		<>
-			<button className="emoji-btn">
-				{true ? <GrEmoji /> : <BsFillMicFill className="animated-mic" />}
-			</button>
+			{true ? (
+				<button className="emoji-btn">
+					<GrEmoji />
+				</button>
+			) : (
+				<BsFillMicFill className="animated-mic" />
+			)}
+
 			<div className="messages-input-container">
 				{true ? (
 					<span className="message-input" role="textbox" contentEditable></span>
-				) : (
+				) : !true ? (
 					<div className="cancel-dialog">
 						<p>
 							<span>
 								<FaAngleLeft />
-							</span>{" "}
+							</span>
 							Swipe to cancel
 						</p>
+					</div>
+				) : (
+					<div className="selected-messages">
+						<span>8 messages selected</span>
+						<button className="delete-messages-btn">
+							<BsTrash />
+						</button>
 					</div>
 				)}
 			</div>

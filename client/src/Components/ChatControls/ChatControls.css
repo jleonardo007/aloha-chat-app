@@ -14,7 +14,8 @@
 .emoji-btn,
 .message-input,
 .messages-input-container,
-.voice-note-btn:focus {
+.voice-note-btn,
+.delete-messages-btn:focus {
 	outline: none;
 }
 
@@ -69,6 +70,33 @@
 }
 
 .cancel-dialog span {
+	font-size: 1.5rem;
+}
+
+.selected-messages {
+	margin-left: 2rem;
+	display: flex;
+	align-items: center;
+}
+
+.delete-messages-btn {
+	width: 35px;
+	height: 35px;
+	display: grid;
+	place-content: center;
+	margin-left: 0.5rem;
+	border: none;
+	border-radius: 50%;
+	background: none;
+	cursor: pointer;
+	font-size: 1.5rem;
+}
+
+.delete-messages-btn:hover {
+	color: red;
+}
+
+.animated-mic {
 	font-size: 1.5rem;
 }
 
