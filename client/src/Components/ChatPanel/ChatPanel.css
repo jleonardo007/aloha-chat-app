@@ -5,32 +5,8 @@
 	background-color: paleturquoise;
 }
 
-.chat-info,
 .no-chat {
 	height: 100%;
-}
-
-.chat-info {
-	border-right: 3px solid lightblue;
-}
-
-.no-active-users {
-	height: 92%;
-	display: grid;
-	place-content: center;
-}
-
-.no-active-users-container span {
-	display: block;
-	margin-bottom: 1rem;
-	text-align: center;
-	font-size: 2rem;
-}
-
-.no-active-users-container img {
-	width: 50%;
-	display: block;
-	margin: 0 auto;
 }
 
 .no-chat {
@@ -52,7 +28,7 @@
 }
 
 .user-container,
-.receptor-container {
+.friend-container {
 	height: 8%;
 	border-bottom: 2px solid lightblue;
 }
@@ -119,81 +95,4 @@
 	display: grid;
 	place-content: center;
 	position: relative;
-}
-
-.user-container .user-avatar {
-	width: 7vh;
-}
-
-.user-container .user-name {
-	width: 55%;
-}
-
-.user-container .menu-container {
-	width: 10%;
-}
-
-.active-users-container {
-	max-height: 92vh;
-	padding: 1rem;
-	overflow-y: auto;
-}
-
-.active-users-container::-webkit-scrollbar {
-	width: 10px;
-}
-
-.active-users-container::-webkit-scrollbar-track {
-	background: darkgray;
-}
-
-.active-users-container::-webkit-scrollbar-thumb {
-	background: lightslategrey;
-}
-
-.active-users-container .user-info:hover {
-	cursor: pointer;
-}
-
-.active-users-container .user-info {
-	margin-bottom: 1rem;
-	border-bottom: 2px solid lightblue;
-}
-
-.active-users-container .user-avatar {
-	width: 20%;
-}
-
-.active-users-container .user-name {
-	width: 50%;
-}
-
-.active-users-container .user-name span {
-	word-break: break-all;
-}
-
-.active-users-container .new-messages-counter {
-	width: 30px;
-	height: 30px;
-	display: grid;
-	place-content: center;
-	border-radius: 50%;
-	background-color: chartreuse;
-}
-
-.receptor-container .user-avatar {
-	width: 7vh;
-}
-
-.receptor-container .user-name {
-	width: 80%;
-}
-
-.receptor-container .action-label {
-	font-size: 0.85rem;
-	font-weight: normal;
-}
-
-.receptor-container .menu-container {
-	width: 5%;
 }
