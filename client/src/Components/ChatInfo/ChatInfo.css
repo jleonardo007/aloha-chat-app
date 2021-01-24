@@ -1,0 +1,74 @@
+.chat-info {
+	height: 100%;
+}
+
+.chat-info {
+	border-right: 3px solid lightblue;
+}
+
+.no-active-users {
+	height: 92%;
+	display: grid;
+	place-content: center;
+}
+
+.no-active-users-container span {
+	display: block;
+	margin-bottom: 1rem;
+	text-align: center;
+	font-size: 2rem;
+}
+
+.no-active-users-container img {
+	width: 50%;
+	display: block;
+	margin: 0 auto;
+}
+
+.active-users-container {
+	max-height: 92vh;
+	padding: 1rem;
+	overflow-y: auto;
+}
+
+.active-users-container::-webkit-scrollbar {
+	width: 10px;
+}
+
+.active-users-container::-webkit-scrollbar-track {
+	background: darkgray;
+}
+
+.active-users-container::-webkit-scrollbar-thumb {
+	background: lightslategrey;
+}
+
+.active-users-container .user-info:hover {
+	cursor: pointer;
+}
+
+.active-users-container .user-info {
+	margin-bottom: 1rem;
+	border-bottom: 2px solid lightblue;
+}
+
+.active-users-container .user-avatar {
+	width: 20%;
+}
+
+.active-users-container .user-name {
+	width: 50%;
+}
+
+.active-users-container .user-name span {
+	word-break: break-all;
+}
+
+.active-users-container .new-messages-counter {
+	width: 30px;
+	height: 30px;
+	display: grid;
+	place-content: center;
+	border-radius: 50%;
+	background-color: chartreuse;
+}
