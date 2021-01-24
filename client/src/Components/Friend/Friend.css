@@ -1,0 +1,16 @@
+.friend-container .user-avatar {
+	width: 7vh;
+}
+
+.friend-container .user-name {
+	width: 80%;
+}
+
+.friend-container .action-label {
+	font-size: 0.85rem;
+	font-weight: normal;
+}
+
+.friend-container .menu-container {
+	width: 5%;
+}
