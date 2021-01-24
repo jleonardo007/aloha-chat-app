@@ -8,11 +8,14 @@ function TextMessages({ status, content }) {
 	return (
 		<p
 			className={`${status === "send" ? "message-send" : "message-received"}`}
-			aria-label="text message content"
+			data-testid="text-message-content"
 		>
 			{content}
 			<span className="message-status-label">
-				<BiCheckDouble className={!true ? "seen-status-color" : null} aria-label="message status" />
+				<BiCheckDouble
+					className={!true ? "seen-status-color" : null}
+					data-testid="message status"
+				/>
 			</span>
 		</p>
 	);
@@ -29,12 +32,12 @@ function VoiceNote({ user, message }) {
 				<img src={user.avatar} alt={user.name} className="user-avatar" />
 				<div className="voice-note">
 					<button className="play-voice-note-btn" aria-label="play voice note">
-						{true ? <BsPlayFill /> : <BsPauseFill />}
+						{true ? <BsPlayFill data-testid="play" /> : <BsPauseFill data-testid="pause" />}
 					</button>
 					<div className="audio-progress-bar">
 						<div className="progress-bar-indicator"></div>
 					</div>
-					<audio src={message.content} aria-label="voice-note"></audio>
+					<audio src={message.content} data-testid="voice-note"></audio>
 				</div>
 			</div>
 			<p className="voice-note-status">
@@ -42,7 +45,7 @@ function VoiceNote({ user, message }) {
 				<span className="message-status-label">
 					<BiCheckDouble
 						className={!true ? "seen-status-color" : null}
-						aria-label="message status"
+						data-testid="message status"
 					/>
 				</span>
 			</p>

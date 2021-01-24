@@ -41,7 +41,7 @@ function ChatControls() {
 				) : (
 					<div className="selected-messages">
 						<p>
-							<span aria-label="selected messages counter">8</span> messages selected
+							<span data-testid="selected-messages-counter">8</span> messages selected
 						</p>
 						<button className="delete-messages-btn" aria-label="delete messages button">
 							<BsTrash />
