@@ -59,10 +59,17 @@
 	flex-direction: row-reverse;
 }
 
-.play-btn,
-.pause-btn {
+.play-voice-note-btn {
+	display: grid;
+	place-content: center;
+	border: none;
+	background: none;
 	font-size: 3rem;
 	cursor: pointer;
+}
+
+.play-voice-note-btn:focus {
+	outline: none;
 }
 
 .audio-progress-bar {

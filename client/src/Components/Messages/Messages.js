@@ -28,17 +28,13 @@ function VoiceNote({ user, message }) {
 			<div className={`${message.status === "send" ? "voice-note-send " : "voice-note-received "}`}>
 				<img src={user.avatar} alt={user.name} className="user-avatar" />
 				<div className="voice-note">
-					<span>
-						{true ? (
-							<BsPlayFill className="play-btn" data-testid="play-btn" />
-						) : (
-							<BsPauseFill className="pause-btn" data-testid="pause-btn" />
-						)}
-					</span>
+					<button className="play-voice-note-btn" aria-label="play voice note">
+						{true ? <BsPlayFill /> : <BsPauseFill />}
+					</button>
 					<div className="audio-progress-bar">
 						<div className="progress-bar-indicator"></div>
 					</div>
-					<audio src={message.content}></audio>
+					<audio src={message.content} aria-label="voice-note"></audio>
 				</div>
 			</div>
 			<p className="voice-note-status">
@@ -59,7 +55,7 @@ function Messages(/*{ messages }*/) {
 		<ul className="messages" aria-label="messages">
 			{mockMessages.map((message, index) => {
 				return (
-					<li className="message" key={index}>
+					<li className="message" key={index} aria-label="message">
 						{!true ? <input type="checkbox" className="select-box" /> : null}
 
 						{message.type === "text" ? (
