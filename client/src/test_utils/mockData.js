@@ -1,8 +1,30 @@
 import audioSample from "./audio_sample.mp3";
 import userAvatar1 from "../default-avatars/astronauta.png";
 import userAvatar2 from "../default-avatars/nina-2.png";
+import userAvatar3 from "../default-avatars/rey.png";
+import userAvatar4 from "../default-avatars/ninja.png";
 
-const messages = [
+const mockUser = {
+	name: "Black Mamba",
+	avatar: userAvatar4,
+};
+
+const mockActiveUsers = [
+	{
+		name: "John Doe",
+		avatar: userAvatar1,
+	},
+	{
+		name: "Jane Doe",
+		avatar: userAvatar2,
+	},
+	{
+		name: "King T'Chala",
+		avatar: userAvatar3,
+	},
+];
+
+const mockMessages = [
 	{
 		type: "text",
 		status: "send",
@@ -74,4 +96,4 @@ const messages = [
 	},
 ];
 
-export default messages;
+export { mockUser, mockActiveUsers, mockMessages };
