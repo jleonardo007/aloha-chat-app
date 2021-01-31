@@ -1,14 +1,10 @@
-import { screen, render } from "@testing-library/react";
+import { screen, render} from "@testing-library/react";
 
 import ChatPanel from "./ChatPanel";
-import userAvatar1 from "../../default-avatars/astronauta.png";
+import { mockUser } from "../../test_utils/mockData";
+¿
 
-const mockUser = {
-	name: "Black Mamba",
-	avatar: userAvatar1,
-};
-
-describe("ChatPanel's stand alone tests", () => {
+describe("ChatPanel component stand alone tests", () => {
 	beforeEach(() => {
 		render(<ChatPanel user={mockUser} />);
 	});
