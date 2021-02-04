@@ -1,0 +1,64 @@
+.profile-container {
+	height: 45%;
+	padding: 1rem;
+	background: teal;
+}
+
+.profile-image,
+.change-profile {
+	display: grid;
+	justify-items: center;
+	margin-bottom: 1rem;
+}
+
+.edit-name-btn:active,
+.change-profile-btn:active {
+	background-color: coral;
+	color: white;
+}
+
+.edit-name-btn,
+.change-profile-btn:focus {
+	outline: none;
+}
+
+.edit-name-btn,
+.change-profile-btn {
+	padding: 0.5rem;
+	border: none;
+	cursor: pointer;
+	font-size: 1rem;
+}
+
+.profile-image img {
+	width: 30%;
+	border-radius: 50%;
+	background-color: white;
+}
+
+.profile-name {
+	margin-bottom: 1rem;
+	text-align: center;
+	font-weight: bold;
+}
+
+.profile-name span {
+	margin-right: 1rem;
+}
+
+.edit-name-btn {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+}
+
+.change-profile-btn {
+	width: 150px;
+	height: 30px;
+	border-radius: 1rem;
+}
+
+.settings-container {
+	height: 55%;
+	background-color: tomato;
+}

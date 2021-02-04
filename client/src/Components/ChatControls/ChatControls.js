@@ -11,7 +11,7 @@ import "./ChatControls.css";
 const emojiPickerStyle = {
 	width: "65%",
 	position: "absolute",
-	bottom: "12%",
+	top: "0",
 	zIndex: "1",
 	boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.4)",
 };
@@ -49,9 +49,16 @@ function ChatControls() {
 					</div>
 				)}
 			</div>
-			<button className="voice-note-btn" draggable aria-label="voice note button">
-				{true ? <BsFillMicFill data-testid="mic-icon" /> : <BiSend data-testid="send-icon" />}
-			</button>
+			{true ? (
+				<button className="voice-note-btn" draggable aria-label="voice note button">
+					<BsFillMicFill />
+				</button>
+			) : (
+				<button className="voice-note-btn" aria-label="send message button">
+					<BiSend />
+				</button>
+			)}
+
 			{!true ? (
 				<Picker
 					pickerStyle={emojiPickerStyle}

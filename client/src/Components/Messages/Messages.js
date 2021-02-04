@@ -1,7 +1,7 @@
 import { BiCheckDouble } from "react-icons/bi";
 import { BsPlayFill, BsPauseFill } from "react-icons/bs";
-import mockMessages from "../../test_utils/mockMessages";
 
+import mockMessages from "../../test_utils/mockMessages";
 import "./Messages.css";
 
 function TextMessages({ status, content }) {
@@ -53,7 +53,7 @@ function VoiceNote({ user, message }) {
 	);
 }
 
-function Messages(/*{ messages }*/) {
+function Messages(/* { messages } */) {
 	return (
 		<ul className="messages" aria-label="messages">
 			{mockMessages.map((message, index) => {

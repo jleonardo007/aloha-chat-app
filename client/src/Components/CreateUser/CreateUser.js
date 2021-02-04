@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import "./CreateUser.css";
+
 import astronauta from "../../default-avatars/astronauta.png";
 import hacker from "../../default-avatars/hacker.png";
 import niña1 from "../../default-avatars/nina-1.png";
@@ -11,16 +12,7 @@ import ninja from "../../default-avatars/ninja.png";
 import rey from "../../default-avatars/rey.png";
 import noAvatar from "../../default-avatars/no-avatar.png";
 
-const avatarsCollection = [
-	astronauta,
-	hacker,
-	niña1,
-	niña2,
-	niña3,
-	niña4,
-	ninja,
-	rey,
-];
+const avatarsCollection = [astronauta, hacker, niña1, niña2, niña3, niña4, ninja, rey];
 
 function CreateUserName({ setName }) {
 	const [inputValue, setValue] = useState("");
@@ -31,28 +23,28 @@ function CreateUserName({ setName }) {
 	};
 
 	return (
-		<section className='welcome-page' data-testid='username-page'>
-			<div className='welcome__container'>
-				<div className='welcome__title'>
+		<section className="welcome-page" data-testid="username-page">
+			<div className="welcome__container">
+				<div className="welcome__title">
 					<h1>Welcome!</h1>
 				</div>
-				<div className='create-name-container'>
-					<form className='form' onSubmit={(e) => handleSubmit(e)}>
-						<div className='form-label'>
-							<label htmlFor='user-name'>Your name:</label>
+				<div className="create-name-container">
+					<form className="form" onSubmit={(e) => handleSubmit(e)}>
+						<div className="form-label">
+							<label htmlFor="user-name">Your name:</label>
 						</div>
-						<div className='form-input'>
+						<div className="form-input">
 							<input
-								type='text'
+								type="text"
 								required
 								maxLength={30}
-								id='user-name'
+								id="user-name"
 								value={inputValue}
 								onChange={(e) => setValue(e.target.value)}
 							/>
 						</div>
-						<div className='form-btn'>
-							<button type='submit'>Next</button>
+						<div className="form-btn">
+							<button type="submit">Next</button>
 						</div>
 					</form>
 				</div>
@@ -63,34 +55,32 @@ function CreateUserName({ setName }) {
 
 function CreateUserAvatar({ avatar, setAvatar, join }) {
 	return (
-		<section className='avatar-page' data-testid='avatar-page'>
-			<div className='avatar__title'>
+		<section className="avatar-page" data-testid="avatar-page">
+			<div className="avatar__title">
 				<h1>Pick an avatar!</h1>
 			</div>
-			<div className='avatar__container'>
-				<div className='avatar__preview'>
+			<div className="avatar__container">
+				<div className="avatar__preview">
 					<img
 						src={avatar ? avatar : noAvatar}
-						className='avatar-image'
-						alt='Avatar preview'
-						loading='lazy'
+						className="avatar-image"
+						alt="Avatar preview"
+						loading="lazy"
 					/>
-					<div className='join-btn-container'>
-						{avatar ? (
-							<button onClick={() => join()}>Join!</button>
-						) : null}
+					<div className="join-btn-container">
+						{avatar ? <button onClick={() => join()}>Join!</button> : null}
 					</div>
 				</div>
-				<div className='default-avatars'>
-					<div className='collection'>
+				<div className="default-avatars">
+					<div className="collection">
 						{avatarsCollection.map((avatarSrc, index) => {
 							return (
 								<img
 									key={index}
 									src={avatarSrc}
-									alt='User avatar'
-									className='avatar-image'
-									loading='lazy'
+									alt="User avatar"
+									className="avatar-image"
+									loading="lazy"
 									onClick={(e) => {
 										setAvatar(e.target.src);
 									}}

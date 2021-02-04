@@ -5,6 +5,9 @@ import ChatInfo from "../ChatInfo/ChatInfo";
 import Friend from "../Friend/Friend";
 import Messages from "../Messages/Messages";
 import ChatControls from "../ChatControls/ChatControls";
+import Profile from "../Profile/Profile";
+import Backgrounds from "../Backgrounds/Backgrounds";
+import Theme from "../Theme/Theme";
 
 import talk from "../../chat-icons/charla.png";
 import "./ChatPanel.css";
@@ -21,7 +24,9 @@ function ChatPanel({ user }) {
 			{true ? (
 				<ChatInfo user={user} setFriend={setFriend} />
 			) : (
-				<div className="settings-components-container"></div>
+				<div className="settings-components-container">
+					{!true ? <Profile user={user} /> : !true ? <Backgrounds /> : <Theme />}
+				</div>
 			)}
 
 			{!friend ? (

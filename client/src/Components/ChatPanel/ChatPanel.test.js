@@ -1,8 +1,7 @@
-import { screen, render} from "@testing-library/react";
+import { screen, render } from "@testing-library/react";
 
 import ChatPanel from "./ChatPanel";
 import { mockUser } from "../../test_utils/mockData";
-¿
 
 describe("ChatPanel component stand alone tests", () => {
 	beforeEach(() => {

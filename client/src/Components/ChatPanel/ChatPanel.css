@@ -5,8 +5,13 @@
 	background-color: paleturquoise;
 }
 
+.settings-components-container,
 .no-chat {
 	height: 100%;
+}
+
+.settings-components-container {
+	border-right: 2px solid lightblue;
 }
 
 .no-chat {

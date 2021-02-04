@@ -89,7 +89,8 @@
 
 .avatar-image {
 	border-radius: 50%;
-	background-color: rebeccapurple;
+	background-color: white;
+	cursor: pointer;
 }
 
 .avatar__preview .avatar-image {
@@ -107,6 +108,7 @@
 .join-btn-container button {
 	width: 200px;
 	font-size: 2rem;
+	cursor: pointer;
 }
 
 .join-btn-container button:focus {
