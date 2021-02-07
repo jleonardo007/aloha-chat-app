@@ -14,12 +14,12 @@ import noAvatar from "../../default-avatars/no-avatar.png";
 
 const avatarsCollection = [astronauta, hacker, niña1, niña2, niña3, niña4, ninja, rey];
 
-function CreateUserName({ setName }) {
-	const [inputValue, setValue] = useState("");
+function CreateUserName({ setUserName }) {
+	const [inputValue, setInputValue] = useState("");
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setName(inputValue);
+		setUserName(inputValue);
 	};
 
 	return (
@@ -40,7 +40,7 @@ function CreateUserName({ setName }) {
 								maxLength={30}
 								id="user-name"
 								value={inputValue}
-								onChange={(e) => setValue(e.target.value)}
+								onChange={(e) => setInputValue(e.target.value)}
 							/>
 						</div>
 						<div className="form-btn">
@@ -53,7 +53,7 @@ function CreateUserName({ setName }) {
 	);
 }
 
-function CreateUserAvatar({ avatar, setAvatar, join }) {
+function CreateUserAvatar({ avatar, setAvatar, handleClick }) {
 	return (
 		<section className="avatar-page" data-testid="avatar-page">
 			<div className="avatar__title">
@@ -68,7 +68,7 @@ function CreateUserAvatar({ avatar, setAvatar, join }) {
 						loading="lazy"
 					/>
 					<div className="join-btn-container">
-						{avatar ? <button onClick={() => join()}>Join!</button> : null}
+						{avatar ? <button onClick={() => handleClick()}>Join!</button> : null}
 					</div>
 				</div>
 				<div className="default-avatars">
@@ -95,17 +95,17 @@ function CreateUserAvatar({ avatar, setAvatar, join }) {
 }
 
 function CreateUser({ joinChat }) {
-	const [userName, setName] = useState("");
+	const [userName, setUserName] = useState("");
 	const [userAvatar, setAvatar] = useState("");
 
-	const join = () => {
+	const handleClick = () => {
 		joinChat(userName, userAvatar);
 	};
 
 	return !userName ? (
-		<CreateUserName setName={setName} />
+		<CreateUserName setUserName={setUserName} />
 	) : (
-		<CreateUserAvatar avatar={userAvatar} setAvatar={setAvatar} join={join} />
+		<CreateUserAvatar avatar={userAvatar} setAvatar={setAvatar} handleClick={handleClick} />
 	);
 }
 
