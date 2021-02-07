@@ -7,7 +7,7 @@ import User from "../User/User";
 import noUsers from "../../chat-icons/no-active-users.png";
 import "./ChatInfo.css";
 
-function ActiveUsersList({ activeUsers, setFriend }) {
+function ActiveUsersList({ activeUsers, dispatch }) {
 	return (
 		<div className="active-users-container">
 			{activeUsers.map((user, index) => {
@@ -17,7 +17,11 @@ function ActiveUsersList({ activeUsers, setFriend }) {
 						data-testid="active-user"
 						key={index}
 						onClick={() => {
-							if (process.env.NODE_ENV !== "test") setFriend(user);
+							if (process.env.NODE_ENV !== "test")
+								dispatch({
+									type: "GET_FRIEND",
+									user,
+								});
 						}}
 					>
 						<img src={user.avatar} alt={user.name} className="user-avatar" />
@@ -34,7 +38,7 @@ function ActiveUsersList({ activeUsers, setFriend }) {
 	);
 }
 
-function ChatInfo({ user, setFriend }) {
+function ChatInfo({ user, dispatch }) {
 	const [activeUsers, setActiveUsers] = useState([]);
 
 	useEffect(() => {
@@ -65,7 +69,7 @@ function ChatInfo({ user, setFriend }) {
 					</div>
 				</div>
 			) : (
-				<ActiveUsersList activeUsers={activeUsers} setFriend={setFriend} />
+				<ActiveUsersList activeUsers={activeUsers} dispatch={dispatch} />
 			)}
 		</div>
 	);
