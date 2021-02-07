@@ -1,35 +1,30 @@
-import { useState, useEffect } from "react";
-import socketClient from "../../socket-client";
+import { useEffect } from "react";
 
-import ChatInfo from "../ChatInfo/ChatInfo";
-import Friend from "../Friend/Friend";
 import Messages from "../Messages/Messages";
 import ChatControls from "../ChatControls/ChatControls";
-import Profile from "../Profile/Profile";
 import Backgrounds from "../Backgrounds/Backgrounds";
 import Theme from "../Theme/Theme";
 
+import socketClient from "../../socket-client";
 import talk from "../../chat-icons/charla.png";
 import "./ChatPanel.css";
 
-function ChatPanel({ user }) {
-	const [friend, setFriend] = useState(null);
-
+function ChatPanel(props) {
 	useEffect(() => {
-		socketClient.emit("new-user", user);
-	});
+		socketClient.emit("new-user", props.user);
+	}, [props.user]);
 
 	return (
 		<section className="chat-panel">
 			{true ? (
-				<ChatInfo user={user} setFriend={setFriend} />
+				props.chatInfo
 			) : (
 				<div className="settings-components-container">
-					{!true ? <Profile user={user} /> : !true ? <Backgrounds /> : <Theme />}
+					{true ? props.profile : true ? <Backgrounds /> : <Theme />}
 				</div>
 			)}
 
-			{!friend ? (
+			{!props.friend ? (
 				<div className="no-chat">
 					<div className="no-chat-container">
 						<span>Talk to somebody</span>
@@ -38,9 +33,7 @@ function ChatPanel({ user }) {
 				</div>
 			) : (
 				<div className="chat" data-testid="chat">
-					<div className="friend-container">
-						<Friend friend={friend} />
-					</div>
+					<div className="friend-container">{props.friendComponent}</div>
 					<div className="messages-container">
 						<Messages />
 					</div>
