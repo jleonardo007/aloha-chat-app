@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer } from "react";
 
 import CreateUser from "./Components/CreateUser/CreateUser";
 import ChatPanel from "./Components/ChatPanel/ChatPanel";
@@ -6,30 +6,49 @@ import ChatInfo from "./Components/ChatInfo/ChatInfo";
 import Friend from "./Components/Friend/Friend";
 import Profile from "./Components/Profile/Profile";
 
+const initialState = {
+	userIsCreated: false,
+	user: {},
+	friend: null,
+	settingOption: "no setting",
+};
+
+function reducer(state, action) {
+	switch (action.type) {
+		case "CREATE_USER":
+			return {
+				...state,
+				userIsCreated: true,
+				user: {
+					name: action.userName,
+					avatar: action.userAvatar,
+				},
+			};
+
+		case "GET_FRIEND":
+			return {
+				...state,
+				friend: action.user,
+			};
+
+		default:
+			return state;
+	}
+}
+
 function App() {
-	const [userIsCreated, setUserIsCreated] = useState(false);
-	const [user, setUser] = useState({});
-	const [friend, setFriend] = useState(null);
+	const [state, dispatch] = useReducer(reducer, initialState);
 
-	const joinChat = (name, avatar) => {
-		setUser({
-			name,
-			avatar,
-		});
-
-		setUserIsCreated(!userIsCreated);
-	};
-
-	return userIsCreated ? (
+	return state.userIsCreated ? (
 		<ChatPanel
-			user={user}
-			friend={friend}
-			friendComponent={<Friend friend={friend} />}
-			chatInfo={<ChatInfo user={user} setFriend={setFriend} />}
-			profile={<Profile user={user} />}
+			user={state.user}
+			friend={state.friend}
+			friendComponent={<Friend friend={state.friend} />}
+			chatInfo={<ChatInfo user={state.user} dispatch={dispatch} />}
+			profile={<Profile user={state.user} />}
 		/>
 	) : (
-		<CreateUser joinChat={joinChat} />
+		<CreateUser dispatch={dispatch} />
 	);
 }
 
