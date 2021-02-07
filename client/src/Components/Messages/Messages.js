@@ -1,8 +1,15 @@
+import { useState } from "react";
+
 import { BiCheckDouble } from "react-icons/bi";
 import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 
-import mockMessages from "../../test_utils/mockMessages";
+import messagesBackground from "../../chat-icons/messages_bg.png";
 import "./Messages.css";
+
+const messageDefaultStyle = {
+	background: `url(${messagesBackground})`,
+	backgroundColor: "#013220",
+};
 
 function TextMessages({ status, content }) {
 	return (
@@ -55,8 +62,8 @@ function VoiceNote({ user, message }) {
 
 function Messages(/* { messages } */) {
 	return (
-		<ul className="messages" aria-label="messages">
-			{mockMessages.map((message, index) => {
+		<ul className="messages" aria-label="messages" style={messageDefaultStyle}>
+			{[].map((message, index) => {
 				return (
 					<li className="message" key={index} aria-label="message">
 						{!true ? <input type="checkbox" className="select-box" /> : null}
