@@ -94,12 +94,16 @@ function CreateUserAvatar({ avatar, setAvatar, handleClick }) {
 	);
 }
 
-function CreateUser({ joinChat }) {
+function CreateUser({ dispatch }) {
 	const [userName, setUserName] = useState("");
 	const [userAvatar, setAvatar] = useState("");
 
 	const handleClick = () => {
-		joinChat(userName, userAvatar);
+		dispatch({
+			type: "CREATE_USER",
+			userName,
+			userAvatar,
+		});
 	};
 
 	return !userName ? (
