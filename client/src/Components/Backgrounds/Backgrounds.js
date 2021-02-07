@@ -48,6 +48,7 @@ function Backgrounds() {
 						className="background"
 						style={{ backgroundColor: `${background.color}` }}
 						title={background.name}
+						value={background.color}
 					></div>
 				);
 			})}

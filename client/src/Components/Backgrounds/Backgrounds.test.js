@@ -23,7 +23,9 @@ describe("User changes chat background", () => {
 
 		userEvent.hover(backgrounds[randomBackground]);
 
-		expect(screen.getByRole("list", { name: "messages" })).toHaveStyle({ backgruoundColor: "red" });
+		expect(screen.getByRole("list", { name: "messages" })).toHaveStyle({
+			backgruoundColor: `${backgrounds[randomBackground].value}`,
+		});
 	});
 
 	test("Should select background on click color", () => {
@@ -32,6 +34,8 @@ describe("User changes chat background", () => {
 
 		userEvent.click(backgrounds[randomBackground]);
 
-		expect(screen.getByRole("list", { name: "messages" })).toHaveStyle({ backgruoundColor: "red" });
+		expect(screen.getByRole("list", { name: "messages" })).toHaveStyle({
+			backgruoundColor: `${backgrounds[randomBackground].value}`,
+		});
 	});
 });
