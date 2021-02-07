@@ -69,39 +69,48 @@ describe("When user clicks on settings menu", () => {
 		render(<ChatPanel user={mockUser} />);
 	});
 
-	test("Should render profile when click on it", async () => {
+	test("Should toggle profile when click on it", async () => {
 		const profile = screen.getByRole("listitem", { name: "profile" });
-
-		await waitFor(() => {
-			userEvent.click(profile);
-		});
+		userEvent.click(profile);
 
 		const profileComponent = await screen.findByTestId("profile");
 		expect(profileComponent).toBeInTheDocument();
 		expect(screen.queryByTestId("chat-info")).not.toBeInTheDocument();
-	});
-
-	test("Should render background options when click on it", async () => {
-		const background = screen.getByRole("listitem", { name: "background" });
 
 		await waitFor(() => {
-			userEvent.click(background);
+			userEvent.click(screen.getByRole("button", { name: "change profile button" }));
 		});
+		expect(profileComponent).not.toBeInTheDocument();
+		expect(screen.queryByTestId("chat-info")).toBeInTheDocument();
+	});
+
+	test("Should toggle background options when click on it", async () => {
+		const background = screen.getByRole("listitem", { name: "background" });
+		userEvent.click(background);
 
 		const backgroundComponent = await screen.findByTestId("background");
 		expect(backgroundComponent).toBeInTheDocument();
 		expect(screen.queryByTestId("chat-info")).not.toBeInTheDocument();
-	});
-
-	test("Should render theme options when click on it", async () => {
-		const theme = screen.getByRole("listitem", { name: "theme" });
 
 		await waitFor(() => {
-			userEvent.click(theme);
+			userEvent.click(screen.getByRole("button", { name: "back button" }));
 		});
+		expect(backgroundComponent).not.toBeInTheDocument();
+		expect(screen.queryByTestId("chat-info")).toBeInTheDocument();
+	});
+
+	test("Should toggle theme options when click on it", async () => {
+		const theme = screen.getByRole("listitem", { name: "theme" });
+		userEvent.click(theme);
 
 		const themeComponent = await screen.findByTestId("theme");
 		expect(themeComponent).toBeInTheDocument();
 		expect(screen.queryByTestId("chat-info")).not.toBeInTheDocument();
+
+		await waitFor(() => {
+			userEvent.click(screen.getByRole("button", { name: "back button" }));
+		});
+		expect(themeComponent).not.toBeInTheDocument();
+		expect(screen.queryByTestId("chat-info")).toBeInTheDocument();
 	});
 });
