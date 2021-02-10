@@ -11,16 +11,21 @@ let activeUsers = [];
 
 io.on("connection", (socket) => {
 	socket.on("new-user", (user) => {
-		const registeredUser = { id: socket.id, ...user };
+		const registeredUser = { ...user, id: socket.id };
 
+		socket.emit("user-connected", registeredUser);
 		activeUsers.push(registeredUser);
-		io.emit("active-users", activeUsers);
+		io.emit("get:active-users", activeUsers);
+	});
+
+	socket.on("get:active-users", () => {
+		socket.emit("get:active-users", activeUsers);
 	});
 
 	socket.on("disconnect", () => {
 		activeUsers.forEach((user, index, usersArray) => {
 			if (user.id === socket.id) usersArray.splice(index, 1);
 		});
-		io.emit("active-users", activeUsers);
+		io.emit("get:active-users", activeUsers);
 	});
 });
