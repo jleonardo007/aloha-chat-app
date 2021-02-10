@@ -2,9 +2,10 @@ import { useState } from "react";
 
 import Avatars from "../Avatars/Avatars";
 import NameSettings from "../NameSettings/NameSettings";
-
 import { BsPencil } from "react-icons/bs";
 import { AiOutlineCamera } from "react-icons/ai";
+
+import socketClient from "../../socket-client";
 import "./Profile.css";
 
 function Profile({ user, dispatch }) {
@@ -28,6 +29,13 @@ function Profile({ user, dispatch }) {
 		)
 			setSettingsToRender("avatar-settings");
 		else setSettingsToRender("name-settings");
+	}
+
+	function handleChageProfile() {
+		if (newProfile.name || newProfile.avatar) {
+			dispatch({ type: "NEW_PROFILE", newProfile });
+			socketClient.emit("change-profile", { ...user, ...newProfile });
+		} else dispatch({ type: "RENDER_CHAT_INFO" });
 	}
 
 	return (
@@ -70,9 +78,7 @@ function Profile({ user, dispatch }) {
 						className="change-profile-btn"
 						aria-label="change profile button"
 						onClick={() => {
-							if (newProfile.name || newProfile.avatar) {
-								dispatch({ type: "NEW_PROFILE", newProfile });
-							} else dispatch({ type: "RENDER_CHAT_INFO" });
+							handleChageProfile();
 						}}
 					>
 						{newProfile.name || newProfile.avatar ? "Change" : "Back"}

@@ -15,11 +15,20 @@ io.on("connection", (socket) => {
 
 		socket.emit("user-connected", registeredUser);
 		activeUsers.push(registeredUser);
+		console.log(activeUsers);
 		io.emit("get:active-users", activeUsers);
 	});
 
 	socket.on("get:active-users", () => {
 		socket.emit("get:active-users", activeUsers);
+	});
+
+	socket.on("change-profile", (updatedUser) => {
+		activeUsers.forEach((user, index, usersArray) => {
+			if (user.id === updatedUser.id) usersArray[index] = { ...updatedUser };
+		});
+		console.log(activeUsers);
+		io.emit("get:active-users", activeUsers);
 	});
 
 	socket.on("disconnect", () => {
