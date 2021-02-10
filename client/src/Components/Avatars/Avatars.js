@@ -11,9 +11,9 @@ import "./Avatars.css";
 
 const avatarsCollection = [astronauta, hacker, niña1, niña2, niña3, niña4, ninja, rey];
 
-function Avatars() {
+function Avatars({ user, newProfile, setNewProfile }) {
 	return (
-		<div className="avatars-collection">
+		<div className="avatars-collection" data-testid="avatars">
 			{avatarsCollection.map((avatarSrc, index) => {
 				return (
 					<img
@@ -22,7 +22,10 @@ function Avatars() {
 						alt="User avatar"
 						loading="lazy"
 						onClick={(e) => {
-							//setAvatar(e.target.src);
+							setNewProfile({
+								name: newProfile.name ? newProfile.name : user.name,
+								avatar: e.target.src,
+							});
 						}}
 					/>
 				);

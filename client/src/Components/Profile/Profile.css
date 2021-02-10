@@ -1,7 +1,6 @@
 .profile-container {
 	height: 45%;
 	padding: 1rem;
-	background: teal;
 }
 
 .profile-image,
@@ -11,17 +10,20 @@
 	margin-bottom: 1rem;
 }
 
+.change-avatar-btn:active,
 .edit-name-btn:active,
 .change-profile-btn:active {
 	background-color: coral;
 	color: white;
 }
 
+.change-avatar-btn,
 .edit-name-btn,
 .change-profile-btn:focus {
 	outline: none;
 }
 
+.change-avatar-btn,
 .edit-name-btn,
 .change-profile-btn {
 	padding: 0.5rem;
@@ -30,10 +32,12 @@
 	font-size: 1rem;
 }
 
-.profile-image img {
-	width: 30%;
+.profile-image {
+	place-content: center;
+	width: 150px;
+	height: 150px;
+	margin: 0 auto 1rem auto;
 	border-radius: 50%;
-	background-color: white;
 }
 
 .profile-name {
@@ -44,6 +48,14 @@
 
 .profile-name span {
 	margin-right: 1rem;
+}
+
+.change-avatar-btn {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	font-size: 2rem;
+	cursor: pointer;
 }
 
 .edit-name-btn {
@@ -60,5 +72,4 @@
 
 .settings-container {
 	height: 55%;
-	background-color: tomato;
 }
