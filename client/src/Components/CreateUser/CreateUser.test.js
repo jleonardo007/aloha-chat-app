@@ -1,10 +1,11 @@
 import { screen, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+
 import CreateUser from "./CreateUser";
 
+const dispatch = jest.fn();
 test("User is created", async () => {
-	const joinChat = jest.fn();
-	render(<CreateUser joinChat={joinChat} />);
+	render(<CreateUser dispatch={dispatch} />);
 
 	const welcomeTitle = screen.getByRole("heading", {
 		name: /welcome/i,
@@ -63,5 +64,4 @@ test("User is created", async () => {
 
 	expect(joinChatBtn).toBeInTheDocument();
 	userEvent.click(joinChatBtn);
-	expect(joinChat).toHaveBeenCalledTimes(1);
 });
