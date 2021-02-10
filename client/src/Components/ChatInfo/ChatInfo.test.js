@@ -21,7 +21,6 @@ describe("ChatInfo component stand alone test", () => {
 			expect(activeUser).toBeInTheDocument();
 			expect(activeUser).not.toBeEmptyDOMElement();
 			expect(activeUser).toHaveTextContent(mockActiveUsers[index].name);
-			expect(activeUser).toContainElement(screen.getByAltText(mockActiveUsers[index].name));
 		});
 	});
 
