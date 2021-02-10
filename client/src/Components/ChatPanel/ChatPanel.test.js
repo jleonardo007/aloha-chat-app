@@ -1,14 +1,24 @@
-import { screen, render, act, waitFor } from "@testing-library/react";
+import { screen, render, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import ChatPanel from "./ChatPanel";
+import ChatInfo from "../ChatInfo/ChatInfo";
+import Friend from "../Friend/Friend";
+import Profile from "../Profile/Profile";
 
 import testSocket from "../../test_utils/testSocket";
-import { mockUser, mockActiveUsers } from "../../test_utils/mockData";
+import { mockUser, mockFriend, mockActiveUsers } from "../../test_utils/mockData";
 
 describe("ChatPanel component stand alone tests", () => {
 	beforeEach(() => {
-		render(<ChatPanel user={mockUser} />);
+		render(
+			<ChatPanel
+				user={mockUser}
+				friend={null}
+				settingOption="no-render-options"
+				chatInfo={<ChatInfo user={mockUser} />}
+			/>
+		);
 	});
 
 	test("Info are showed when user not chating", () => {
@@ -29,88 +39,162 @@ describe("ChatPanel component stand alone tests", () => {
 });
 
 describe("When user starts a new chat", () => {
-	beforeEach(() => {
-		render(<ChatPanel user={mockUser} />);
+	test("Should show a selected friend", async () => {
+		const dispatch = jest.fn();
+		const randomActiveUser = Math.floor(Math.random() * mockActiveUsers.length);
+
+		render(
+			<ChatPanel
+				user={mockUser}
+				friend={mockActiveUsers[randomActiveUser]}
+				settingOption="no-render-options"
+				dispatch={dispatch}
+				friendComponent={<Friend friend={mockActiveUsers[randomActiveUser]} />}
+				chatInfo={<ChatInfo user={mockUser} dispatch={dispatch} />}
+				profile={<Profile user={mockUser} dispatch={dispatch} />}
+			/>
+		);
+
 		act(() => {
 			testSocket.emit("test:active-users", mockActiveUsers);
 		});
-	});
 
-	test("Should show a selected user", async () => {
 		const activeUsers = screen.getAllByTestId("active-user");
-		const randomActiveUser = Math.floor(Math.random() * (mockActiveUsers.length - 1));
+		userEvent.click(activeUsers[randomActiveUser]);
+		expect(dispatch).toHaveBeenCalledTimes(1);
 
-		await waitFor(() => {
-			userEvent.click(activeUsers[randomActiveUser]);
-		});
-
-		const friend = await screen.findByTestId("friend");
-
+		const friend = screen.getByTestId("friend");
 		expect(friend).toBeInTheDocument();
-		expect(screen.getByAltText(mockActiveUsers[randomActiveUser].name)).toBeInTheDocument();
-		expect(screen.getByText(mockActiveUsers[randomActiveUser].name)).toBeInTheDocument();
+		expect(friend).toContainElement(screen.getByAltText(mockActiveUsers[randomActiveUser].name));
+		expect(friend).toHaveTextContent(mockActiveUsers[randomActiveUser].name);
 	});
 
 	test("Should not render any message when start a new chat", async () => {
-		const activeUsers = await screen.findAllByTestId("active-user");
-		const randomActiveUser = Math.floor(Math.random() * (mockActiveUsers.length - 1));
+		render(
+			<ChatPanel
+				user={mockUser}
+				friend={mockFriend}
+				settingOption="no-render-options"
+				friendComponent={<Friend friend={mockFriend} />}
+				chatInfo={<ChatInfo user={mockUser} />}
+				profile={<Profile user={mockUser} />}
+			/>
+		);
 
-		await waitFor(() => {
-			userEvent.click(activeUsers[randomActiveUser]);
-		});
-
-		expect(screen.queryByRole("list", { name: "messages" })).not.toBeInTheDocument();
-		expect(screen.queryByAllRole("checkbox")).not.toBeInTheDocument();
+		expect(screen.queryByRole("list", { name: "messages" })).toBeEmptyDOMElement();
 	});
 });
 
 describe("When user clicks on settings menu", () => {
-	beforeEach(() => {
-		render(<ChatPanel user={mockUser} />);
-	});
-
 	test("Should toggle profile when click on it", async () => {
-		const profile = screen.getByRole("listitem", { name: "profile" });
+		const dispatch = jest.fn();
+
+		const { rerender } = render(
+			<ChatPanel
+				user={mockUser}
+				friend={mockFriend}
+				settingOption="no-render-options"
+				dispatch={dispatch}
+				chatInfo={<ChatInfo user={mockUser} dispatch={dispatch} />}
+				profile={<Profile user={mockUser} dispatch={dispatch} />}
+			/>
+		);
+		expect(screen.queryByTestId("profile")).not.toBeInTheDocument();
+		expect(screen.getByTestId("chat-info")).toBeInTheDocument();
+
+		userEvent.click(screen.getByTestId("menu"));
+		const profile = await screen.findByRole("listitem", { name: "profile" });
+
 		userEvent.click(profile);
+		expect(dispatch).toHaveBeenCalledTimes(1);
 
-		const profileComponent = await screen.findByTestId("profile");
-		expect(profileComponent).toBeInTheDocument();
+		rerender(
+			<ChatPanel
+				user={mockUser}
+				friend={mockFriend}
+				settingOption="profile-settings"
+				dispatch={dispatch}
+				chatInfo={<ChatInfo user={mockUser} dispatch={dispatch} />}
+				profile={<Profile user={mockUser} dispatch={dispatch} />}
+			/>
+		);
+
+		expect(screen.getByTestId("profile")).toBeInTheDocument();
 		expect(screen.queryByTestId("chat-info")).not.toBeInTheDocument();
-
-		await waitFor(() => {
-			userEvent.click(screen.getByRole("button", { name: "change profile button" }));
-		});
-		expect(profileComponent).not.toBeInTheDocument();
-		expect(screen.queryByTestId("chat-info")).toBeInTheDocument();
 	});
 
 	test("Should toggle background options when click on it", async () => {
-		const background = screen.getByRole("listitem", { name: "background" });
+		const dispatch = jest.fn();
+
+		const { rerender } = render(
+			<ChatPanel
+				user={mockUser}
+				friend={mockFriend}
+				settingOption="no-render-options"
+				dispatch={dispatch}
+				chatInfo={<ChatInfo user={mockUser} dispatch={dispatch} />}
+				profile={<Profile user={mockUser} dispatch={dispatch} />}
+			/>
+		);
+		expect(screen.queryByTestId("backgrounds")).not.toBeInTheDocument();
+		expect(screen.getByTestId("chat-info")).toBeInTheDocument();
+
+		userEvent.click(screen.getByTestId("menu"));
+		const background = await screen.findByRole("listitem", { name: "background" });
+
 		userEvent.click(background);
+		expect(dispatch).toHaveBeenCalledTimes(1);
 
-		const backgroundComponent = await screen.findByTestId("background");
-		expect(backgroundComponent).toBeInTheDocument();
+		rerender(
+			<ChatPanel
+				user={mockUser}
+				friend={mockFriend}
+				settingOption="background-settings"
+				dispatch={dispatch}
+				chatInfo={<ChatInfo user={mockUser} dispatch={dispatch} />}
+				profile={<Profile user={mockUser} dispatch={dispatch} />}
+			/>
+		);
+
+		expect(screen.getByTestId("backgrounds")).toBeInTheDocument();
 		expect(screen.queryByTestId("chat-info")).not.toBeInTheDocument();
-
-		await waitFor(() => {
-			userEvent.click(screen.getByRole("button", { name: "back button" }));
-		});
-		expect(backgroundComponent).not.toBeInTheDocument();
-		expect(screen.queryByTestId("chat-info")).toBeInTheDocument();
 	});
 
 	test("Should toggle theme options when click on it", async () => {
-		const theme = screen.getByRole("listitem", { name: "theme" });
+		const dispatch = jest.fn();
+
+		const { rerender } = render(
+			<ChatPanel
+				user={mockUser}
+				friend={mockFriend}
+				settingOption="no-render-options"
+				dispatch={dispatch}
+				chatInfo={<ChatInfo user={mockUser} dispatch={dispatch} />}
+				profile={<Profile user={mockUser} dispatch={dispatch} />}
+			/>
+		);
+
+		expect(screen.queryByTestId("theme")).not.toBeInTheDocument();
+		expect(screen.getByTestId("chat-info")).toBeInTheDocument();
+
+		userEvent.click(screen.getByTestId("menu"));
+		const theme = await screen.findByRole("listitem", { name: "theme" });
+
 		userEvent.click(theme);
+		expect(dispatch).toHaveBeenCalledTimes(1);
 
-		const themeComponent = await screen.findByTestId("theme");
-		expect(themeComponent).toBeInTheDocument();
+		rerender(
+			<ChatPanel
+				user={mockUser}
+				friend={mockFriend}
+				settingOption="theme-settings"
+				dispatch={dispatch}
+				chatInfo={<ChatInfo user={mockUser} dispatch={dispatch} />}
+				profile={<Profile user={mockUser} dispatch={dispatch} />}
+			/>
+		);
+
+		expect(screen.getByTestId("theme")).toBeInTheDocument();
 		expect(screen.queryByTestId("chat-info")).not.toBeInTheDocument();
-
-		await waitFor(() => {
-			userEvent.click(screen.getByRole("button", { name: "back button" }));
-		});
-		expect(themeComponent).not.toBeInTheDocument();
-		expect(screen.queryByTestId("chat-info")).toBeInTheDocument();
 	});
 });
