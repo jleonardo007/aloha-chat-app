@@ -1,7 +1,7 @@
 import Menu from "../Menu/Menu";
 import "./User.css";
 
-function User({ user }) {
+function User({ user, dispatch }) {
 	return (
 		<div className="user-info" data-testid="user-info">
 			<img src={user.avatar} alt="User Avatar" className="user-avatar" loading="lazy" />
@@ -11,13 +11,25 @@ function User({ user }) {
 			<div className="menu-container">
 				<Menu>
 					<ul className="menu" aria-label="settings">
-						<li className="menu__item" aria-label="profile">
+						<li
+							className="menu__item"
+							aria-label="profile"
+							onClick={() => dispatch({ type: "RENDER_PROFILE_SETTINGS" })}
+						>
 							Profile
 						</li>
-						<li className="menu__item" aria-label="theme">
+						<li
+							className="menu__item"
+							aria-label="theme"
+							onClick={() => dispatch({ type: "RENDER_THEME_SETTINGS" })}
+						>
 							Change theme
 						</li>
-						<li className="menu__item" aria-label="background">
+						<li
+							className="menu__item"
+							aria-label="background"
+							onClick={() => dispatch({ type: "RENDER_BACKGROUND_SETTINGS" })}
+						>
 							Change background
 						</li>
 					</ul>
