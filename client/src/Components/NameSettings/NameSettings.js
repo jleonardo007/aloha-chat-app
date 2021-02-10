@@ -22,7 +22,8 @@ function NameSettings({ user, newProfile, setNewProfile }) {
 		setToogleEmojiPicker(!toggleEmojiPicker);
 	}
 
-	function handleChangeNameButtonClick() {
+	function handleChangeName(e) {
+		e.preventDefault();
 		setNewProfile({
 			name: inputValue,
 			avatar: newProfile.avatar ? newProfile.avatar : user.avatar,
@@ -35,8 +36,9 @@ function NameSettings({ user, newProfile, setNewProfile }) {
 
 	return (
 		<div className="name-settings-container" data-testid="name-settings">
-			<div className="name-settings">
+			<form className="name-settings" onSubmit={(e) => handleChangeName(e)}>
 				<input
+					name="change-name"
 					type="text"
 					className="change-name-input"
 					aria-label="change name input"
@@ -46,17 +48,23 @@ function NameSettings({ user, newProfile, setNewProfile }) {
 					value={inputValue}
 					onChange={(e) => handleChange(e)}
 				/>
-				<button className="emoji-button" aria-label="emoji button" onClick={handleEmojiButtonClick}>
+				<button
+					type="button"
+					className="emoji-button"
+					aria-label="emoji button"
+					onClick={handleEmojiButtonClick}
+				>
 					<GrEmoji />
 				</button>
 				<button
+					id="change-name"
+					type="submit"
 					className="change-name-btn"
 					aria-label="change name button"
-					onClick={handleChangeNameButtonClick}
 				>
 					<GrCheckmark />
 				</button>
-			</div>
+			</form>
 			{toggleEmojiPicker ? (
 				<div className="emoji-picker" data-testid="emoji-picker">
 					<Picker pickerStyle={emojiPickerStyle} disableAutoFocus={true} disableSearchBar={true} />
