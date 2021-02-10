@@ -10,9 +10,17 @@ function Menu({ children }) {
 	return (
 		<>
 			{toogleMenu ? (
-				<AiOutlineClose className="menu-icon" onClick={() => setToggleMenu(!toogleMenu)} />
+				<AiOutlineClose
+					className="menu-icon"
+					data-testid="menu"
+					onClick={() => setToggleMenu(!toogleMenu)}
+				/>
 			) : (
-				<BsThreeDotsVertical className="menu-icon" onClick={() => setToggleMenu(!toogleMenu)} />
+				<BsThreeDotsVertical
+					className="menu-icon"
+					data-testid="menu"
+					onClick={() => setToggleMenu(!toogleMenu)}
+				/>
 			)}
 
 			{toogleMenu ? children : null}
