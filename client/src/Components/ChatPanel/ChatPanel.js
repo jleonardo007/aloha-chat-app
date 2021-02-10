@@ -11,16 +11,28 @@ import "./ChatPanel.css";
 
 function ChatPanel(props) {
 	useEffect(() => {
-		socketClient.emit("new-user", props.user);
-	}, [props.user]);
+		if (!props.user.id) socketClient.emit("new-user", props.user);
+		socketClient.on("user-connected", (user) => {
+			props.dispatch({
+				type: "USER_CONNECTED",
+				user,
+			});
+		});
+	}, [props]);
 
 	return (
 		<section className="chat-panel">
-			{true ? (
+			{props.settingOption === "no-render-options" ? (
 				props.chatInfo
 			) : (
 				<div className="settings-components-container">
-					{true ? props.profile : true ? <Backgrounds /> : <Theme />}
+					{props.settingOption === "profile-settings" ? (
+						props.profile
+					) : props.settingOption === "background-settings" ? (
+						<Backgrounds dispatch={props.dispatch} />
+					) : props.settingOption === "theme-settings" ? (
+						<Theme dispatch={props.dispatch} />
+					) : null}
 				</div>
 			)}
 
