@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 
-import CreateUser from "./Components/CreateUser/CreateUser";
 import ChatPanel from "./Components/ChatPanel/ChatPanel";
+import CreateUser from "./Components/CreateUser/CreateUser";
 import ChatInfo from "./Components/ChatInfo/ChatInfo";
 import Friend from "./Components/Friend/Friend";
 import Profile from "./Components/Profile/Profile";
@@ -10,7 +10,7 @@ const initialState = {
 	userIsCreated: false,
 	user: {},
 	friend: null,
-	settingOption: "no setting",
+	settingOptionToRender: "no-render-options",
 };
 
 function reducer(state, action) {
@@ -25,12 +25,53 @@ function reducer(state, action) {
 				},
 			};
 
+		case "USER_CONNECTED":
+			return {
+				...state,
+				user: {
+					...action.user,
+				},
+			};
+
 		case "GET_FRIEND":
 			return {
 				...state,
 				friend: action.user,
 			};
 
+		case "RENDER_PROFILE_SETTINGS":
+			return {
+				...state,
+				settingOptionToRender: "profile-settings",
+			};
+
+		case "RENDER_BACKGROUND_SETTINGS":
+			return {
+				...state,
+				settingOptionToRender: "background-settings",
+			};
+
+		case "RENDER_THEME_SETTINGS":
+			return {
+				...state,
+				settingOptionToRender: "theme-settings",
+			};
+
+		case "RENDER_CHAT_INFO":
+			return {
+				...state,
+				settingOptionToRender: "no-render-options",
+			};
+
+		case "NEW_PROFILE":
+			return {
+				...state,
+				settingOptionToRender: "no-render-options",
+				user: {
+					...state.user,
+					...action.newProfile,
+				},
+			};
 		default:
 			return state;
 	}
@@ -43,9 +84,11 @@ function App() {
 		<ChatPanel
 			user={state.user}
 			friend={state.friend}
+			settingOption={state.settingOptionToRender}
+			dispatch={dispatch}
 			friendComponent={<Friend friend={state.friend} />}
 			chatInfo={<ChatInfo user={state.user} dispatch={dispatch} />}
-			profile={<Profile user={state.user} />}
+			profile={<Profile user={state.user} dispatch={dispatch} />}
 		/>
 	) : (
 		<CreateUser dispatch={dispatch} />
