@@ -9,6 +9,11 @@ const mockUser = {
 	avatar: userAvatar4,
 };
 
+const mockFriend = {
+	name: "John Doe",
+	avatar: userAvatar1,
+};
+
 const mockActiveUsers = [
 	{
 		name: "John Doe",
@@ -96,4 +101,4 @@ const mockMessages = [
 	},
 ];
 
-export { mockUser, mockActiveUsers, mockMessages };
+export { mockUser, mockFriend, mockActiveUsers, mockMessages };
