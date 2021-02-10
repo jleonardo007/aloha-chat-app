@@ -17,14 +17,13 @@ function ActiveUsersList({ activeUsers, dispatch }) {
 						data-testid="active-user"
 						key={index}
 						onClick={() => {
-							if (process.env.NODE_ENV !== "test")
-								dispatch({
-									type: "GET_FRIEND",
-									user,
-								});
+							dispatch({
+								type: "GET_FRIEND",
+								user,
+							});
 						}}
 					>
-						<img src={user.avatar} alt={user.name} className="user-avatar" />
+						<img src={user.avatar} alt="User avatar" className="user-avatar" />
 						<div className="user-name">
 							<span>{user.name}</span>
 						</div>
@@ -46,11 +45,12 @@ function ChatInfo({ user, dispatch }) {
 			testSocket.on("test:active-users", (users) => {
 				setActiveUsers(users);
 			});
-		} else
-			socketClient.on("active-users", (users) => {
+		} else {
+			socketClient.emit("get:active-users");
+			socketClient.on("get:active-users", (users) => {
 				setActiveUsers(users.filter((user) => user.id !== socketClient.id));
 			});
-
+		}
 		return () => {
 			if (process.env.NODE_ENV === "test") testSocket.removeAllListeners("test:active-users");
 		};
@@ -59,7 +59,7 @@ function ChatInfo({ user, dispatch }) {
 	return (
 		<div className="chat-info" data-testid="chat-info">
 			<div className="user-container">
-				<User user={user} />
+				<User user={user} dispatch={dispatch} />
 			</div>
 			{activeUsers.length === 0 ? (
 				<div className="no-active-users">
