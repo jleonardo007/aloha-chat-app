@@ -8,13 +8,13 @@ import { AiOutlineCamera } from "react-icons/ai";
 import "./Profile.css";
 
 function Profile({ user, dispatch }) {
-	const [toggleSelectAvatarButton, setToggleSelectAvatarButton] = useState(true);
+	const [toggleSelectAvatarButton, setToggleSelectAvatarButton] = useState(false);
 	const [settingsToRender, setSettingsToRender] = useState("");
 	const [newProfile, setNewProfile] = useState({ name: "", avatar: "" });
 
 	function handleMouseHover(e) {
-		const trigger = e.target.getAttribute("data-testid");
-		if (trigger === "profile-image") setToggleSelectAvatarButton(!toggleSelectAvatarButton);
+		if (e.type === "mouseleave") setToggleSelectAvatarButton(false);
+		if (e.type === "mouseenter") setToggleSelectAvatarButton(true);
 	}
 
 	function handleSelectOptions(e) {
