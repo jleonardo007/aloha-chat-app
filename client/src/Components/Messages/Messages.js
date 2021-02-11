@@ -1,15 +1,8 @@
-import { useState } from "react";
-
 import { BiCheckDouble } from "react-icons/bi";
 import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 
 import messagesBackground from "../../chat-icons/messages_bg.png";
 import "./Messages.css";
-
-const messageDefaultStyle = {
-	background: `url(${messagesBackground})`,
-	backgroundColor: "#013220",
-};
 
 function TextMessages({ status, content }) {
 	return (
@@ -60,9 +53,20 @@ function VoiceNote({ user, message }) {
 	);
 }
 
-function Messages(/* { messages } */) {
+function Messages({ background }) {
 	return (
-		<ul className="messages" aria-label="messages" style={messageDefaultStyle}>
+		<ul
+			className="messages"
+			aria-label="messages"
+			style={{
+				backgroundImage: `url(${messagesBackground})`,
+				backgroundColor: background.toggleColor
+					? background.toggleColor
+					: background.toggleColor
+					? background.toggleColor
+					: background.color,
+			}}
+		>
 			{[].map((message, index) => {
 				return (
 					<li className="message" key={index} aria-label="message">
