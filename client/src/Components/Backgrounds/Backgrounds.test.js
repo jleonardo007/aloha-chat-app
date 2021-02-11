@@ -2,7 +2,6 @@ import { screen, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Backgrounds from "../Backgrounds/Backgrounds";
-import Messages from "../Messages/Messages";
 
 describe("Backgrounds component standalone test", () => {
 	test("Should render color options", () => {
@@ -12,30 +11,44 @@ describe("Backgrounds component standalone test", () => {
 });
 
 describe("User changes chat background", () => {
-	beforeEach(() => {
-		render(<Backgrounds />);
-		render(<Messages messages={[]} />);
-	});
+	test("Should toogle background color on hover", () => {
+		const setBackground = jest.fn();
+		render(
+			<Backgrounds
+				backgroundColor={{
+					color: "#013220",
+					toggleColor: "",
+				}}
+				setBackground={setBackground}
+			/>
+		);
 
-	test("Should change background on hover", () => {
 		const backgrounds = screen.getAllByTestId("color-options");
 		const randomBackground = Math.floor(Math.random() * (backgrounds.length - 1));
 
 		userEvent.hover(backgrounds[randomBackground]);
+		expect(setBackground).toHaveBeenCalled();
 
-		expect(screen.getByRole("list", { name: "messages" })).toHaveStyle({
-			backgruoundColor: `${backgrounds[randomBackground].value}`,
-		});
+		userEvent.unhover(backgrounds[randomBackground]);
+		expect(setBackground).toHaveBeenCalled();
 	});
 
 	test("Should select background on click color", () => {
+		const setBackground = jest.fn();
+		render(
+			<Backgrounds
+				backgroundColor={{
+					color: "#013220",
+					toggleColor: "",
+				}}
+				setBackground={setBackground}
+			/>
+		);
+
 		const backgrounds = screen.getAllByTestId("color-options");
 		const randomBackground = Math.floor(Math.random() * (backgrounds.length - 1));
 
 		userEvent.click(backgrounds[randomBackground]);
-
-		expect(screen.getByRole("list", { name: "messages" })).toHaveStyle({
-			backgruoundColor: `${backgrounds[randomBackground].value}`,
-		});
+		expect(setBackground).toHaveBeenCalled();
 	});
 });

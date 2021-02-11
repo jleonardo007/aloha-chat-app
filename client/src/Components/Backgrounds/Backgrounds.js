@@ -39,21 +39,53 @@ const solidColorBackgrounds = [
 	},
 ];
 
-function Backgrounds() {
+function Backgrounds({ dispatch, background, setBackground }) {
+	function handleBackgroundChange(e) {
+		setBackground({
+			...background,
+			color: e.target.getAttribute("data-color-value"),
+			toggleColor: "",
+		});
+	}
+
+	function handleSelectBackground(e) {
+		if (e.type === "mouseenter")
+			setBackground({
+				...background,
+				toggleColor: e.target.getAttribute("data-color-value"),
+			});
+		else if (e.type === "mouseleave")
+			setBackground({
+				...background,
+				toggleColor: "",
+			});
+		else
+			setBackground({
+				...background,
+			});
+	}
+
 	return (
-		<div className="backgrounds-container">
-			{solidColorBackgrounds.map((background) => {
+		<div className="backgrounds-container" data-testid="backgrounds">
+			{solidColorBackgrounds.map((background, index) => {
 				return (
 					<div
 						className="background"
-						style={{ backgroundColor: `${background.color}` }}
+						data-testid="color-options"
+						style={{ backgroundColor: background.color }}
 						title={background.name}
-						value={background.color}
+						data-color-value={background.color}
+						key={index}
+						onClick={(e) => handleBackgroundChange(e)}
+						onMouseEnter={(e) => handleSelectBackground(e)}
+						onMouseLeave={(e) => handleSelectBackground(e)}
 					></div>
 				);
 			})}
 			<div className="back-btn-container">
-				<button className="back-btn">Back</button>
+				<button className="back-btn" onClick={() => dispatch({ type: "RENDER_CHAT_INFO" })}>
+					Back
+				</button>
 			</div>
 		</div>
 	);
