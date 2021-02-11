@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import Messages from "../Messages/Messages";
 import ChatControls from "../ChatControls/ChatControls";
@@ -10,6 +10,11 @@ import talk from "../../chat-icons/charla.png";
 import "./ChatPanel.css";
 
 function ChatPanel(props) {
+	const [background, setBackground] = useState({
+		color: "#013220",
+		toggleColor: "",
+	});
+
 	useEffect(() => {
 		if (!props.user.id) socketClient.emit("new-user", props.user);
 		socketClient.on("user-connected", (user) => {
@@ -29,7 +34,11 @@ function ChatPanel(props) {
 					{props.settingOption === "profile-settings" ? (
 						props.profile
 					) : props.settingOption === "background-settings" ? (
-						<Backgrounds dispatch={props.dispatch} />
+						<Backgrounds
+							dispatch={props.dispatch}
+							background={background}
+							setBackground={setBackground}
+						/>
 					) : props.settingOption === "theme-settings" ? (
 						<Theme dispatch={props.dispatch} />
 					) : null}
@@ -47,7 +56,7 @@ function ChatPanel(props) {
 				<div className="chat" data-testid="chat">
 					<div className="friend-container">{props.friendComponent}</div>
 					<div className="messages-container">
-						<Messages />
+						<Messages background={background} />
 					</div>
 					<div className="chat-controls-container">
 						<ChatControls />
