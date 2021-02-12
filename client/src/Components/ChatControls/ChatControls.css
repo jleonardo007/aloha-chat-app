@@ -71,6 +71,7 @@
 
 .cancel-dialog span {
 	font-size: 1.5rem;
+	color: red;
 }
 
 .selected-messages {
@@ -100,8 +101,7 @@
 	font-size: 1.5rem;
 }
 
-.animated-mic,
-.cancel-dialog {
+.animated-mic {
 	animation-name: animated-block;
 	animation-duration: 1.5s;
 	animation-iteration-count: infinite;
