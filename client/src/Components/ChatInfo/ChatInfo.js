@@ -53,6 +53,7 @@ function ChatInfo({ user, dispatch }) {
 		}
 		return () => {
 			if (process.env.NODE_ENV === "test") testSocket.removeAllListeners("test:active-users");
+			else socketClient.off("get:active-users");
 		};
 	}, []);
 
