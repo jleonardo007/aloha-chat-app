@@ -4,11 +4,17 @@ import userEvent from "@testing-library/user-event";
 import Messages from "./Messages";
 
 import testSocket from "../../test_utils/testSocket";
-import mockMessages from "../../test_utils/mockMessages";
 
 describe("Messages component stand alone tests", () => {
 	beforeEach(() => {
-		render(<Messages messages={mockMessages} />);
+		render(
+			<Messages
+				background={{
+					color: "#013220",
+					toggleColor: "",
+				}}
+			/>
+		);
 	});
 
 	test("Should render text message and audio message", () => {
@@ -27,14 +33,19 @@ describe("Messages component stand alone tests", () => {
 	test("Should play a voice note", () => {
 		const playButtons = screen.getAllByRole("button", { name: "play voice note" });
 
-		playButtons.forEach((playButton, index) => {
+		playButtons.forEach(async (playButton, index) => {
 			userEvent.click(playButton);
-			expect(screen.queryAllByTestId("play")[index]).not.toBeInTheDocument();
-			expect(screen.getAllByTestId("pause")[index]).toBeInTheDocument();
+			expect(
+				screen.getAllByRole("button", { name: "play voice note" })[index]
+			).not.toBeInTheDocument();
+			const pauseButton = await screen.findAllByRole("button", { name: "pause voice note" });
+			expect(pauseButton[index]).toBeInTheDocument();
 
-			userEvent.click(playButton);
-			expect(screen.queryAllByTestId("pause")[index]).not.toBeInTheDocument();
-			expect(screen.getAllByTestId("play")[index]).toBeInTheDocument();
+			userEvent.click(playButton[index]);
+			expect(
+				screen.getAllByRole("button", { name: "pause voice note" })[index]
+			).not.toBeInTheDocument();
+			expect(screen.getAllByRole("button", { name: "play voice note" })[index]).toBeInTheDocument();
 		});
 	});
 
