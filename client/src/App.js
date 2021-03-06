@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useState, useReducer } from "react";
 
 import ChatPanel from "./Components/ChatPanel/ChatPanel";
 import CreateUser from "./Components/CreateUser/CreateUser";
@@ -79,6 +79,16 @@ function reducer(state, action) {
 
 function App() {
 	const [state, dispatch] = useReducer(reducer, initialState);
+	const [chatConfigObject, setChatConfigObject] = useState({
+		toggleMessageSelector: false,
+		shouldToggleMessageSelector: false,
+		shouldEmptyChat: false,
+		shouldDeleteSelectedMessages: false,
+		shouldSetEnterToSend: false,
+		selectedMessagesCounter: 0,
+		backgroundColor: "#013220",
+		toggleBackgroundColor: "",
+	});
 
 	return state.userIsCreated ? (
 		<ChatPanel
@@ -86,7 +96,9 @@ function App() {
 			friend={state.friend}
 			settingOption={state.settingOptionToRender}
 			dispatch={dispatch}
-			friendComponent={<Friend friend={state.friend} />}
+			chatConfigObject={chatConfigObject}
+			setChatConfigObject={setChatConfigObject}
+			friendComponent={<Friend friend={state.friend} setChatConfigObject={setChatConfigObject} />}
 			chatInfo={<ChatInfo user={state.user} dispatch={dispatch} />}
 			profile={<Profile user={state.user} dispatch={dispatch} />}
 		/>
