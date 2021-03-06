@@ -8,16 +8,17 @@ describe("ChatControls component stand alone test", () => {
 		render(<ChatControls />);
 	});
 
-	test("Should show emoji picker when user clicks on emoji button", async () => {
+	/* 	test("Should show emoji picker when user clicks on emoji button", async () => {
 		const emojiButton = screen.getByRole("button", { name: "emoji button" });
 		userEvent.click(emojiButton);
 
 		const emojiPicker = await screen.findByTestId("emoji-picker");
 		expect(emojiPicker).toBeInTheDocument();
 	});
+ */
 
-	test("Should change microfone icon when user types", () => {
-		const messageBox = screen.getByRole("textbox");
+	/* 	test("Should change microfone icon when user types", () => {
+		const messageBox = screen.getByRole("textbox", { name: "message input" });
 
 		userEvent.type(messageBox, "Hello world!!");
 		expect(screen.queryByRole("button", { name: "voice note button" })).not.toBeInTheDocument();
@@ -27,7 +28,7 @@ describe("ChatControls component stand alone test", () => {
 		userEvent.type(messageBox, "{backspace}");
 		expect(screen.queryByRole("button", { name: "send message button" })).not.toBeInTheDocument();
 		expect(screen.getByRole("button", { name: "voice note button" })).toBeInTheDocument();
-	});
+	}); */
 
 	test("Should show recording icon when user starts a voice note", async () => {
 		const voiceNoteButton = screen.getByRole("button", { name: "voice note button" });
