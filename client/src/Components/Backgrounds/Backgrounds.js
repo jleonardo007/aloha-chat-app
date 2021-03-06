@@ -39,29 +39,29 @@ const solidColorBackgrounds = [
 	},
 ];
 
-function Backgrounds({ dispatch, background, setBackground }) {
+function Backgrounds({ dispatch, chatConfigObject, setChatConfigObject }) {
 	function handleBackgroundChange(e) {
-		setBackground({
-			...background,
-			color: e.target.getAttribute("data-color-value"),
-			toggleColor: "",
+		setChatConfigObject({
+			...chatConfigObject,
+			backgroundColor: e.target.getAttribute("data-color-value"),
+			toggleBackgroundColor: "",
 		});
 	}
 
 	function handleSelectBackground(e) {
 		if (e.type === "mouseenter")
-			setBackground({
-				...background,
-				toggleColor: e.target.getAttribute("data-color-value"),
+			setChatConfigObject({
+				...chatConfigObject,
+				toggleBackgroundColor: e.target.getAttribute("data-color-value"),
 			});
 		else if (e.type === "mouseleave")
-			setBackground({
-				...background,
-				toggleColor: "",
+			setChatConfigObject({
+				...chatConfigObject,
+				toggleBackgroundColor: "",
 			});
 		else
-			setBackground({
-				...background,
+			setChatConfigObject({
+				...chatConfigObject,
 			});
 	}
 
