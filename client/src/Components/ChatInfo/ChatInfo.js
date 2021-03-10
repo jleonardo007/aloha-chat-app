@@ -1,43 +1,57 @@
 import { useState, useEffect } from "react";
-import socketClient from "../../socket-client";
-import testSocket from "../../test_utils/testSocket";
 
 import User from "../User/User";
+
+import socketClient from "../../socket-client";
+import testSocket from "../../test_utils/testSocket";
 
 import noUsers from "../../chat-icons/no-active-users.png";
 import "./ChatInfo.css";
 
-function ActiveUsersList({ activeUsers, dispatch }) {
+function ActiveUser({ user, currentFriend, dispatch }) {
+	const [newMessagesCounter, setNewMessagesCounter] = useState(0);
+
+	useEffect(() => {
+		if (currentFriend)
+			socketClient.on("new-messages-counter", (friend) => {
+				if (user.id === friend.id && currentFriend.id !== friend.id)
+					setNewMessagesCounter((prevState) => prevState + 1);
+			});
+		else
+			socketClient.on("new-messages-counter", (friend) => {
+				if (user.id === friend.id) setNewMessagesCounter((prevState) => prevState + 1);
+			});
+
+		return () => socketClient.off("new-messages-counter");
+	}, [user, currentFriend]);
+
 	return (
-		<div className="active-users-container">
-			{activeUsers.map((user, index) => {
-				return (
-					<div
-						className="user-info"
-						data-testid="active-user"
-						key={index}
-						onClick={() => {
-							dispatch({
-								type: "GET_FRIEND",
-								user,
-							});
-						}}
-					>
-						<img src={user.avatar} alt="User avatar" className="user-avatar" />
-						<div className="user-name">
-							<span>{user.name}</span>
-						</div>
-						<div className="new-messages-counter">
-							<span data-testid="new-messages-counter">7</span>
-						</div>
-					</div>
-				);
-			})}
+		<div
+			className="user-info"
+			data-testid="active-user"
+			onClick={() => {
+				dispatch({
+					type: "GET_FRIEND",
+					user,
+				});
+
+				setNewMessagesCounter(0);
+			}}
+		>
+			<img src={user.avatar} alt="User avatar" className="user-avatar" />
+			<div className="user-name">
+				<span>{user.name}</span>
+			</div>
+			{newMessagesCounter > 0 && (
+				<div className="new-messages-counter">
+					<span data-testid="new-messages-counter">{newMessagesCounter}</span>
+				</div>
+			)}
 		</div>
 	);
 }
 
-function ChatInfo({ user, dispatch }) {
+function ChatInfo({ user, currentFriend, dispatch }) {
 	const [activeUsers, setActiveUsers] = useState([]);
 
 	useEffect(() => {
@@ -70,7 +84,11 @@ function ChatInfo({ user, dispatch }) {
 					</div>
 				</div>
 			) : (
-				<ActiveUsersList activeUsers={activeUsers} dispatch={dispatch} />
+				<div className="active-users-container">
+					{activeUsers.map((user, index) => (
+						<ActiveUser key={index} user={user} currentFriend={currentFriend} dispatch={dispatch} />
+					))}
+				</div>
 			)}
 		</div>
 	);
