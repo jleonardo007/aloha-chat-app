@@ -99,7 +99,7 @@ function App() {
 			chatConfigObject={chatConfigObject}
 			setChatConfigObject={setChatConfigObject}
 			friendComponent={<Friend friend={state.friend} setChatConfigObject={setChatConfigObject} />}
-			chatInfo={<ChatInfo user={state.user} dispatch={dispatch} />}
+			chatInfo={<ChatInfo user={state.user} currentFriend={state.friend} dispatch={dispatch} />}
 			profile={<Profile user={state.user} dispatch={dispatch} />}
 		/>
 	) : (
