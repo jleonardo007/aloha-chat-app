@@ -16,11 +16,8 @@ function Friend({ friend, setChatConfigObject }) {
 				setFriendAction(action);
 			});
 		else
-			socketClient.on("friend-actions", (actions) => {
-				setFriendAction((prevState) => {
-					if (prevState === actions) return prevState;
-					else return actions;
-				});
+			socketClient.on("friend-actions", ({ friendId, action }) => {
+				if (friend.id === friendId) setFriendAction(action);
 			});
 
 		return () => {
@@ -67,7 +64,7 @@ function Friend({ friend, setChatConfigObject }) {
 				setChatConfigObject((prevState) => {
 					return {
 						...prevState,
-						shouldSetEnterToSend: true,
+						shouldSetEnterToSend: !prevState.shouldSetEnterToSend,
 					};
 				});
 				break;

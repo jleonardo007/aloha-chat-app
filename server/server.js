@@ -52,8 +52,8 @@ io.on("connection", (socket) => {
 		io.emit("get:active-users", activeUsers);
 	});
 
-	socket.on("friend-actions", ({ friend, action }) => {
-		socket.to(friend.id).emit("friend-actions", action);
+	socket.on("friend-actions", ({ user, friend, action }) => {
+		socket.to(friend.id).emit("friend-actions", { friendId: user.id, action });
 	});
 
 	socket.on("sent-message", ({ friend, message }) => {
