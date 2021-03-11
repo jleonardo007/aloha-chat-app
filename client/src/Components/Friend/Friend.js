@@ -55,7 +55,7 @@ function Friend({ friend, setChatConfigObject }) {
 				setChatConfigObject((prevState) => {
 					return {
 						...prevState,
-						shouldEmptyChat: true,
+						shouldEmptyChat: prevState.toggleMessageSelector ? false : true,
 					};
 				});
 				break;
