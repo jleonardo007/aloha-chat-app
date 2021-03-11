@@ -1,53 +1,22 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 
-import Picker from "emoji-picker-react";
+import TextBox from "./TextBox";
+import VoiceNoteRecorder from "./VoiceNoteRecorder";
 import { GrEmoji } from "react-icons/gr";
 import { BsFillMicFill } from "react-icons/bs";
 import { BiSend } from "react-icons/bi";
-import { FaAngleLeft } from "react-icons/fa";
-import { BsTrash } from "react-icons/bs";
 
 import socketClient from "../../socket-client";
 import "./ChatControls.css";
 
-const emojiPickerStyle = {
-	width: "65%",
-	position: "absolute",
-	bottom: "12%",
-	zIndex: "1",
-	boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.4)",
-};
-
 function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatConfigObject }) {
 	const [controls, setControls] = useState({
-		toggleTextInput: false,
 		toggleVoiceNoteButton: false,
-		toggleEmojiButton: false,
+		toggleVoiceNoteRecorder: false,
 		toggleEmojiPicker: false,
-		toggleCancelVoiceNoteDialog: false,
 		messageContent: null,
+		messageContentType: "",
 	});
-	const messageInputRef = useRef(null);
-
-	useEffect(() => {
-		if (chatConfigObject.selectedMessagesCounter > 0)
-			setControls((prevState) => {
-				return {
-					...prevState,
-					toggleTextInput: true,
-					toggleCancelVoiceNoteDialog: true,
-				};
-			});
-		else if (chatConfigObject.selectedMessagesCounter === 0)
-			setControls((prevState) => {
-				return {
-					...prevState,
-					toggleTextInput: false,
-					toggleCancelVoiceNoteDialog: false,
-				};
-			});
-		return () => {};
-	}, [chatConfigObject.selectedMessagesCounter]);
 
 	function handleEmojiPicker() {
 		setControls((prevState) => {
@@ -58,52 +27,22 @@ function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatC
 		});
 	}
 
-	function handleTextMessage(e) {
-		socketClient.emit("friend-actions", { friend, action: "Writing a message..." });
-		setControls((prevState) => {
-			return {
-				...prevState,
-				toggleVoiceNoteButton: e.target.innerText ? true : false,
-				messageContent: e.target.innerText,
-			};
-		});
-	}
-
-	function handleVoiceNoteRecording(e) {
-		if (e.type === "mousedown") {
-			socketClient.emit("friend-actions", { friend, action: "Recording an voice note..." });
-			setControls((prevState) => {
-				return {
-					...prevState,
-					toggleEmojiButton: !prevState.toggleEmojiButton,
-					toggleTextInput: !prevState.toggleTextInput,
-				};
-			});
-		} else if (e.type === "mouseup")
-			setControls((prevState) => {
-				return {
-					...prevState,
-					toggleEmojiButton: !prevState.toggleEmojiButton,
-					toggleTextInput: !prevState.toggleTextInput,
-				};
-			});
-		else
-			setControls((prevState) => {
-				return { ...prevState };
-			});
-	}
-
 	function handleSentMessage(content) {
 		let message = {};
 
 		if (content) {
 			message = {
-				type: "text",
+				type: controls.messageContentType,
 				status: "send",
 				isStored: false,
 				shouldDelete: false,
+				seenByFriend: false,
 				from: { ...user },
 				to: { ...friend },
+				time: {
+					hours: "",
+					minutes: "",
+				},
 				content,
 			};
 
@@ -118,99 +57,76 @@ function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatC
 			setControls((prevState) => {
 				return {
 					...prevState,
-					toggleVoiceNoteButton: !prevState.toggleVoiceNoteButton,
+					toggleVoiceNoteButton: false,
 					messageContent: null,
+					messageContentType: "",
 				};
 			});
-			messageInputRef.current.innerText = "";
 		}
+	}
+
+	function handleSelectedMessagesDeletion() {
+		setChatConfigObject((prevState) => {
+			return {
+				...prevState,
+				toggleMessageSelector: false,
+				shouldToggleMessageSelector: false,
+				shouldDeleteSelectedMessages: true,
+				selectedMessagesCounter: 0,
+			};
+		});
 	}
 
 	return (
 		<>
-			{!controls.toggleEmojiButton ? (
-				<button className="emoji-btn" aria-label="emoji button" onClick={() => handleEmojiPicker()}>
-					<GrEmoji />
-				</button>
+			<button className="emoji-btn" aria-label="emoji button" onClick={() => handleEmojiPicker()}>
+				<GrEmoji />
+			</button>
+			<TextBox
+				user={user}
+				friend={friend}
+				controls={controls}
+				chatConfigObject={chatConfigObject}
+				setControls={setControls}
+				handleSentMessage={handleSentMessage}
+				handleSelectedMessagesDeletion={handleSelectedMessagesDeletion}
+			/>
+			{controls.toggleVoiceNoteRecorder ? (
+				<VoiceNoteRecorder
+					user={user}
+					friend={friend}
+					controls={controls}
+					setControls={setControls}
+					chatConfigObject={chatConfigObject}
+					handleSentMessage={handleSentMessage}
+				/>
 			) : (
-				<BsFillMicFill className="animated-mic" data-testid="animated-mic" />
-			)}
-			<div className="messages-input-container">
-				{!controls.toggleTextInput ? (
-					<span
-						className="message-input"
-						role="textbox"
-						aria-label="message input"
-						contentEditable
-						autoFocus
-						innertext={controls.textMessage}
-						ref={messageInputRef}
-						onInput={(e) => handleTextMessage(e)}
-					></span>
-				) : !controls.toggleCancelVoiceNoteDialog ? (
-					<div className="cancel-dialog">
-						<p>
-							<span>
-								<FaAngleLeft />
-							</span>
-							Swipe to cancel
-						</p>
-					</div>
-				) : (
-					<div className="selected-messages">
-						<p>
-							<span data-testid="selected-messages-counter">
-								{chatConfigObject.selectedMessagesCounter}
-							</span>{" "}
-							messages selected
-						</p>
+				<>
+					{controls.toggleVoiceNoteButton ? (
 						<button
-							className="delete-messages-btn"
-							aria-label="delete messages button"
+							className="voice-note-btn"
+							aria-label="send message button"
+							onClick={() => handleSentMessage(controls.messageContent)}
+						>
+							<BiSend />
+						</button>
+					) : (
+						<button
+							className="voice-note-btn"
+							aria-label="voice note button"
 							onClick={() =>
-								setChatConfigObject((prevState) => {
+								setControls((prevState) => {
 									return {
 										...prevState,
-										toggleMessageSelector: false,
-										shouldToggleMessageSelector: false,
-										shouldDeleteSelectedMessages: true,
-										selectedMessagesCounter: 0,
+										toggleVoiceNoteRecorder: !prevState.toggleVoiceNoteRecorder,
 									};
 								})
 							}
 						>
-							<BsTrash />
+							<BsFillMicFill />
 						</button>
-					</div>
-				)}
-			</div>
-			{!controls.toggleVoiceNoteButton ? (
-				<button
-					className="voice-note-btn"
-					draggable
-					aria-label="voice note button"
-					onMouseDown={(e) => handleVoiceNoteRecording(e)}
-					onMouseUp={(e) => handleVoiceNoteRecording(e)}
-				>
-					<BsFillMicFill />
-				</button>
-			) : (
-				<button
-					className="voice-note-btn"
-					aria-label="send message button"
-					onClick={() => handleSentMessage(controls.messageContent)}
-				>
-					<BiSend />
-				</button>
-			)}
-
-			{controls.toggleEmojiPicker && (
-				<Picker
-					pickerStyle={emojiPickerStyle}
-					disableAutoFocus={true}
-					disableSearchBar={true}
-					data-testid="emoji-picker"
-				/>
+					)}
+				</>
 			)}
 		</>
 	);
