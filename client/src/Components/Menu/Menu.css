@@ -24,3 +24,7 @@
 .menu__item:hover {
 	cursor: pointer;
 }
+
+.menu-icon:focus {
+	outline: none;
+}

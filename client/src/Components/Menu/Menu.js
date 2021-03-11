@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { AiOutlineClose } from "react-icons/ai";
+
 import "./Menu.css";
 
 function Menu({ children }) {
@@ -9,21 +9,15 @@ function Menu({ children }) {
 
 	return (
 		<>
-			{toogleMenu ? (
-				<AiOutlineClose
-					className="menu-icon"
-					data-testid="menu"
-					onClick={() => setToggleMenu(!toogleMenu)}
-				/>
-			) : (
-				<BsThreeDotsVertical
-					className="menu-icon"
-					data-testid="menu"
-					onClick={() => setToggleMenu(!toogleMenu)}
-				/>
-			)}
+			<BsThreeDotsVertical
+				tabIndex="0"
+				className="menu-icon"
+				data-testid="menu"
+				onFocus={() => setToggleMenu(true)}
+				onBlur={() => setToggleMenu(false)}
+			/>
 
-			{toogleMenu ? children : null}
+			{toogleMenu && children}
 		</>
 	);
 }

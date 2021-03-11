@@ -89,21 +89,21 @@ function Friend({ friend, setChatConfigObject }) {
 						<li
 							className="menu__item"
 							aria-label="select messages"
-							onClick={() => handleChatSettings("select-messages")}
+							onMouseDown={() => handleChatSettings("select-messages")}
 						>
 							Select messages
 						</li>
 						<li
 							className="menu__item"
 							aria-label="empty chat"
-							onClick={() => handleChatSettings("empty-chat")}
+							onMouseDown={() => handleChatSettings("empty-chat")}
 						>
 							Empty chat
 						</li>
 						<li
 							className="menu__item"
 							aria-label="enter to send"
-							onClick={() => handleChatSettings("enter-to-send")}
+							onMouseDown={() => handleChatSettings("enter-to-send")}
 						>
 							Enter to send
 						</li>

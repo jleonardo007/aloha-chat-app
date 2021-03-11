@@ -14,21 +14,21 @@ function User({ user, dispatch }) {
 						<li
 							className="menu__item"
 							aria-label="profile"
-							onClick={() => dispatch({ type: "RENDER_PROFILE_SETTINGS" })}
+							onMouseDown={() => dispatch({ type: "RENDER_PROFILE_SETTINGS" })}
 						>
 							Profile
 						</li>
 						<li
 							className="menu__item"
 							aria-label="theme"
-							onClick={() => dispatch({ type: "RENDER_THEME_SETTINGS" })}
+							onMouseDown={() => dispatch({ type: "RENDER_THEME_SETTINGS" })}
 						>
 							Change theme
 						</li>
 						<li
 							className="menu__item"
 							aria-label="background"
-							onClick={() => dispatch({ type: "RENDER_BACKGROUND_SETTINGS" })}
+							onMouseDown={() => dispatch({ type: "RENDER_BACKGROUND_SETTINGS" })}
 						>
 							Change background
 						</li>
