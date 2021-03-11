@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { BiCheckDouble } from "react-icons/bi";
 
@@ -12,12 +12,16 @@ function TextMessage({ message }) {
 		minutes: null,
 	});
 
+	const messageContentRef = useRef(null);
+
 	useEffect(() => {
 		const currentDate = Date.now();
 		let currentHours = null;
 		let currentMinutes = null;
 
-		if (!message.time.hour && !message.time.minute) {
+		if (messageContentRef.current) messageContentRef.current.innerText = message.content;
+
+		if (!message.time.hours && !message.time.minutes) {
 			currentHours = `${
 				new Date(currentDate).getHours() >= 10
 					? new Date(currentDate).getHours()
@@ -56,16 +60,16 @@ function TextMessage({ message }) {
 
 		switch (message.status) {
 			case "send":
-				if (!message.seenByFriend) console.log("lalala");
-				socketClient.on("seen-message", () => {
-					setTextMessageState((prevState) => {
-						message.seenByFriend = true;
-						return {
-							...prevState,
-							seenByFriend: true,
-						};
+				if (!message.seenByFriend)
+					socketClient.on("seen-message", () => {
+						setTextMessageState((prevState) => {
+							message.seenByFriend = true;
+							return {
+								...prevState,
+								seenByFriend: true,
+							};
+						});
 					});
-				});
 				break;
 
 			case "received":
@@ -86,7 +90,7 @@ function TextMessage({ message }) {
 			className={`${message.status === "send" ? "message-send" : "message-received"}`}
 			data-testid="text-message-content"
 		>
-			<p className="text-message-content">{message.content}</p>
+			<p className="text-message-content" ref={messageContentRef}></p>
 			<p className="message-info-label">
 				<span className="time-label">{message.time.hours}</span>:
 				<span className="time-label">{message.time.minutes}</span>{" "}
