@@ -7,15 +7,47 @@ import socketClient from "../../socket-client";
 import testSocket from "../../test_utils/testSocket";
 
 function VoiceNote({ message }) {
-	const [voiceNoteObject, setVoiceNoteObject] = useState({
+	const [voiceNoteState, setVoiceNoteState] = useState({
 		toggleButton: false,
 		seenByFriend: false,
+		hours: null,
+		minutes: null,
 	});
+
+	useEffect(() => {
+		const currentDate = Date.now();
+		let currentHours = null;
+		let currentMinutes = null;
+
+		if (!message.time.hour && !message.time.minute) {
+			currentHours = `${
+				new Date(currentDate).getHours() >= 10
+					? new Date(currentDate).getHours()
+					: `0${new Date(currentDate).getHours()}`
+			}`;
+			currentMinutes = `${
+				new Date(currentDate).getMinutes() >= 10
+					? new Date(currentDate).getMinutes()
+					: `0${new Date(currentDate).getMinutes()}`
+			}`;
+
+			setVoiceNoteState((prevState) => {
+				message.time.hours = currentHours;
+				message.time.minutes = currentMinutes;
+
+				return {
+					...prevState,
+					hours: currentHours,
+					minutes: currentMinutes,
+				};
+			});
+		}
+	}, [message]);
 
 	useEffect(() => {
 		if (process.env.NODE_ENV === "test")
 			testSocket.on("test:seen-messages", () => {
-				setVoiceNoteObject((prevState) => {
+				setVoiceNoteState((prevState) => {
 					message.seenByFriend = true;
 					return {
 						...prevState,
@@ -28,7 +60,7 @@ function VoiceNote({ message }) {
 			case "send":
 				if (!message.seenByFriend) console.log("lalala");
 				socketClient.on("seen-message", () => {
-					setVoiceNoteObject((prevState) => {
+					setVoiceNoteState((prevState) => {
 						message.seenByFriend = true;
 						return {
 							...prevState,
@@ -52,7 +84,7 @@ function VoiceNote({ message }) {
 	});
 
 	function handlePlayVoiceNoteButton() {
-		setVoiceNoteObject((prevState) => {
+		setVoiceNoteState((prevState) => {
 			return { ...prevState, toggleButton: !prevState.toggleButton };
 		});
 	}
@@ -66,7 +98,7 @@ function VoiceNote({ message }) {
 			<div className={`${message.status === "send" ? "voice-note-send " : "voice-note-received "}`}>
 				<img src={message.user.avatar} alt={message.user.name} className="user-avatar" />
 				<div className="voice-note">
-					{!voiceNoteObject.toggleButton ? (
+					{!voiceNoteState.toggleButton ? (
 						<button
 							className="play-voice-note-btn"
 							aria-label="play voice note"
@@ -92,13 +124,18 @@ function VoiceNote({ message }) {
 			</div>
 			<p className="voice-note-status">
 				<span className="voice-note-duration">0:50</span>
+				<span className="time-label">{message.time.hours}</span>:
+				<span className="time-label">{message.time.minutes}</span>{" "}
+				<span className="time-label">
+					{message.time.hours >= 12 && message.time.hours <= 23 ? "PM" : "AM"}
+				</span>
 				{message.status === "send" && (
 					<span className="message-status-label">
 						<BiCheckDouble
 							className={
 								message.seenByFriend
 									? "seen-status-color"
-									: voiceNoteObject.seenByFriend && "seen-status.color"
+									: voiceNoteState.seenByFriend && "seen-status.color"
 							}
 							data-testid="message status"
 						/>

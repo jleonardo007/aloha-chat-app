@@ -6,14 +6,51 @@ import socketClient from "../../socket-client";
 import testSocket from "../../test_utils/testSocket";
 
 function TextMessage({ message }) {
-	const [seenByFriend, setSeenByFriend] = useState(false);
+	const [textMessageState, setTextMessageState] = useState({
+		seenByFriend: false,
+		hours: null,
+		minutes: null,
+	});
+
+	useEffect(() => {
+		const currentDate = Date.now();
+		let currentHours = null;
+		let currentMinutes = null;
+
+		if (!message.time.hour && !message.time.minute) {
+			currentHours = `${
+				new Date(currentDate).getHours() >= 10
+					? new Date(currentDate).getHours()
+					: `0${new Date(currentDate).getHours()}`
+			}`;
+			currentMinutes = `${
+				new Date(currentDate).getMinutes() >= 10
+					? new Date(currentDate).getMinutes()
+					: `0${new Date(currentDate).getMinutes()}`
+			}`;
+
+			setTextMessageState((prevState) => {
+				message.time.hours = currentHours;
+				message.time.minutes = currentMinutes;
+
+				return {
+					...prevState,
+					hours: currentHours,
+					minutes: currentMinutes,
+				};
+			});
+		}
+	}, [message]);
 
 	useEffect(() => {
 		if (process.env.NODE_ENV === "test")
 			testSocket.on("test:seen-messages", () => {
-				setSeenByFriend(() => {
+				setTextMessageState((prevState) => {
 					message.seenByFriend = true;
-					return true;
+					return {
+						...prevState,
+						seenByFriend: true,
+					};
 				});
 			});
 
@@ -21,9 +58,12 @@ function TextMessage({ message }) {
 			case "send":
 				if (!message.seenByFriend) console.log("lalala");
 				socketClient.on("seen-message", () => {
-					setSeenByFriend(() => {
+					setTextMessageState((prevState) => {
 						message.seenByFriend = true;
-						return true;
+						return {
+							...prevState,
+							seenByFriend: true,
+						};
 					});
 				});
 				break;
@@ -42,22 +82,31 @@ function TextMessage({ message }) {
 	}, [message]);
 
 	return (
-		<p
+		<div
 			className={`${message.status === "send" ? "message-send" : "message-received"}`}
 			data-testid="text-message-content"
 		>
-			{message.content}
-			{message.status === "send" && (
-				<span className="message-status-label">
-					<BiCheckDouble
-						className={
-							message.seenByFriend ? "seen-status-color" : seenByFriend && "seen-status.color"
-						}
-						data-testid="message status"
-					/>
+			<p className="text-message-content">{message.content}</p>
+			<p className="message-info-label">
+				<span className="time-label">{message.time.hours}</span>:
+				<span className="time-label">{message.time.minutes}</span>{" "}
+				<span className="time-label">
+					{message.time.hours >= 12 && message.time.hours <= 23 ? "PM" : "AM"}
 				</span>
-			)}
-		</p>
+				{message.status === "send" && (
+					<span className="message-status-label">
+						<BiCheckDouble
+							className={
+								message.seenByFriend
+									? "seen-status-color"
+									: textMessageState.seenByFriend && "seen-status.color"
+							}
+							data-testid="message status"
+						/>
+					</span>
+				)}
+			</p>
+		</div>
 	);
 }
 
