@@ -141,11 +141,9 @@ function Messages({
 					)}
 
 					{message.type === "text" ? (
-						<TextMessage status={message.status} content={message.content} />
-					) : message.type === "voice-note" ? (
-						<VoiceNote user={message.user} message={message} />
+						<TextMessage message={message} />
 					) : (
-						<p> Invalid message content. </p>
+						message.type === "voice-note" && <VoiceNote message={message} />
 					)}
 				</li>
 			))}

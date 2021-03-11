@@ -56,6 +56,10 @@ io.on("connection", (socket) => {
 		socket.to(friend.id).emit("friend-actions", { friendId: user.id, action });
 	});
 
+	socket.on("seen-message", ({ id }) => {
+		socket.to(id).emit("seen-message");
+	});
+
 	socket.on("sent-message", ({ friend, message }) => {
 		socket.to(friend.id).emit("new-message", message);
 		socket.to(friend.id).emit("new-messages-counter", message.from);

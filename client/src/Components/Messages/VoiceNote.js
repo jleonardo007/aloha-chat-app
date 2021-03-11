@@ -6,7 +6,7 @@ import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 import socketClient from "../../socket-client";
 import testSocket from "../../test_utils/testSocket";
 
-function VoiceNote({ user, message }) {
+function VoiceNote({ message }) {
 	const [voiceNoteObject, setVoiceNoteObject] = useState({
 		toggleButton: false,
 		seenByFriend: false,
@@ -16,21 +16,34 @@ function VoiceNote({ user, message }) {
 		if (process.env.NODE_ENV === "test")
 			testSocket.on("test:seen-messages", () => {
 				setVoiceNoteObject((prevState) => {
+					message.seenByFriend = true;
 					return {
 						...prevState,
 						seenByFriend: true,
 					};
 				});
 			});
-		else
-			socketClient.on("seen-messages", () => {
-				setVoiceNoteObject((prevState) => {
-					return {
-						...prevState,
-						seenByFriend: true,
-					};
+
+		switch (message.status) {
+			case "send":
+				if (!message.seenByFriend) console.log("lalala");
+				socketClient.on("seen-message", () => {
+					setVoiceNoteObject((prevState) => {
+						message.seenByFriend = true;
+						return {
+							...prevState,
+							seenByFriend: true,
+						};
+					});
 				});
-			});
+				break;
+
+			case "received":
+				socketClient.emit("seen-message", message.from);
+				break;
+
+			default:
+		}
 
 		return () => {
 			if (process.env.NODE_ENV === "test") testSocket.removeAllListeners("test:seen-messages");
@@ -38,7 +51,7 @@ function VoiceNote({ user, message }) {
 		};
 	});
 
-	function handleVoiceNoteButton() {
+	function handlePlayVoiceNoteButton() {
 		setVoiceNoteObject((prevState) => {
 			return { ...prevState, toggleButton: !prevState.toggleButton };
 		});
@@ -51,13 +64,13 @@ function VoiceNote({ user, message }) {
 			}`}
 		>
 			<div className={`${message.status === "send" ? "voice-note-send " : "voice-note-received "}`}>
-				<img src={user.avatar} alt={user.name} className="user-avatar" />
+				<img src={message.user.avatar} alt={message.user.name} className="user-avatar" />
 				<div className="voice-note">
 					{!voiceNoteObject.toggleButton ? (
 						<button
 							className="play-voice-note-btn"
 							aria-label="play voice note"
-							onClick={() => handleVoiceNoteButton()}
+							onClick={() => handlePlayVoiceNoteButton()}
 						>
 							<BsPlayFill />
 						</button>
@@ -65,7 +78,7 @@ function VoiceNote({ user, message }) {
 						<button
 							className="play-voice-note-btn"
 							aria-label="pause voice note"
-							onClick={() => handleVoiceNoteButton()}
+							onClick={() => handlePlayVoiceNoteButton()}
 						>
 							<BsPauseFill />
 						</button>
@@ -79,12 +92,18 @@ function VoiceNote({ user, message }) {
 			</div>
 			<p className="voice-note-status">
 				<span className="voice-note-duration">0:50</span>
-				<span className="message-status-label">
-					<BiCheckDouble
-						className={voiceNoteObject.seenByFriend ? "seen-status-color" : null}
-						data-testid="message status"
-					/>
-				</span>
+				{message.status === "send" && (
+					<span className="message-status-label">
+						<BiCheckDouble
+							className={
+								message.seenByFriend
+									? "seen-status-color"
+									: voiceNoteObject.seenByFriend && "seen-status.color"
+							}
+							data-testid="message status"
+						/>
+					</span>
+				)}
 			</p>
 		</div>
 	);
