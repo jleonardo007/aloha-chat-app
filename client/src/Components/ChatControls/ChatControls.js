@@ -14,8 +14,8 @@ function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatC
 		toggleVoiceNoteButton: false,
 		toggleVoiceNoteRecorder: false,
 		toggleEmojiPicker: false,
-		messageContent: null,
-		messageContentType: "",
+		mediaStream: null,
+		textContent: "", // TextBox compontent state will be copied to it to use in handleSentMessage when send button clicks
 	});
 
 	function handleEmojiPicker() {
@@ -27,24 +27,41 @@ function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatC
 		});
 	}
 
-	function handleSentMessage(content) {
+	function handleSentMessage(messageObject) {
 		let message = {};
 
-		if (content) {
-			message = {
-				type: controls.messageContentType,
-				status: "send",
-				isStored: false,
-				shouldDelete: false,
-				seenByFriend: false,
-				from: { ...user },
-				to: { ...friend },
-				time: {
-					hours: "",
-					minutes: "",
-				},
-				content,
-			};
+		if (messageObject) {
+			if (messageObject.type === "text")
+				message = {
+					type: messageObject.type,
+					content: messageObject.content,
+					status: "send",
+					isStored: false,
+					shouldDelete: false,
+					seenByFriend: false,
+					from: { ...user },
+					to: { ...friend },
+					time: {
+						hours: "",
+						minutes: "",
+					},
+				};
+			else if (messageObject.type === "voice-note")
+				message = {
+					type: messageObject.type,
+					content: messageObject.content,
+					status: "send",
+					isStored: false,
+					shouldDelete: false,
+					seenByFriend: false,
+					from: { ...user },
+					to: { ...friend },
+					time: {
+						hours: "",
+						minutes: "",
+					},
+				};
+			else return;
 
 			socketClient.emit("sent-message", { friend, message });
 			setSentMessage((prevState) => {
@@ -58,8 +75,6 @@ function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatC
 				return {
 					...prevState,
 					toggleVoiceNoteButton: false,
-					messageContent: null,
-					messageContentType: "",
 				};
 			});
 		}
@@ -75,6 +90,22 @@ function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatC
 				selectedMessagesCounter: 0,
 			};
 		});
+	}
+
+	async function handleUserMediaRequest() {
+		try {
+			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+			setControls((prevState) => {
+				return {
+					...prevState,
+					toggleVoiceNoteRecorder: !prevState.toggleVoiceNoteRecorder,
+					mediaStream: stream,
+				};
+			});
+		} catch (err) {
+			console.log(err);
+		}
 	}
 
 	return (
@@ -106,7 +137,7 @@ function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatC
 						<button
 							className="voice-note-btn"
 							aria-label="send message button"
-							onClick={() => handleSentMessage(controls.messageContent)}
+							onClick={() => handleSentMessage({ content: controls.textContent, type: "text" })}
 						>
 							<BiSend />
 						</button>
@@ -114,14 +145,7 @@ function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatC
 						<button
 							className="voice-note-btn"
 							aria-label="voice note button"
-							onClick={() =>
-								setControls((prevState) => {
-									return {
-										...prevState,
-										toggleVoiceNoteRecorder: !prevState.toggleVoiceNoteRecorder,
-									};
-								})
-							}
+							onClick={() => handleUserMediaRequest()}
 						>
 							<BsFillMicFill />
 						</button>

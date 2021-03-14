@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import Picker from "emoji-picker-react";
 import { BsTrash } from "react-icons/bs";
@@ -23,22 +23,38 @@ function TextBox({
 	handleSelectedMessagesDeletion,
 }) {
 	const messageInputRef = useRef(null);
+	const [textBoxState, setTextBoxState] = useState({
+		content: "",
+		type: "text",
+	});
 
 	useEffect(() => {
 		if (messageInputRef.current) messageInputRef.current.focus();
 
-		if (controls.messageContent) {
+		if (textBoxState.content) {
 			const range = document.createRange();
 			const selection = window.getSelection();
 
-			messageInputRef.current.innerText = controls.messageContent;
+			messageInputRef.current.innerText = textBoxState.content;
 
 			range.selectNodeContents(messageInputRef.current);
 			range.collapse(false);
 			selection.removeAllRanges();
 			selection.addRange(range);
-		} else if (messageInputRef.current) messageInputRef.current.innerText = "";
+		} else messageInputRef.current.innerText = "";
 	});
+
+	useEffect(() => {
+		if (!controls.toggleVoiceNoteButton) {
+			setTextBoxState((prevState) => {
+				return {
+					...prevState,
+					content: "",
+				};
+			});
+			messageInputRef.current.innerText = "";
+		}
+	}, [controls.toggleVoiceNoteButton]);
 
 	function setTextBoxFocus() {
 		messageInputRef.current.focus();
@@ -52,25 +68,44 @@ function TextBox({
 				setControls((prevState) => {
 					return {
 						...prevState,
+						textContent: `${prevState.content || ""}${emojiObject.emoji}`,
 						toggleVoiceNoteButton: true,
-						messageContent: `${prevState.messageContent || ""}${emojiObject.emoji}`,
-						messageContentType: "text",
+					};
+				});
+
+				setTextBoxState((prevState) => {
+					return {
+						...prevState,
+						content: `${prevState.content || ""}${emojiObject.emoji}`,
 					};
 				});
 				break;
 
 			case "input":
-				if (e.target.innerText.includes("\n") && chatConfigObject.shouldSetEnterToSend)
-					handleSentMessage(controls.messageContent);
-				else
+				if (e.target.innerText.includes("\n") && chatConfigObject.shouldSetEnterToSend) {
+					handleSentMessage(textBoxState);
+					setTextBoxState((prevState) => {
+						return {
+							...prevState,
+							content: "",
+						};
+					});
+				} else {
 					setControls((prevState) => {
 						return {
 							...prevState,
+							textContent: e.target.innerText.trimStart(),
 							toggleVoiceNoteButton: e.target.innerText ? true : false,
-							messageContent: e.target.innerText.trimStart(),
-							messageContentType: "text",
 						};
 					});
+
+					setTextBoxState((prevState) => {
+						return {
+							...prevState,
+							content: e.target.innerText.trimStart(),
+						};
+					});
+				}
 				break;
 			default:
 		}
@@ -79,7 +114,7 @@ function TextBox({
 	return (
 		<>
 			<div className="textbox-container">
-				{!controls.messageContent && !chatConfigObject.toggleMessageSelector && (
+				{!textBoxState.content && !chatConfigObject.toggleMessageSelector && (
 					<div className="textbox-placeholder" onClick={setTextBoxFocus}>
 						<span>Write a message</span>
 					</div>
