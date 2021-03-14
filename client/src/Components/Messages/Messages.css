@@ -1,6 +1,6 @@
 .messages {
 	padding: 1rem;
-	height: 100%;
+	min-height: 100%;
 }
 
 .messages li {
@@ -8,14 +8,14 @@
 	margin-bottom: 1rem;
 }
 
-.message p[class^="message"] {
+.message div[class^="message"] {
 	min-width: 70px;
 	max-width: 400px;
 	min-height: 40px;
 	padding: 0.5rem;
 	border-radius: 0.55rem;
-	border: 2px solid saddlebrown;
 	text-align: justify;
+	background-color: azure;
 }
 
 .message-send {
@@ -29,8 +29,8 @@
 .voice-note-container {
 	width: 400px;
 	padding: 0.5rem;
-	border: 2px solid saddlebrown;
 	border-radius: 0.55rem;
+	background-color: azure;
 }
 
 .voice-note-send,
@@ -102,10 +102,23 @@
 	justify-content: flex-start;
 }
 
-.message-status-label {
-	display: block;
-	font-size: 1.2rem;
+.text-message-content {
+	font-size: 1rem;
+	overflow-wrap: break-word;
+}
+
+.message-info-label {
+	height: 30px;
 	text-align: right;
+}
+
+.time-label {
+	font-size: 0.85rem;
+}
+
+.message-status-label {
+	margin-left: 0.5rem;
+	font-size: 1.2rem;
 }
 
 .seen-status-color {

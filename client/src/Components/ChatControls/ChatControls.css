@@ -12,66 +12,52 @@
 }
 
 .emoji-btn,
-.message-input,
-.messages-input-container,
+.textbox-input,
+.textbox-container,
 .voice-note-btn,
+.recorder-btn-container button,
 .delete-messages-btn:focus {
 	outline: none;
 }
 
-.messages-input-container {
+.textbox-container {
 	width: 85%;
 	min-height: 3vw;
 	display: grid;
 	align-content: center;
 	border-radius: 1rem;
 	background: #fff;
+	position: relative;
 }
 
-.message-input {
-	max-height: 12vh;
-	padding: 0.5rem;
-	font-size: 1rem;
-	overflow-wrap: break-word;
-	overflow-y: auto;
-	text-align: justify;
-}
-
-.message-input::-webkit-scrollbar {
-	width: 5px;
-}
-
-.message-input::-webkit-scrollbar-track {
-	background: darkgray;
-}
-
-.message-input::-webkit-scrollbar-thumb {
-	background: lightslategrey;
-}
-
-.message-input[contenteditable]:empty::after {
-	content: "Write a message here";
-	cursor: text;
+.textbox-placeholder {
+	height: 20px;
+	position: absolute;
+	top: 0.8vw;
+	left: 0.75vw;
+	z-index: 1;
 	color: gray;
 }
 
-.message-input[contenteditable]:focus::after {
-	content: "";
+.textbox-input {
+	min-height: 20px;
+	max-height: 12vh;
+	margin: 0 10px;
+	font-size: 1rem;
+	overflow-wrap: break-word;
+	overflow-y: auto;
 }
 
-.voice-note-btn:active {
-	border: 1px solid black;
+.textbox-input::-webkit-scrollbar {
+	width: 5px;
 }
 
-.cancel-dialog {
-	display: flex;
-	justify-content: flex-end;
-	margin-right: 2rem;
+.textbox-input::-webkit-scrollbar-track {
+	background: darkgray;
 }
 
-.cancel-dialog span {
-	font-size: 1.5rem;
-	color: red;
+.textbox-input::-webkit-scrollbar-thumb {
+	background: lightslategrey;
 }
 
 .selected-messages {
@@ -97,23 +83,62 @@
 	color: red;
 }
 
-.animated-mic {
-	font-size: 1.5rem;
+.recorder-container {
+	width: 30%;
+	height: 3vw;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
 }
 
-.animated-mic {
+.recording-time {
+	width: 60%;
+	display: flex;
+	justify-content: center;
+}
+
+.recorder-btn-container button {
+	display: grid;
+	place-content: center;
+	font-size: 1.75rem;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+.recorder-btn-container button:active {
+	font-size: 2.25rem;
+}
+
+.cancel-recorder-btn {
+	color: red;
+}
+
+.send-voice-note-btn {
+	color: green;
+}
+
+.recording-animation {
+	align-self: center;
+	margin-right: 0.25rem;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: red;
 	animation-name: animated-block;
 	animation-duration: 1.5s;
 	animation-iteration-count: infinite;
 }
 
+.recording-time-label {
+	font-size: 2rem;
+}
+
 @keyframes animated-block {
 	0% {
 		opacity: 0;
-		color: black;
 	}
 	100% {
 		opacity: 1;
-		color: red;
 	}
 }
