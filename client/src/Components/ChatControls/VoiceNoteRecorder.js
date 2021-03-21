@@ -1,24 +1,19 @@
 import { useState, useEffect } from "react";
 
 import { GiCancel, GiConfirmed } from "react-icons/gi";
+import socketClient from "../../socket-client";
 
-function VoiceNoteRecorder({
-	user,
-	friend,
-	controls,
-	setControls,
-	chatConfigObject,
-	handleSentMessage,
-}) {
+function VoiceNoteRecorder({ user, friend, controls, setControls, handleSentMessage }) {
 	const [recordingState, setRecordingState] = useState({
 		minutes: 0,
 		seconds: 0,
-		startRecording: false,
 		recordingMedia: null,
+		content: "",
 	});
 
 	useEffect(() => {
 		let recordingInterval = null;
+		const SECONDS_TO_EMIT_ACTION = 3;
 
 		recordingInterval = setInterval(() => {
 			setRecordingState((prevState) => {
@@ -32,7 +27,6 @@ function VoiceNoteRecorder({
 					return {
 						...prevState,
 						seconds: prevState.seconds + 1,
-						startRecording: true,
 					};
 				} else
 					return {
@@ -43,45 +37,63 @@ function VoiceNoteRecorder({
 			});
 		}, 1000);
 
+		if (recordingState.seconds % SECONDS_TO_EMIT_ACTION === 0)
+			socketClient.emit("friend-actions", { user, friend, action: "Recording an audio..." });
+
 		return () => {
 			clearInterval(recordingInterval);
 		};
 	});
 
-	// eslint-disable-next-line
 	useEffect(() => {
 		let chunks = [];
 
-		if (!recordingState.startRecording)
+		if (!recordingState.recordingMedia)
 			setRecordingState((prevState) => {
 				return {
 					...prevState,
 					recordingMedia: new MediaRecorder(controls.mediaStream),
 				};
 			});
-		else recordingState.recordingMedia.start();
+		else if (recordingState.recordingMedia.state === "inactive") {
+			recordingState.recordingMedia.start();
 
-		if (recordingState.recordingMedia) {
 			recordingState.recordingMedia.ondataavailable = (e) => {
 				chunks.push(e.data);
 			};
 
-			recordingState.recordingMedia.onstop = (e) => {
+			recordingState.recordingMedia.onstop = () => {
 				const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
-				const voiceNoteURL = window.URL.createObjectURL(blob);
 				chunks = [];
 
-				handleSentMessage({ content: voiceNoteURL, type: "voice-note" });
+				setRecordingState((prevState) => {
+					return {
+						...prevState,
+						content: window.URL.createObjectURL(blob),
+					};
+				});
 			};
 		}
 
-		/* return () => {
-			if (recordingState.startRecording)
+		return () => {
+			if (recordingState.recordingMedia)
 				recordingState.recordingMedia.stream.getAudioTracks().forEach((track) => track.stop());
-		}; */
-	}, [recordingState.startRecording]);
+		};
+	}, [recordingState.recordingMedia, controls.mediaStream]);
 
-	function handleCancelRecording() {
+	useEffect(() => {
+		if (recordingState.content) {
+			handleSentMessage({
+				content: recordingState.content,
+				type: "voice-note",
+				minutes: recordingState.minutes,
+				seconds: recordingState.seconds,
+			});
+			handleCloseRecorder();
+		}
+	});
+
+	function handleCloseRecorder() {
 		setControls((prevState) => {
 			return {
 				...prevState,
@@ -90,15 +102,14 @@ function VoiceNoteRecorder({
 		});
 	}
 
-	function handleSendVoiceNote() {
+	function handleAudioBlob() {
 		recordingState.recordingMedia.stop();
-		handleCancelRecording();
 	}
 
 	return (
 		<div className="recorder-container">
 			<div className="recorder-btn-container">
-				<button className="cancel-recorder-btn" onClick={() => handleCancelRecording()}>
+				<button className="cancel-recorder-btn" onClick={() => handleCloseRecorder()}>
 					<GiCancel />
 				</button>
 			</div>
@@ -121,7 +132,7 @@ function VoiceNoteRecorder({
 				</div>
 			</div>
 			<div className="recorder-btn-container">
-				<button className="send-voice-note-btn" onClick={() => handleSendVoiceNote()}>
+				<button className="send-voice-note-btn" onClick={() => handleAudioBlob()}>
 					<GiConfirmed />
 				</button>
 			</div>

@@ -60,6 +60,10 @@ function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatC
 						hours: "",
 						minutes: "",
 					},
+					duration: {
+						minutes: messageObject.minutes,
+						seconds: messageObject.seconds,
+					},
 				};
 			else return;
 
@@ -128,7 +132,6 @@ function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatC
 					friend={friend}
 					controls={controls}
 					setControls={setControls}
-					chatConfigObject={chatConfigObject}
 					handleSentMessage={handleSentMessage}
 				/>
 			) : (
