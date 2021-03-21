@@ -41,7 +41,7 @@ function TextBox({
 			range.collapse(false);
 			selection.removeAllRanges();
 			selection.addRange(range);
-		} else messageInputRef.current.innerText = "";
+		} else if (messageInputRef.current) messageInputRef.current.innerText = "";
 	});
 
 	useEffect(() => {
