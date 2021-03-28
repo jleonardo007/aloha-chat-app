@@ -15,7 +15,7 @@ function handleUserConversations(user, friendId, storedMessages, hasDeletedMessa
 		(conversation) => conversation.friendId === friendId
 	);
 
-	if (hasDeletedMessages) conversation.messages = [...storedMessages];
+	if (hasDeletedMessages && storedMessages) conversation.messages = [...storedMessages];
 	else if (conversation) conversation.messages.push(...storedMessages);
 	else
 		user.conversations.push({
