@@ -7,13 +7,69 @@ import socketClient from "../../socket-client";
 import testSocket from "../../test_utils/testSocket";
 
 function VoiceNote({ message }) {
-	const voiceNoteRef = useRef(null);
-	const [voiceNoteState, setVoiceNoteState] = useState({
+	const initialState = {
 		toggleButton: false,
 		seenByFriend: false,
-		hours: null,
-		minutes: null,
+		minutes: message.duration.minutes,
+		seconds: message.duration.seconds,
+	};
+
+	const voiceNoteRef = useRef(null);
+	const progressBarRef = useRef(null);
+	const [voiceNoteState, setVoiceNoteState] = useState(initialState);
+
+	useEffect(() => {
+		let interval = null;
+		const audio = voiceNoteRef.current;
+		const audioEventHandler = () => {
+			progressBarRef.current.style.marginLeft = 0;
+			setVoiceNoteState(initialState);
+		};
+
+		if (voiceNoteState.toggleButton)
+			interval = setInterval(() => {
+				setVoiceNoteState((prevState) => {
+					if (prevState.seconds > 0 && prevState.seconds <= 59)
+						return {
+							...prevState,
+							seconds: prevState.seconds - 1,
+						};
+					else if (prevState.seconds <= 0)
+						return {
+							...prevState,
+							minutes: prevState.minutes - 1,
+							seconds: 59,
+						};
+				});
+			}, 1000);
+		else clearInterval(interval);
+
+		if (audio) audio.addEventListener("ended", audioEventHandler);
+
+		return () => {
+			clearInterval(interval);
+			if (audio) audio.removeEventListener("ended", audioEventHandler);
+		};
 	});
+
+	useEffect(() => {
+		const DURATION_IN_SECONDS = 60 * message.duration.minutes + message.duration.seconds;
+		let currentTimeInSeconds = 0;
+		let progressBarMargin = 0;
+
+		if (voiceNoteState.toggleButton) {
+			currentTimeInSeconds = 60 * voiceNoteState.minutes + voiceNoteState.seconds;
+			progressBarMargin = (1 - currentTimeInSeconds / DURATION_IN_SECONDS) * 100;
+			progressBarRef.current.style.marginLeft = `${progressBarMargin}%`;
+		}
+	});
+
+	useEffect(() => {
+		if (voiceNoteRef.current) {
+			if (voiceNoteState.toggleButton) voiceNoteRef.current.play();
+			else voiceNoteRef.current.pause();
+		}
+	}, [voiceNoteState.toggleButton]);
 
 	useEffect(() => {
 		const currentDate = Date.now();
@@ -32,25 +88,10 @@ function VoiceNote({ message }) {
 					: `0${new Date(currentDate).getMinutes()}`
 			}`;
 
-			setVoiceNoteState((prevState) => {
-				message.time.hours = currentHours;
-				message.time.minutes = currentMinutes;
-
-				return {
-					...prevState,
-					hours: currentHours,
-					minutes: currentMinutes,
-				};
-			});
+			message.time.hours = currentHours;
+			message.time.minutes = currentMinutes;
 		}
 	}, [message]);
-
-	useEffect(() => {
-		if (voiceNoteRef.current) {
-			if (voiceNoteState.toggleButton) voiceNoteRef.current.play();
-			else voiceNoteRef.current.pause();
-		}
-	}, [voiceNoteState.toggleButton]);
 
 	useEffect(() => {
 		if (process.env.NODE_ENV === "test")
@@ -89,20 +130,7 @@ function VoiceNote({ message }) {
 			if (process.env.NODE_ENV === "test") testSocket.removeAllListeners("test:seen-messages");
 			socketClient.off("seen-messages");
 		};
-	});
-
-	useEffect(() => {
-		if (voiceNoteRef.current) {
-			voiceNoteRef.current.addEventListener("ended", () =>
-				setVoiceNoteState((prevState) => {
-					return {
-						...prevState,
-						toggleButton: false,
-					};
-				})
-			);
-		}
-	}, []);
+	}, [message]);
 
 	function handlePlayVoiceNoteButton() {
 		setVoiceNoteState((prevState) => {
@@ -138,14 +166,15 @@ function VoiceNote({ message }) {
 					)}
 
 					<div className="audio-progress-bar">
-						<div className="progress-bar-indicator"></div>
+						<div className="progress-bar-indicator" ref={progressBarRef}></div>
 					</div>
 					<audio ref={voiceNoteRef} src={message.content} data-testid="voice-note"></audio>
 				</div>
 			</div>
 			<p className="voice-note-status">
 				<span className="voice-note-duration">
-					{voiceNoteRef.current && voiceNoteRef.current.currentTime}
+					{voiceNoteState.minutes}:
+					{voiceNoteState.seconds >= 10 ? voiceNoteState.seconds : `0${voiceNoteState.seconds}`}
 				</span>
 				<span className="time-label">{message.time.hours}</span>:
 				<span className="time-label">{message.time.minutes}</span>{" "}
