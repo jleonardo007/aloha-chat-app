@@ -68,7 +68,7 @@ function TextBox({
 				setControls((prevState) => {
 					return {
 						...prevState,
-						textContent: `${prevState.content || ""}${emojiObject.emoji}`,
+						textContent: `${prevState.textContent || ""}${emojiObject.emoji}`,
 						toggleVoiceNoteButton: true,
 					};
 				});
