@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import TextMessage from "./TextMessage";
 import VoiceNote from "./VoiceNote";
@@ -16,7 +16,12 @@ function Messages({
 	chatConfigObject,
 	setChatConfigObject,
 }) {
+	const messageRef = useRef(null);
 	const [messages, setMessages] = useState([]);
+
+	useEffect(() => {
+		if (messageRef.current) messageRef.current.scrollIntoView(false);
+	});
 
 	useEffect(() => {
 		if (process.env.NODE_ENV === "test") setMessages(mockMessages);
@@ -109,6 +114,7 @@ function Messages({
 
 	return (
 		<ul
+			ref={messageRef}
 			className="messages"
 			aria-label="messages"
 			style={{
