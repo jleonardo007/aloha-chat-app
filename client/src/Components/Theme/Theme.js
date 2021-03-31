@@ -50,7 +50,7 @@ function Theme({ dispatch }) {
 				<button
 					className="back-btn"
 					onClick={() => dispatch({ type: "RENDER_CHAT_INFO" })}
-					style={{ backgroundColor: theme.primaryColor }}
+					style={{ backgroundColor: theme.primaryColor, color: theme.fontColor }}
 				>
 					Back
 				</button>

@@ -44,17 +44,21 @@
 }
 
 .active-users-container .user-info {
+	justify-content: start;
 	padding-bottom: 0.5rem;
 	margin-bottom: 1rem;
 	border-bottom: 1px solid #536162;
 }
 
 .active-users-container .user-avatar {
+	align-self: flex-start;
 	width: 20%;
 }
 
 .active-users-container .user-name {
+	align-self: center;
 	width: 50%;
+	margin: 0 2rem;
 }
 
 .active-users-container .user-name span {

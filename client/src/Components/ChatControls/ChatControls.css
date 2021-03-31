@@ -126,7 +126,7 @@
 	border-radius: 50%;
 	background-color: red;
 	animation-name: animated-block;
-	animation-duration: 1.5s;
+	animation-duration: 2s;
 	animation-iteration-count: infinite;
 }
 
