@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import TextBox from "./TextBox";
 import VoiceNoteRecorder from "./VoiceNoteRecorder";
-import { GrEmoji } from "react-icons/gr";
+import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { BsFillMicFill } from "react-icons/bs";
 import { BiSend } from "react-icons/bi";
 
@@ -115,7 +115,7 @@ function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatC
 	return (
 		<>
 			<button className="emoji-btn" aria-label="emoji button" onClick={() => handleEmojiPicker()}>
-				<GrEmoji />
+				<HiOutlineEmojiHappy />
 			</button>
 			<TextBox
 				user={user}

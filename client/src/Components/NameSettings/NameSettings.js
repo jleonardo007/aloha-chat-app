@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ThemeContext } from "../../theme-context";
 
 import Picker from "emoji-picker-react";
-import { GrEmoji, GrCheckmark } from "react-icons/gr";
+import { HiOutlineEmojiHappy } from "react-icons/hi";
+import { BiCheck } from "react-icons/bi";
 
 import "./NameSettings.css";
 
@@ -15,6 +17,7 @@ const emojiPickerStyle = {
 };
 
 function NameSettings({ user, newProfile, setNewProfile }) {
+	const theme = useContext(ThemeContext);
 	const [inputValue, setInputValue] = useState("");
 	const [toggleEmojiPicker, setToogleEmojiPicker] = useState(false);
 
@@ -53,16 +56,18 @@ function NameSettings({ user, newProfile, setNewProfile }) {
 					className="emoji-button"
 					aria-label="emoji button"
 					onClick={handleEmojiButtonClick}
+					style={{ backgroundColor: theme.primaryColor, color: theme.fontColor }}
 				>
-					<GrEmoji />
+					<HiOutlineEmojiHappy />
 				</button>
 				<button
 					id="change-name"
 					type="submit"
 					className="change-name-btn"
 					aria-label="change name button"
+					style={{ backgroundColor: theme.primaryColor, color: theme.fontColor }}
 				>
-					<GrCheckmark />
+					<BiCheck />
 				</button>
 			</form>
 			{toggleEmojiPicker ? (

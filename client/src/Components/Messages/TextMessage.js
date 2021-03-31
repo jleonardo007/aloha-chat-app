@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
+import { ThemeContext } from "../../theme-context";
 
 import { BiCheckDouble } from "react-icons/bi";
 
@@ -6,6 +7,7 @@ import socketClient from "../../socket-client";
 import testSocket from "../../test_utils/testSocket";
 
 function TextMessage({ message }) {
+	const theme = useContext(ThemeContext);
 	const [textMessageState, setTextMessageState] = useState({
 		seenByFriend: false,
 		hours: null,
@@ -88,6 +90,9 @@ function TextMessage({ message }) {
 	return (
 		<div
 			className={`${message.status === "send" ? "message-send" : "message-received"}`}
+			style={{
+				backgroundColor: message.status === "send" ? theme.bubbleSend : theme.bubbleReceived,
+			}}
 			data-testid="text-message-content"
 		>
 			<p className="text-message-content" ref={messageContentRef}></p>

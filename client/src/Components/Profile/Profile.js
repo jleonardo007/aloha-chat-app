@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ThemeContext } from "../../theme-context";
 
 import Avatars from "../Avatars/Avatars";
 import NameSettings from "../NameSettings/NameSettings";
@@ -9,6 +10,7 @@ import socketClient from "../../socket-client";
 import "./Profile.css";
 
 function Profile({ user, dispatch }) {
+	const theme = useContext(ThemeContext);
 	const [toggleSelectAvatarButton, setToggleSelectAvatarButton] = useState(false);
 	const [settingsToRender, setSettingsToRender] = useState("");
 	const [newProfile, setNewProfile] = useState({ name: "", avatar: "" });
@@ -55,8 +57,9 @@ function Profile({ user, dispatch }) {
 						<button
 							className="change-avatar-btn"
 							aria-label="select avatar button"
-							onClick={(e) => handleSelectOptions(e)}
 							data-trigger-value="change-avatar"
+							onClick={(e) => handleSelectOptions(e)}
+							style={{ backgroundColor: theme.primaryColor, color: theme.fontColor }}
 						>
 							<AiOutlineCamera data-trigger-value="change-avatar" />
 						</button>
@@ -69,6 +72,7 @@ function Profile({ user, dispatch }) {
 						aria-label="edit name button"
 						onClick={(e) => handleSelectOptions(e)}
 						data-trigger-value="edit-name"
+						style={{ backgroundColor: theme.primaryColor, color: theme.fontColor }}
 					>
 						<BsPencil data-trigger-value="edit-name" />
 					</button>
@@ -80,6 +84,7 @@ function Profile({ user, dispatch }) {
 						onClick={() => {
 							handleChageProfile();
 						}}
+						style={{ backgroundColor: theme.primaryColor, color: theme.fontColor }}
 					>
 						{newProfile.name || newProfile.avatar ? "Change" : "Back"}
 					</button>

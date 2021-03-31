@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
+import { ThemeContext } from "../../theme-context";
 
 import { BiCheckDouble } from "react-icons/bi";
 import { BsPlayFill, BsPauseFill } from "react-icons/bs";
@@ -7,6 +8,7 @@ import socketClient from "../../socket-client";
 import testSocket from "../../test_utils/testSocket";
 
 function VoiceNote({ message }) {
+	const theme = useContext(ThemeContext);
 	const initialState = {
 		toggleButton: false,
 		seenByFriend: false,
@@ -143,6 +145,9 @@ function VoiceNote({ message }) {
 			className={`voice-note-container ${
 				message.status === "send" ? "message-send" : "message-received"
 			}`}
+			style={{
+				backgroundColor: message.status === "send" ? theme.bubbleSend : theme.bubbleReceived,
+			}}
 		>
 			<div className={`${message.status === "send" ? "voice-note-send " : "voice-note-received "}`}>
 				<img src={message.from.avatar} alt={message.from.name} className="user-avatar" />
@@ -151,6 +156,7 @@ function VoiceNote({ message }) {
 						<button
 							className="play-voice-note-btn"
 							aria-label="play voice note"
+							style={{ color: theme.primaryColor }}
 							onClick={() => handlePlayVoiceNoteButton()}
 						>
 							<BsPlayFill />
@@ -159,14 +165,19 @@ function VoiceNote({ message }) {
 						<button
 							className="play-voice-note-btn"
 							aria-label="pause voice note"
+							style={{ color: theme.primaryColor }}
 							onClick={() => handlePlayVoiceNoteButton()}
 						>
 							<BsPauseFill />
 						</button>
 					)}
 
-					<div className="audio-progress-bar">
-						<div className="progress-bar-indicator" ref={progressBarRef}></div>
+					<div className="audio-progress-bar" style={{ backgroundColor: theme.secondaryColor }}>
+						<div
+							className="progress-bar-indicator"
+							ref={progressBarRef}
+							style={{ backgroundColor: theme.primaryColor }}
+						></div>
 					</div>
 					<audio ref={voiceNoteRef} src={message.content} data-testid="voice-note"></audio>
 				</div>

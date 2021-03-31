@@ -1,7 +1,12 @@
+import { useContext } from "react";
+import { ThemeContext } from "../../theme-context";
+
 import Menu from "../Menu/Menu";
 import "./User.css";
 
 function User({ user, dispatch }) {
+	const theme = useContext(ThemeContext);
+
 	return (
 		<div className="user-info" data-testid="user-info">
 			<img src={user.avatar} alt="User Avatar" className="user-avatar" loading="lazy" />
@@ -10,7 +15,11 @@ function User({ user, dispatch }) {
 			</div>
 			<div className="menu-container">
 				<Menu>
-					<ul className="menu" aria-label="settings">
+					<ul
+						className="menu"
+						aria-label="settings"
+						style={{ backgroundColor: theme.background, border: `1px solid ${theme.fontColor}` }}
+					>
 						<li
 							className="menu__item"
 							aria-label="profile"

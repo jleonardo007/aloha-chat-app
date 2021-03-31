@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ThemeContext } from "../../theme-context";
 
 import Menu from "../Menu/Menu";
 
@@ -7,6 +8,7 @@ import testSocket from "../../test_utils/testSocket";
 import "./Friend.css";
 
 function Friend({ friend, setChatConfigObject }) {
+	const theme = useContext(ThemeContext);
 	const [friendAction, setFriendAction] = useState("");
 
 	useEffect(() => {
@@ -85,7 +87,11 @@ function Friend({ friend, setChatConfigObject }) {
 			</div>
 			<div className="menu-container">
 				<Menu>
-					<ul className="menu" aria-label="chat settings">
+					<ul
+						className="menu"
+						aria-label="chat settings"
+						style={{ backgroundColor: theme.background, border: `1px solid ${theme.fontColor}` }}
+					>
 						<li
 							className="menu__item"
 							aria-label="select messages"

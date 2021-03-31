@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ThemeContext } from "../../theme-context";
 
 import User from "../User/User";
 
@@ -9,6 +10,7 @@ import noUsers from "../../chat-icons/no-active-users.png";
 import "./ChatInfo.css";
 
 function ActiveUser({ user, currentFriend, dispatch }) {
+	const theme = useContext(ThemeContext);
 	const [newMessagesCounter, setNewMessagesCounter] = useState(0);
 
 	useEffect(() => {
@@ -43,7 +45,7 @@ function ActiveUser({ user, currentFriend, dispatch }) {
 				<span>{user.name}</span>
 			</div>
 			{newMessagesCounter > 0 && (
-				<div className="new-messages-counter">
+				<div className="new-messages-counter" style={{ backgroundColor: theme.primaryColor }}>
 					<span data-testid="new-messages-counter">{newMessagesCounter}</span>
 				</div>
 			)}

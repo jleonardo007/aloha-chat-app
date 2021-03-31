@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ThemeContext } from "../../theme-context";
 
 import Messages from "../Messages/Messages";
 import ChatControls from "../ChatControls/ChatControls";
@@ -10,6 +11,7 @@ import talk from "../../chat-icons/charla.png";
 import "./ChatPanel.css";
 
 function ChatPanel(props) {
+	const theme = useContext(ThemeContext);
 	const [chatMessagesObject, setChatMessagesObject] = useState({
 		sentMessage: null,
 		receivedMessage: null,
@@ -106,7 +108,10 @@ function ChatPanel(props) {
 	}, [props.chatConfigObject]);
 
 	return (
-		<section className="chat-panel">
+		<section
+			className="chat-panel"
+			style={{ backgroundColor: theme.background, color: theme.fontColor }}
+		>
 			{props.settingOption === "no-render-options" ? (
 				props.chatInfo
 			) : (

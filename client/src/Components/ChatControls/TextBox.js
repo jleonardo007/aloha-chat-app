@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
+import { ThemeContext } from "../../theme-context";
 
 import Picker from "emoji-picker-react";
 import { BsTrash } from "react-icons/bs";
@@ -22,6 +23,7 @@ function TextBox({
 	handleSentMessage,
 	handleSelectedMessagesDeletion,
 }) {
+	const theme = useContext(ThemeContext);
 	const messageInputRef = useRef(null);
 	const [textBoxState, setTextBoxState] = useState({
 		content: "",
@@ -113,7 +115,10 @@ function TextBox({
 
 	return (
 		<>
-			<div className="textbox-container">
+			<div
+				className="textbox-container"
+				style={{ backgroundColor: theme.secondaryColor, color: theme.fontColor }}
+			>
 				{!textBoxState.content && !chatConfigObject.toggleMessageSelector && (
 					<div className="textbox-placeholder" onClick={setTextBoxFocus}>
 						<span>Write a message</span>

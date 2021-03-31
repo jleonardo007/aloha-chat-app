@@ -1,4 +1,5 @@
-import { useState, useReducer } from "react";
+import { useState, useEffect, useReducer } from "react";
+import { ThemeContext, themes } from "./theme-context";
 
 import ChatPanel from "./Components/ChatPanel/ChatPanel";
 import CreateUser from "./Components/CreateUser/CreateUser";
@@ -11,6 +12,7 @@ const initialState = {
 	user: {},
 	friend: null,
 	settingOptionToRender: "no-render-options",
+	theme: themes.light,
 };
 
 function reducer(state, action) {
@@ -72,6 +74,13 @@ function reducer(state, action) {
 					...action.newProfile,
 				},
 			};
+
+		case "CHANGE_THEME":
+			return {
+				...state,
+				theme: action.theme,
+			};
+
 		default:
 			return state;
 	}
@@ -86,22 +95,32 @@ function App() {
 		shouldDeleteSelectedMessages: false,
 		shouldSetEnterToSend: false,
 		selectedMessagesCounter: 0,
-		backgroundColor: "#21c961",
+		backgroundColor: state.theme.primaryColor,
 		toggleBackgroundColor: "",
 	});
 
+	useEffect(() => {
+		setChatConfigObject((prevState) => {
+			return {
+				...prevState,
+				backgroundColor: state.theme.primaryColor,
+			};
+		});
+	}, [state.theme.primaryColor]);
 	return state.userIsCreated ? (
-		<ChatPanel
-			user={state.user}
-			friend={state.friend}
-			settingOption={state.settingOptionToRender}
-			dispatch={dispatch}
-			chatConfigObject={chatConfigObject}
-			setChatConfigObject={setChatConfigObject}
-			friendComponent={<Friend friend={state.friend} setChatConfigObject={setChatConfigObject} />}
-			chatInfo={<ChatInfo user={state.user} currentFriend={state.friend} dispatch={dispatch} />}
-			profile={<Profile user={state.user} dispatch={dispatch} />}
-		/>
+		<ThemeContext.Provider value={state.theme}>
+			<ChatPanel
+				user={state.user}
+				friend={state.friend}
+				settingOption={state.settingOptionToRender}
+				dispatch={dispatch}
+				chatConfigObject={chatConfigObject}
+				setChatConfigObject={setChatConfigObject}
+				friendComponent={<Friend friend={state.friend} setChatConfigObject={setChatConfigObject} />}
+				chatInfo={<ChatInfo user={state.user} currentFriend={state.friend} dispatch={dispatch} />}
+				profile={<Profile user={state.user} dispatch={dispatch} />}
+			/>
+		</ThemeContext.Provider>
 	) : (
 		<CreateUser dispatch={dispatch} />
 	);

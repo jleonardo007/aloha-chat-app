@@ -1,45 +1,11 @@
+import { useContext } from "react";
+import { ThemeContext } from "../../theme-context";
+
 import "./Backgrounds.css";
 
-const solidColorBackgrounds = [
-	{
-		name: "coquelicot",
-		color: "#FF3800",
-	},
-	{
-		name: "amazon",
-		color: "#3B7A57",
-	},
-	{
-		name: "amber",
-		color: "#FFBF00",
-	},
-	{
-		name: "american rose",
-		color: "#FF033E",
-	},
-	{
-		name: "air force dark blue",
-		color: "#00308F",
-	},
-	{
-		name: "black",
-		color: "#000000",
-	},
-	{
-		name: "bright pink",
-		color: "#FF007F",
-	},
-	{
-		name: "byzantium",
-		color: "#702963",
-	},
-	{
-		name: "dark green",
-		color: "#013220",
-	},
-];
-
 function Backgrounds({ dispatch, chatConfigObject, setChatConfigObject }) {
+	const theme = useContext(ThemeContext);
+	console.log(theme);
 	function handleBackgroundChange(e) {
 		setChatConfigObject({
 			...chatConfigObject,
@@ -67,14 +33,13 @@ function Backgrounds({ dispatch, chatConfigObject, setChatConfigObject }) {
 
 	return (
 		<div className="backgrounds-container" data-testid="backgrounds">
-			{solidColorBackgrounds.map((background, index) => {
+			{theme.backgroundColors.map((color, index) => {
 				return (
 					<div
 						className="background"
 						data-testid="color-options"
-						style={{ backgroundColor: background.color }}
-						title={background.name}
-						data-color-value={background.color}
+						style={{ backgroundColor: color }}
+						data-color-value={color}
 						key={index}
 						onClick={(e) => handleBackgroundChange(e)}
 						onMouseEnter={(e) => handleSelectBackground(e)}
@@ -83,7 +48,11 @@ function Backgrounds({ dispatch, chatConfigObject, setChatConfigObject }) {
 				);
 			})}
 			<div className="back-btn-container">
-				<button className="back-btn" onClick={() => dispatch({ type: "RENDER_CHAT_INFO" })}>
+				<button
+					className="back-btn"
+					onClick={() => dispatch({ type: "RENDER_CHAT_INFO" })}
+					style={{ backgroundColor: theme.primaryColor, color: theme.fontColor }}
+				>
 					Back
 				</button>
 			</div>
