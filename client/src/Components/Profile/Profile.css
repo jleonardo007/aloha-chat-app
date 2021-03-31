@@ -10,13 +10,6 @@
 	margin-bottom: 1rem;
 }
 
-.change-avatar-btn:active,
-.edit-name-btn:active,
-.change-profile-btn:active {
-	background-color: coral;
-	color: white;
-}
-
 .change-avatar-btn,
 .edit-name-btn,
 .change-profile-btn:focus {

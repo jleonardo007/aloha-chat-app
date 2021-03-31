@@ -1,11 +1,11 @@
 .messages {
-	padding: 1rem;
+	padding: 2rem 4rem;
 	min-height: 100%;
 }
 
 .messages li {
 	display: flex;
-	margin-bottom: 1rem;
+	margin-bottom: 2rem;
 }
 
 .message div[class^="message"] {
@@ -15,7 +15,6 @@
 	padding: 0.5rem;
 	border-radius: 0.55rem;
 	text-align: justify;
-	background-color: azure;
 }
 
 .message-send {
@@ -30,7 +29,6 @@
 	width: 400px;
 	padding: 0.5rem;
 	border-radius: 0.55rem;
-	background-color: azure;
 }
 
 .voice-note-send,
@@ -66,6 +64,7 @@
 	border: none;
 	background: none;
 	font-size: 3rem;
+
 	cursor: pointer;
 }
 
@@ -78,28 +77,22 @@
 	height: 5px;
 	display: grid;
 	align-content: center;
-	background-color: tomato;
 }
 
 .progress-bar-indicator {
 	width: 15px;
 	height: 15px;
 	border-radius: 50%;
-	background-color: teal;
 }
 
 .voice-note-status {
 	display: flex;
-	justify-content: flex-end;
+	justify-content: center;
 	align-items: center;
 }
 
 .voice-note-status span:first-child {
 	margin: 0 1rem;
-}
-
-.message-send .voice-note-status {
-	justify-content: flex-start;
 }
 
 .text-message-content {

@@ -32,11 +32,6 @@
 	font-size: 1rem;
 }
 
-.back-btn:active {
-	background-color: coral;
-	color: white;
-}
-
 .back-btn:focus {
 	outline: none;
 }

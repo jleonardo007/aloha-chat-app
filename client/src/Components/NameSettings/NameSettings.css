@@ -26,12 +26,14 @@
 	outline: none;
 }
 
-.name-settings button:active {
-	background-color: coral;
-}
-
 .change-name-input {
 	width: 70%;
 	height: 30px;
 	padding-left: 0.5rem;
+	border: none;
+	border-radius: 1rem;
+}
+
+.change-name-input:focus {
+	outline: none;
 }
