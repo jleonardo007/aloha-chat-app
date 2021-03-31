@@ -1,7 +1,8 @@
 .welcome-page,
 .avatar-page {
 	min-height: 100vh;
-	background-color: paleturquoise;
+	background-color: #21c961;
+	color: #244c4e;
 }
 
 .welcome-page button,
@@ -9,38 +10,52 @@
 	padding: 0.25rem;
 	border-style: none;
 	border-radius: 1rem;
-	background-color: rebeccapurple;
+	background-color: #244c4e;
+	color: #fff;
+	font-weight: bold;
+	cursor: pointer;
 }
 
 .welcome-page button:active,
 .avatar-page button:active {
 	outline: none;
-	background-color: crimson;
+	background-color: #147438;
 }
 
 .welcome-page {
 	display: grid;
-	place-items: center;
+	grid-template-columns: 50vw 50vw;
+}
+
+.hero-image {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: #fff;
+}
+
+.welcome__container {
+	padding-top: 4rem;
+	padding-left: 1rem;
 }
 
 .welcome__title {
-	width: 500px;
-	height: 100px;
-	display: grid;
-	align-content: center;
 	margin-bottom: 4rem;
-	font-size: 3rem;
+	font-size: 2rem;
+}
+
+.app-title {
+	margin-top: 1rem;
+	text-align: center;
 }
 
 .create-name-container {
-	width: 600px;
 	height: 300px;
 }
 
 .form {
 	height: 100%;
 	padding: 2rem;
-	border: 2px solid lightblue;
 }
 
 .form div {
@@ -55,7 +70,14 @@
 	width: 100%;
 	height: 35px;
 	padding: 0.5rem;
+	border: none;
+	border-radius: 0.8rem;
 	font-size: 1.5rem;
+}
+
+.form-input input:focus {
+	outline: none;
+	border: 2px solid #244c4e;
 }
 
 .form-btn {
@@ -65,7 +87,7 @@
 }
 
 .form-btn button {
-	width: 200px;
+	width: 150px;
 	font-size: 1.5rem;
 }
 
@@ -89,7 +111,7 @@
 
 .avatar-image {
 	border-radius: 50%;
-	background-color: white;
+	color: #fff;
 	cursor: pointer;
 }
 
@@ -108,7 +130,6 @@
 .join-btn-container button {
 	width: 200px;
 	font-size: 2rem;
-	cursor: pointer;
 }
 
 .join-btn-container button:focus {

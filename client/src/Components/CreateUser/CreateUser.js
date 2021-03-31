@@ -11,6 +11,7 @@ import niña4 from "../../default-avatars/nina-4.png";
 import ninja from "../../default-avatars/ninja.png";
 import rey from "../../default-avatars/rey.png";
 import noAvatar from "../../default-avatars/no-avatar.png";
+import heroImage from "../../chat-icons/hero-image.jpg";
 
 const avatarsCollection = [astronauta, hacker, niña1, niña2, niña3, niña4, ninja, rey];
 
@@ -24,9 +25,11 @@ function CreateUserName({ setUserName }) {
 
 	return (
 		<section className="welcome-page" data-testid="username-page">
+			<div className="hero-image" style={{ backgroundImage: `url(${heroImage})` }}></div>
 			<div className="welcome__container">
 				<div className="welcome__title">
-					<h1>Welcome!</h1>
+					<h1>Make new friends, just say</h1>
+					<h2 className="app-title">Aloha!</h2>
 				</div>
 				<div className="create-name-container">
 					<form className="form" onSubmit={(e) => handleSubmit(e)}>
