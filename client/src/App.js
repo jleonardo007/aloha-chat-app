@@ -86,7 +86,7 @@ function App() {
 		shouldDeleteSelectedMessages: false,
 		shouldSetEnterToSend: false,
 		selectedMessagesCounter: 0,
-		backgroundColor: "#013220",
+		backgroundColor: "#21c961",
 		toggleBackgroundColor: "",
 	});
 
