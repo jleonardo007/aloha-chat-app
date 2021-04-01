@@ -12,7 +12,7 @@ const emojiPickerStyle = {
 	position: "absolute",
 	top: "10%",
 	left: "90%",
-	zIndex: "1",
+	zIndex: "2",
 	boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.4)",
 };
 
@@ -35,6 +35,10 @@ function NameSettings({ user, newProfile, setNewProfile }) {
 
 	function handleChange(e) {
 		setInputValue(e.target.value);
+	}
+
+	function handleAddEmoji(e, emojiObject) {
+		setInputValue((prevState) => `${prevState}${emojiObject.emoji}`);
 	}
 
 	return (
@@ -72,7 +76,12 @@ function NameSettings({ user, newProfile, setNewProfile }) {
 			</form>
 			{toggleEmojiPicker ? (
 				<div className="emoji-picker" data-testid="emoji-picker">
-					<Picker pickerStyle={emojiPickerStyle} disableAutoFocus={true} disableSearchBar={true} />
+					<Picker
+						pickerStyle={emojiPickerStyle}
+						disableAutoFocus={true}
+						disableSearchBar={true}
+						onEmojiClick={handleAddEmoji}
+					/>
 				</div>
 			) : null}
 		</div>

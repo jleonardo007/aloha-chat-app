@@ -34,18 +34,25 @@
 }
 
 .profile-name {
+	width: 80%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
 	margin-bottom: 1rem;
-	text-align: center;
-	font-weight: bold;
 }
 
 .profile-name span {
-	margin-right: 1rem;
+	width: 80%;
+	display: grid;
+	place-content: center;
+	overflow-wrap: break-word;
+	word-break: break-all;
 }
 
 .change-avatar-btn {
 	width: 50px;
 	height: 50px;
+
 	border-radius: 50%;
 	font-size: 2rem;
 	cursor: pointer;
@@ -54,6 +61,7 @@
 .edit-name-btn {
 	width: 32px;
 	height: 32px;
+	margin-left: 1rem;
 	border-radius: 50%;
 }
 
