@@ -107,6 +107,7 @@ function App() {
 			};
 		});
 	}, [state.theme.primaryColor]);
+
 	return state.userIsCreated ? (
 		<ThemeContext.Provider value={state.theme}>
 			<ChatPanel

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
+import { FaUpload } from "react-icons/fa";
 import "./CreateUser.css";
 
 import astronauta from "../../default-avatars/astronauta.png";
@@ -47,7 +48,9 @@ function CreateUserName({ setUserName }) {
 							/>
 						</div>
 						<div className="form-btn">
-							<button type="submit">Next</button>
+							<button type="submit" className="create-btn">
+								Next
+							</button>
 						</div>
 					</form>
 				</div>
@@ -57,6 +60,19 @@ function CreateUserName({ setUserName }) {
 }
 
 function CreateUserAvatar({ avatar, setAvatar, handleClick }) {
+	const fileInputRef = useRef(null);
+
+	function handleAvatarUpload(e) {
+		const file = e.target.files[0];
+		const reader = new FileReader();
+
+		reader.addEventListener("load", (e) => {
+			setAvatar(e.target.result);
+		});
+
+		reader.readAsDataURL(file);
+	}
+
 	return (
 		<section className="avatar-page" data-testid="avatar-page">
 			<div className="avatar__title">
@@ -71,7 +87,11 @@ function CreateUserAvatar({ avatar, setAvatar, handleClick }) {
 						loading="lazy"
 					/>
 					<div className="join-btn-container">
-						{avatar ? <button onClick={() => handleClick()}>Join!</button> : null}
+						{avatar ? (
+							<button className="create-btn" onClick={() => handleClick()}>
+								Join!
+							</button>
+						) : null}
 					</div>
 				</div>
 				<div className="default-avatars">
@@ -90,6 +110,23 @@ function CreateUserAvatar({ avatar, setAvatar, handleClick }) {
 								/>
 							);
 						})}
+						<div className="custom-avatar-container">
+							<input
+								type="file"
+								name="custom-avatar"
+								className="custom-avatar-input"
+								accept=".jpg, .jpeg, .png"
+								ref={fileInputRef}
+								onChange={(e) => handleAvatarUpload(e)}
+							/>
+							<button
+								className="custom-avatar-btn"
+								title="Pick a custom avatar!"
+								onClick={() => fileInputRef.current.click()}
+							>
+								<FaUpload />
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>

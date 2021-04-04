@@ -5,8 +5,7 @@
 	color: #244c4e;
 }
 
-.welcome-page button,
-.avatar-page button {
+.create-btn {
 	padding: 0.25rem;
 	border-style: none;
 	border-radius: 1rem;
@@ -16,8 +15,7 @@
 	cursor: pointer;
 }
 
-.welcome-page button:active,
-.avatar-page button:active {
+.create-btn:active {
 	outline: none;
 	background-color: #147438;
 }
@@ -150,4 +148,35 @@
 	height: 130px;
 	margin-right: 1rem;
 	margin-bottom: 2rem;
+}
+
+.custom-avatar-container {
+	width: 100px;
+	height: 100px;
+	display: grid;
+	place-content: center;
+}
+
+.custom-avatar-input {
+	display: none;
+}
+
+.custom-avatar-btn {
+	width: 90px;
+	height: 90px;
+	border: none;
+	border-radius: 50%;
+	background-color: #244c4e;
+	color: #fff;
+	font-size: 2.5rem;
+	cursor: pointer;
+}
+
+.custom-avatar-btn:focus {
+	outline: none;
+}
+
+.custom-avatar-btn:active {
+	background-color: #147438;
+	color: #244c4e;
 }
