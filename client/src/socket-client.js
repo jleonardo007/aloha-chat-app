@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-const url = "https://git.heroku.com/aloha-chat-ws-server.git";
-const socket = io(url, { path: "/aloha-chat-ws-server.git" });
+const url = "https://aloha-chat-ws-server.herokuapp.com/";
+const socket = io(url, { path: "/" });
 
 export default socket;

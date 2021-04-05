@@ -1,8 +1,7 @@
 const options = {
-	path: "/aloha-chat-ws-server.git",
+	path: "/",
 	cors: {
-		origin: "https://aloha-chat-app-fc64f.web.app/",
-		methods: "GET",
+		origin: "https://aloha-chat-app-fc64f.web.app",
 	},
 };
 const PORT = process.env.PORT || 4000;
