@@ -18,4 +18,4 @@ Avatars designed by [Freepick](https://www.flaticon.es/autores/freepik) from [Fl
 
 ![Aloha dark theme](readme-images/dark-theme.png)
 
-Also another features has included, take a look at [Aloha](https://github.com/facebook/create-react-app).
+Also another features has included, take a look at [Aloha](https://aloha-chat-app-fc64f.web.app/).
