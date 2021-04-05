@@ -1,24 +1,28 @@
 {
-  "name": "chat-server-side",
-  "version": "0.1.0",
-  "private": "true",
-  "description": "Simple websocket server using socket.io",
-  "main": "server.js",
-  "scripts": {
-    "dev-server": "clear && nodemon node server.js"
-  },
-  "keywords": [
-    "chat-app",
-    "react",
-    "frontend",
-    "backend"
-  ],
-  "author": "j.leonardo.bravo@gmail.com",
-  "license": "ISC",
-  "dependencies": {
-    "socket.io": "^3.0.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.6"
-  }
+	"name": "chat-server-side",
+	"version": "0.1.0",
+	"private": "true",
+	"description": "Simple websocket server using socket.io",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js",
+		"dev-server": "clear && nodemon node server.js"
+	},
+	"keywords": [
+		"chat-app",
+		"react",
+		"frontend",
+		"backend"
+	],
+	"author": "j.leonardo.bravo@gmail.com",
+	"license": "ISC",
+	"dependencies": {
+		"socket.io": "^3.0.1"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.6"
+	},
+	"engines": {
+		"node": "14.16.0"
+	}
 }

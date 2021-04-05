@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-const url = process.env.NODE_ENV === "test" ? "" : "http://localhost:4000";
+const url = "https://git.heroku.com/aloha-chat-ws-server.git";
 const socket = io(url, { path: "/" });
 
 export default socket;
