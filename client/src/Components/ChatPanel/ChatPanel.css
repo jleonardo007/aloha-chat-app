@@ -1,99 +1,99 @@
 .chat-panel {
-	min-height: 100vh;
-	display: grid;
-	grid-template-columns: 30% 70%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 30% 70%;
 }
 
 .settings-components-container,
 .no-chat {
-	height: 100%;
+  height: 100%;
 }
 
 .no-chat {
-	display: grid;
-	place-content: center;
-	border-left: 1px solid #536162;
+  display: grid;
+  place-content: center;
+  border-left: 1px solid #536162;
 }
 
 .no-chat-container span {
-	display: block;
-	margin-bottom: 1rem;
-	text-align: center;
-	font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 3rem;
 }
 
 .no-chat-container img {
-	width: 50%;
-	display: block;
-	margin: 0 auto;
+  width: 50%;
+  display: block;
+  margin: 0 auto;
 }
 
 .user-container,
 .friend-container {
-	height: 8%;
+  height: 8%;
 }
 
 .user-container {
-	border-bottom: 1px solid #536162;
+  border-bottom: 1px solid #536162;
 }
 
 .chat {
-	max-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	border-left: 1px solid #536162;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #536162;
 }
 
 .messages-container {
-	height: 84vh;
-	overflow-y: auto;
+  height: 84vh;
+  overflow-y: auto;
 }
 
 .messages-container::-webkit-scrollbar {
-	width: 5px;
+  width: 5px;
 }
 
 .messages-container::-webkit-scrollbar-track {
-	background: #e4d3cf;
+  background: #e4d3cf;
 }
 
 .messages-container::-webkit-scrollbar-thumb {
-	background: #536162;
+  background: #536162;
 }
 
 .chat-controls-container {
-	min-height: 8%;
-	max-height: 15vh;
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
-	padding: 1rem 0;
+  min-height: 8%;
+  max-height: 15vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 1rem 0;
 }
 
 .user-info {
-	height: 100%;
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .user-avatar {
-	border-radius: 50%;
+  border-radius: 50%;
 }
 
 .user-name,
 .menu-container {
-	height: 40%;
+  height: 40%;
 }
 
 .user-name {
-	display: grid;
-	align-content: center;
-	font-size: 1rem;
+  display: grid;
+  align-content: center;
+  font-size: 1rem;
 }
 
 .menu-container {
-	display: grid;
-	place-content: center;
-	position: relative;
+  display: grid;
+  place-content: center;
+  position: relative;
 }

@@ -1,182 +1,182 @@
 .welcome-page,
 .avatar-page {
-	min-height: 100vh;
-	background-color: #21c961;
-	color: #244c4e;
+  min-height: 100vh;
+  background-color: #21c961;
+  color: #244c4e;
 }
 
 .create-btn {
-	padding: 0.25rem;
-	border-style: none;
-	border-radius: 1rem;
-	background-color: #244c4e;
-	color: #fff;
-	font-weight: bold;
-	cursor: pointer;
+  padding: 0.25rem;
+  border-style: none;
+  border-radius: 1rem;
+  background-color: #244c4e;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .create-btn:active {
-	outline: none;
-	background-color: #147438;
+  outline: none;
+  background-color: #147438;
 }
 
 .welcome-page {
-	display: grid;
-	grid-template-columns: 50vw 50vw;
+  display: grid;
+  grid-template-columns: 50vw 50vw;
 }
 
 .hero-image {
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-color: #fff;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #fff;
 }
 
 .welcome__container {
-	padding-top: 4rem;
-	padding-left: 1rem;
+  padding-top: 4rem;
+  padding-left: 1rem;
 }
 
 .welcome__title {
-	margin-bottom: 4rem;
-	font-size: 2rem;
+  margin-bottom: 4rem;
+  font-size: 2rem;
 }
 
 .app-title {
-	margin-top: 1rem;
-	text-align: center;
+  margin-top: 1rem;
+  text-align: center;
 }
 
 .create-name-container {
-	height: 300px;
+  height: 300px;
 }
 
 .form {
-	height: 100%;
-	padding: 2rem;
+  height: 100%;
+  padding: 2rem;
 }
 
 .form div {
-	margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .form-label {
-	font-size: 2.5rem;
+  font-size: 2.5rem;
 }
 
 .form-input input {
-	width: 100%;
-	height: 35px;
-	padding: 0.5rem;
-	border: none;
-	border-radius: 0.8rem;
-	font-size: 1.5rem;
+  width: 100%;
+  height: 35px;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.8rem;
+  font-size: 1.5rem;
 }
 
 .form-input input:focus {
-	outline: none;
-	border: 2px solid #244c4e;
+  outline: none;
+  border: 2px solid #244c4e;
 }
 
 .form-btn {
-	height: 30%;
-	display: grid;
-	place-content: center;
+  height: 30%;
+  display: grid;
+  place-content: center;
 }
 
 .form-btn button {
-	width: 150px;
-	font-size: 1.5rem;
+  width: 150px;
+  font-size: 1.5rem;
 }
 
 .avatar__title {
-	display: grid;
-	place-content: center;
-	height: 20vh;
-	font-size: 3rem;
+  display: grid;
+  place-content: center;
+  height: 20vh;
+  font-size: 3rem;
 }
 
 .avatar__container {
-	height: 80vh;
-	display: grid;
-	grid-template-columns: 40% 60%;
+  height: 80vh;
+  display: grid;
+  grid-template-columns: 40% 60%;
 }
 
 .avatar__preview {
-	display: grid;
-	place-items: center;
+  display: grid;
+  place-items: center;
 }
 
 .avatar-image {
-	border-radius: 50%;
-	color: #fff;
-	cursor: pointer;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
 }
 
 .avatar__preview .avatar-image {
-	width: 350px;
-	height: 350px;
+  width: 350px;
+  height: 350px;
 }
 
 .join-btn-container {
-	width: 300px;
-	height: 80px;
-	display: grid;
-	place-content: center;
+  width: 300px;
+  height: 80px;
+  display: grid;
+  place-content: center;
 }
 
 .join-btn-container button {
-	width: 200px;
-	font-size: 2rem;
+  width: 200px;
+  font-size: 2rem;
 }
 
 .join-btn-container button:focus {
-	outline: none;
+  outline: none;
 }
 
 .default-avatars {
-	padding: 1rem;
+  padding: 1rem;
 }
 
 .collection {
-	display: flex;
-	flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .collection .avatar-image {
-	width: 130px;
-	height: 130px;
-	margin-right: 1rem;
-	margin-bottom: 2rem;
+  width: 130px;
+  height: 130px;
+  margin-right: 1rem;
+  margin-bottom: 2rem;
 }
 
 .custom-avatar-container {
-	width: 100px;
-	height: 100px;
-	display: grid;
-	place-content: center;
+  width: 100px;
+  height: 100px;
+  display: grid;
+  place-content: center;
 }
 
 .custom-avatar-input {
-	display: none;
+  display: none;
 }
 
 .custom-avatar-btn {
-	width: 90px;
-	height: 90px;
-	border: none;
-	border-radius: 50%;
-	background-color: #244c4e;
-	color: #fff;
-	font-size: 2.5rem;
-	cursor: pointer;
+  width: 90px;
+  height: 90px;
+  border: none;
+  border-radius: 50%;
+  background-color: #244c4e;
+  color: #fff;
+  font-size: 2.5rem;
+  cursor: pointer;
 }
 
 .custom-avatar-btn:focus {
-	outline: none;
+  outline: none;
 }
 
 .custom-avatar-btn:active {
-	background-color: #147438;
-	color: #244c4e;
+  background-color: #147438;
+  color: #244c4e;
 }

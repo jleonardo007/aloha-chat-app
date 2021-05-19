@@ -1,37 +1,37 @@
 .backgrounds-container {
-	height: 100%;
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: repeat(4, 1fr);
-	column-gap: 10px;
-	row-gap: 20px;
-	padding: 1rem;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  column-gap: 10px;
+  row-gap: 20px;
+  padding: 1rem;
 }
 
 .background {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .background:hover {
-	box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.4);
 }
 
 .back-btn-container {
-	grid-column: 1/4;
-	display: grid;
-	place-content: center;
+  grid-column: 1/4;
+  display: grid;
+  place-content: center;
 }
 
 .back-btn {
-	width: 150px;
-	height: 30px;
-	padding: 0.5rem;
-	border-radius: 1rem;
-	border: none;
-	cursor: pointer;
-	font-size: 1rem;
+  width: 150px;
+  height: 30px;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
 .back-btn:focus {
-	outline: none;
+  outline: none;
 }

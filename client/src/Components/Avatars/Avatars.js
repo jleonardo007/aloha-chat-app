@@ -17,61 +17,61 @@ import "./Avatars.css";
 const avatarsCollection = [astronauta, hacker, niña1, niña2, niña3, niña4, ninja, rey];
 
 function Avatars({ user, newProfile, setNewProfile }) {
-	const theme = useContext(ThemeContext);
-	const fileInputRef = useRef(null);
+  const theme = useContext(ThemeContext);
+  const fileInputRef = useRef(null);
 
-	function handleAvatarUpload(e) {
-		const file = e.target.files[0];
-		const reader = new FileReader();
+  function handleAvatarUpload(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
 
-		reader.addEventListener("load", (e) => {
-			setNewProfile({
-				name: newProfile.name ? newProfile.name : user.name,
-				avatar: e.target.result,
-			});
-		});
+    reader.addEventListener("load", (e) => {
+      setNewProfile({
+        name: newProfile.name ? newProfile.name : user.name,
+        avatar: e.target.result,
+      });
+    });
 
-		reader.readAsDataURL(file);
-	}
+    reader.readAsDataURL(file);
+  }
 
-	return (
-		<div className="avatars-collection" data-testid="avatars">
-			{avatarsCollection.map((avatarSrc, index) => {
-				return (
-					<img
-						key={index}
-						src={avatarSrc}
-						alt="User avatar"
-						loading="lazy"
-						onClick={(e) => {
-							setNewProfile({
-								name: newProfile.name ? newProfile.name : user.name,
-								avatar: e.target.src,
-							});
-						}}
-					/>
-				);
-			})}
-			<div className="custom-avatar-container">
-				<input
-					type="file"
-					name="custom-avatar"
-					className="custom-avatar-input"
-					accept=".jpg, .jpeg, .png"
-					ref={fileInputRef}
-					onChange={(e) => handleAvatarUpload(e)}
-				/>
-				<button
-					className="custom-avatar-btn"
-					title="Pick a custom avatar!"
-					style={{ backgroundColor: theme.primaryColor, color: theme.fontColor }}
-					onClick={() => fileInputRef.current.click()}
-				>
-					<FaUpload />
-				</button>
-			</div>
-		</div>
-	);
+  return (
+    <div className="avatars-collection" data-testid="avatars">
+      {avatarsCollection.map((avatarSrc, index) => {
+        return (
+          <img
+            key={index}
+            src={avatarSrc}
+            alt="User avatar"
+            loading="lazy"
+            onClick={(e) => {
+              setNewProfile({
+                name: newProfile.name ? newProfile.name : user.name,
+                avatar: e.target.src,
+              });
+            }}
+          />
+        );
+      })}
+      <div className="custom-avatar-container">
+        <input
+          type="file"
+          name="custom-avatar"
+          className="custom-avatar-input"
+          accept=".jpg, .jpeg, .png"
+          ref={fileInputRef}
+          onChange={(e) => handleAvatarUpload(e)}
+        />
+        <button
+          className="custom-avatar-btn"
+          title="Pick a custom avatar!"
+          style={{ backgroundColor: theme.primaryColor, color: theme.fontColor }}
+          onClick={() => fileInputRef.current.click()}
+        >
+          <FaUpload />
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default Avatars;

@@ -1,29 +1,29 @@
 .menu-icon {
-	font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .menu {
-	display: block;
-	min-width: 20vw;
-	padding: 1rem;
-	position: absolute;
-	top: 120%;
-	right: 25%;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-	z-index: 1;
-	font-size: 1rem;
-	font-weight: normal;
+  display: block;
+  min-width: 20vw;
+  padding: 1rem;
+  position: absolute;
+  top: 120%;
+  right: 25%;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  font-size: 1rem;
+  font-weight: normal;
 }
 
 .menu__item {
-	margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .menu-icon,
 .menu__item:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .menu-icon:focus {
-	outline: none;
+  outline: none;
 }

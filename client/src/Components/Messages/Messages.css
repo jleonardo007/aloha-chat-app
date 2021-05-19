@@ -1,128 +1,128 @@
 .messages {
-	padding: 2rem 4rem;
-	min-height: 100%;
+  padding: 2rem 4rem;
+  min-height: 100%;
 }
 
 .messages li {
-	display: flex;
-	margin-bottom: 2rem;
+  display: flex;
+  margin-bottom: 2rem;
 }
 
 .message div[class^="message"] {
-	min-width: 70px;
-	max-width: 400px;
-	min-height: 40px;
-	padding: 0.5rem;
-	border-radius: 0.55rem;
-	text-align: justify;
+  min-width: 70px;
+  max-width: 400px;
+  min-height: 40px;
+  padding: 0.5rem;
+  border-radius: 0.55rem;
+  text-align: justify;
 }
 
 .message-send {
-	margin-left: auto;
+  margin-left: auto;
 }
 
 .message-received {
-	margin-right: auto;
+  margin-right: auto;
 }
 
 .voice-note-container {
-	width: 400px;
-	padding: 0.5rem;
-	border-radius: 0.55rem;
+  width: 400px;
+  padding: 0.5rem;
+  border-radius: 0.55rem;
 }
 
 .voice-note-send,
 .voice-note-received {
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .voice-note-container .user-avatar {
-	width: 15%;
+  width: 15%;
 }
 
 .voice-note {
-	width: 70%;
-	height: 45px;
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
+  width: 70%;
+  height: 45px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .voice-note-received {
-	flex-direction: row;
+  flex-direction: row;
 }
 
 .voice-note-send {
-	flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
 .play-voice-note-btn {
-	display: grid;
-	place-content: center;
-	border: none;
-	background: none;
-	font-size: 3rem;
+  display: grid;
+  place-content: center;
+  border: none;
+  background: none;
+  font-size: 3rem;
 
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .play-voice-note-btn:focus {
-	outline: none;
+  outline: none;
 }
 
 .audio-progress-bar {
-	width: 70%;
-	height: 5px;
-	display: grid;
-	align-content: center;
+  width: 70%;
+  height: 5px;
+  display: grid;
+  align-content: center;
 }
 
 .progress-bar-indicator {
-	width: 15px;
-	height: 15px;
-	border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
 }
 
 .voice-note-status {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .voice-note-status span:first-child {
-	margin: 0 1rem;
+  margin: 0 1rem;
 }
 
 .text-message-content {
-	font-size: 1rem;
-	overflow-wrap: break-word;
+  font-size: 1rem;
+  overflow-wrap: break-word;
 }
 
 .message-info-label {
-	height: 30px;
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
+  height: 30px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .time-label {
-	font-size: 0.85rem;
+  font-size: 0.85rem;
 }
 
 .message-status-label {
-	margin-left: 0.5rem;
-	font-size: 1.2rem;
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
 }
 
 .seen-status-color {
-	color: skyblue;
+  color: skyblue;
 }
 
 .select-box {
-	align-self: center;
-	width: 30px;
-	height: 30px;
-	margin-right: 2rem;
+  align-self: center;
+  width: 30px;
+  height: 30px;
+  margin-right: 2rem;
 }

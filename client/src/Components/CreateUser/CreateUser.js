@@ -17,140 +17,140 @@ import heroImage from "../../chat-icons/hero-image.jpg";
 const avatarsCollection = [astronauta, hacker, niña1, niña2, niña3, niña4, ninja, rey];
 
 function CreateUserName({ setUserName }) {
-	const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		setUserName(inputValue);
-	};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setUserName(inputValue);
+  };
 
-	return (
-		<section className="welcome-page" data-testid="username-page">
-			<div className="hero-image" style={{ backgroundImage: `url(${heroImage})` }}></div>
-			<div className="welcome__container">
-				<div className="welcome__title">
-					<h1>Make new friends, just say</h1>
-					<h2 className="app-title">Aloha!</h2>
-				</div>
-				<div className="create-name-container">
-					<form className="form" onSubmit={(e) => handleSubmit(e)}>
-						<div className="form-label">
-							<label htmlFor="user-name">Your name:</label>
-						</div>
-						<div className="form-input">
-							<input
-								type="text"
-								required
-								maxLength={30}
-								id="user-name"
-								value={inputValue}
-								onChange={(e) => setInputValue(e.target.value)}
-							/>
-						</div>
-						<div className="form-btn">
-							<button type="submit" className="create-btn">
-								Next
-							</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</section>
-	);
+  return (
+    <section className="welcome-page" data-testid="username-page">
+      <div className="hero-image" style={{ backgroundImage: `url(${heroImage})` }}></div>
+      <div className="welcome__container">
+        <div className="welcome__title">
+          <h1>Make new friends, just say</h1>
+          <h2 className="app-title">Aloha!</h2>
+        </div>
+        <div className="create-name-container">
+          <form className="form" onSubmit={(e) => handleSubmit(e)}>
+            <div className="form-label">
+              <label htmlFor="user-name">Your name:</label>
+            </div>
+            <div className="form-input">
+              <input
+                type="text"
+                required
+                maxLength={30}
+                id="user-name"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+            </div>
+            <div className="form-btn">
+              <button type="submit" className="create-btn">
+                Next
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function CreateUserAvatar({ avatar, setAvatar, handleClick }) {
-	const fileInputRef = useRef(null);
+  const fileInputRef = useRef(null);
 
-	function handleAvatarUpload(e) {
-		const file = e.target.files[0];
-		const reader = new FileReader();
+  function handleAvatarUpload(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
 
-		reader.addEventListener("load", (e) => {
-			setAvatar(e.target.result);
-		});
+    reader.addEventListener("load", (e) => {
+      setAvatar(e.target.result);
+    });
 
-		reader.readAsDataURL(file);
-	}
+    reader.readAsDataURL(file);
+  }
 
-	return (
-		<section className="avatar-page" data-testid="avatar-page">
-			<div className="avatar__title">
-				<h1>Pick an avatar!</h1>
-			</div>
-			<div className="avatar__container">
-				<div className="avatar__preview">
-					<img
-						src={avatar ? avatar : noAvatar}
-						className="avatar-image"
-						alt="Avatar preview"
-						loading="lazy"
-					/>
-					<div className="join-btn-container">
-						{avatar ? (
-							<button className="create-btn" onClick={() => handleClick()}>
-								Join!
-							</button>
-						) : null}
-					</div>
-				</div>
-				<div className="default-avatars">
-					<div className="collection">
-						{avatarsCollection.map((avatarSrc, index) => {
-							return (
-								<img
-									key={index}
-									src={avatarSrc}
-									alt="User avatar"
-									className="avatar-image"
-									loading="lazy"
-									onClick={(e) => {
-										setAvatar(e.target.src);
-									}}
-								/>
-							);
-						})}
-						<div className="custom-avatar-container">
-							<input
-								type="file"
-								name="custom-avatar"
-								className="custom-avatar-input"
-								accept=".jpg, .jpeg, .png"
-								ref={fileInputRef}
-								onChange={(e) => handleAvatarUpload(e)}
-							/>
-							<button
-								className="custom-avatar-btn"
-								title="Pick a custom avatar!"
-								onClick={() => fileInputRef.current.click()}
-							>
-								<FaUpload />
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	);
+  return (
+    <section className="avatar-page" data-testid="avatar-page">
+      <div className="avatar__title">
+        <h1>Pick an avatar!</h1>
+      </div>
+      <div className="avatar__container">
+        <div className="avatar__preview">
+          <img
+            src={avatar ? avatar : noAvatar}
+            className="avatar-image"
+            alt="Avatar preview"
+            loading="lazy"
+          />
+          <div className="join-btn-container">
+            {avatar ? (
+              <button className="create-btn" onClick={() => handleClick()}>
+                Join!
+              </button>
+            ) : null}
+          </div>
+        </div>
+        <div className="default-avatars">
+          <div className="collection">
+            {avatarsCollection.map((avatarSrc, index) => {
+              return (
+                <img
+                  key={index}
+                  src={avatarSrc}
+                  alt="User avatar"
+                  className="avatar-image"
+                  loading="lazy"
+                  onClick={(e) => {
+                    setAvatar(e.target.src);
+                  }}
+                />
+              );
+            })}
+            <div className="custom-avatar-container">
+              <input
+                type="file"
+                name="custom-avatar"
+                className="custom-avatar-input"
+                accept=".jpg, .jpeg, .png"
+                ref={fileInputRef}
+                onChange={(e) => handleAvatarUpload(e)}
+              />
+              <button
+                className="custom-avatar-btn"
+                title="Pick a custom avatar!"
+                onClick={() => fileInputRef.current.click()}
+              >
+                <FaUpload />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function CreateUser({ dispatch }) {
-	const [userName, setUserName] = useState("");
-	const [userAvatar, setAvatar] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userAvatar, setAvatar] = useState("");
 
-	const handleClick = () => {
-		dispatch({
-			type: "CREATE_USER",
-			userName,
-			userAvatar,
-		});
-	};
+  const handleClick = () => {
+    dispatch({
+      type: "CREATE_USER",
+      userName,
+      userAvatar,
+    });
+  };
 
-	return !userName ? (
-		<CreateUserName setUserName={setUserName} />
-	) : (
-		<CreateUserAvatar avatar={userAvatar} setAvatar={setAvatar} handleClick={handleClick} />
-	);
+  return !userName ? (
+    <CreateUserName setUserName={setUserName} />
+  ) : (
+    <CreateUserAvatar avatar={userAvatar} setAvatar={setAvatar} handleClick={handleClick} />
+  );
 }
 
 export default CreateUser;

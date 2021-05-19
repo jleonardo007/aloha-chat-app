@@ -1,13 +1,13 @@
 .avatars-collection {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 10px;
-	place-items: center;
-	padding-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  place-items: center;
+  padding-top: 1rem;
 }
 
 .avatars-collection img {
-	width: 8vw;
-	border-radius: 50%;
-	cursor: pointer;
+  width: 8vw;
+  border-radius: 50%;
+  cursor: pointer;
 }

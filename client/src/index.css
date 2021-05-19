@@ -1,21 +1,21 @@
 html {
-	box-sizing: border-box;
-	font-family: sans-serif;
-	font-size: 16px;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  font-size: 16px;
 }
 
 *,
 *::before,
 *::after {
-	margin: 0;
-	padding: 0;
-	box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
 }
 
 body {
-	font-family: "Lato", sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 ul {
-	list-style: none;
+  list-style: none;
 }
