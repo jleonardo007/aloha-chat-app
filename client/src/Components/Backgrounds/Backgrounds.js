@@ -3,31 +3,39 @@ import { ThemeContext } from "../../theme-context";
 
 import "./Backgrounds.css";
 
-function Backgrounds({ dispatch, chatConfigObject, setChatConfigObject }) {
+function Backgrounds({ dispatch, setChatConfigObject }) {
   const theme = useContext(ThemeContext);
-  console.log(theme);
+
   function handleBackgroundChange(e) {
-    setChatConfigObject({
-      ...chatConfigObject,
-      backgroundColor: e.target.getAttribute("data-color-value"),
-      toggleBackgroundColor: "",
+    setChatConfigObject((prevState) => {
+      return {
+        ...prevState,
+        backgroundColor: e.target.getAttribute("data-color-value"),
+        toggleBackgroundColor: "",
+      };
     });
   }
 
   function handleSelectBackground(e) {
     if (e.type === "mouseenter")
-      setChatConfigObject({
-        ...chatConfigObject,
-        toggleBackgroundColor: e.target.getAttribute("data-color-value"),
+      setChatConfigObject((prevState) => {
+        return {
+          ...prevState,
+          toggleBackgroundColor: e.target.getAttribute("data-color-value"),
+        };
       });
     else if (e.type === "mouseleave")
-      setChatConfigObject({
-        ...chatConfigObject,
-        toggleBackgroundColor: "",
+      setChatConfigObject((prevState) => {
+        return {
+          ...prevState,
+          toggleBackgroundColor: "",
+        };
       });
     else
-      setChatConfigObject({
-        ...chatConfigObject,
+      setChatConfigObject((prevState) => {
+        return {
+          ...prevState,
+        };
       });
   }
 

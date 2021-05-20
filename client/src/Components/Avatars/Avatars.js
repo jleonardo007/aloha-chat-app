@@ -20,6 +20,15 @@ function Avatars({ user, newProfile, setNewProfile }) {
   const theme = useContext(ThemeContext);
   const fileInputRef = useRef(null);
 
+  function handleAvatarSelection(e) {
+    const avatar = e.target.getAttribute("data-image");
+
+    setNewProfile({
+      name: newProfile.name ? newProfile.name : user.name,
+      avatar,
+    });
+  }
+
   function handleAvatarUpload(e) {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -38,17 +47,12 @@ function Avatars({ user, newProfile, setNewProfile }) {
     <div className="avatars-collection" data-testid="avatars">
       {avatarsCollection.map((avatarSrc, index) => {
         return (
-          <img
+          <div
+            className="avatar"
             key={index}
-            src={avatarSrc}
-            alt="User avatar"
-            loading="lazy"
-            onClick={(e) => {
-              setNewProfile({
-                name: newProfile.name ? newProfile.name : user.name,
-                avatar: e.target.src,
-              });
-            }}
+            style={{ backgroundImage: `url(${avatarSrc})` }}
+            data-image={avatarSrc}
+            onClick={(e) => handleAvatarSelection(e)}
           />
         );
       })}

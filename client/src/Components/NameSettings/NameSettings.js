@@ -74,7 +74,7 @@ function NameSettings({ user, newProfile, setNewProfile }) {
           <BiCheck />
         </button>
       </form>
-      {toggleEmojiPicker ? (
+      {toggleEmojiPicker && (
         <div className="emoji-picker" data-testid="emoji-picker">
           <Picker
             pickerStyle={emojiPickerStyle}
@@ -83,7 +83,7 @@ function NameSettings({ user, newProfile, setNewProfile }) {
             onEmojiClick={handleAddEmoji}
           />
         </div>
-      ) : null}
+      )}
     </div>
   );
 }

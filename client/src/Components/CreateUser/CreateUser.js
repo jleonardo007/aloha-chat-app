@@ -16,12 +16,17 @@ import heroImage from "../../chat-icons/hero-image.jpg";
 
 const avatarsCollection = [astronauta, hacker, niña1, niña2, niña3, niña4, ninja, rey];
 
-function CreateUserName({ setUserName }) {
+function CreateUserName({ setUser }) {
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUserName(inputValue);
+    setUser((prevState) => {
+      return {
+        ...prevState,
+        name: inputValue,
+      };
+    });
   };
 
   return (
@@ -59,15 +64,30 @@ function CreateUserName({ setUserName }) {
   );
 }
 
-function CreateUserAvatar({ avatar, setAvatar, handleClick }) {
+function CreateUserAvatar({ avatar, setUser, handleClick }) {
   const fileInputRef = useRef(null);
+
+  function handleAvatarSelection(e) {
+    const avatar = e.target.getAttribute("data-image");
+    setUser((prevState) => {
+      return {
+        ...prevState,
+        avatar,
+      };
+    });
+  }
 
   function handleAvatarUpload(e) {
     const file = e.target.files[0];
     const reader = new FileReader();
 
     reader.addEventListener("load", (e) => {
-      setAvatar(e.target.result);
+      setUser((prevState) => {
+        return {
+          ...prevState,
+          avatar: e.target.result,
+        };
+      });
     });
 
     reader.readAsDataURL(file);
@@ -80,12 +100,11 @@ function CreateUserAvatar({ avatar, setAvatar, handleClick }) {
       </div>
       <div className="avatar__container">
         <div className="avatar__preview">
-          <img
-            src={avatar ? avatar : noAvatar}
+          <div
             className="avatar-image"
-            alt="Avatar preview"
-            loading="lazy"
+            style={{ backgroundImage: `url(${avatar ? avatar : noAvatar})` }}
           />
+
           <div className="join-btn-container">
             {avatar ? (
               <button className="create-btn" onClick={() => handleClick()}>
@@ -98,15 +117,12 @@ function CreateUserAvatar({ avatar, setAvatar, handleClick }) {
           <div className="collection">
             {avatarsCollection.map((avatarSrc, index) => {
               return (
-                <img
+                <div
                   key={index}
-                  src={avatarSrc}
-                  alt="User avatar"
+                  style={{ backgroundImage: `url(${avatarSrc})` }}
+                  data-image={avatarSrc}
                   className="avatar-image"
-                  loading="lazy"
-                  onClick={(e) => {
-                    setAvatar(e.target.src);
-                  }}
+                  onClick={(e) => handleAvatarSelection(e)}
                 />
               );
             })}
@@ -135,21 +151,23 @@ function CreateUserAvatar({ avatar, setAvatar, handleClick }) {
 }
 
 function CreateUser({ dispatch }) {
-  const [userName, setUserName] = useState("");
-  const [userAvatar, setAvatar] = useState("");
+  const [user, setUser] = useState({
+    name: "",
+    avatar: "",
+  });
 
   const handleClick = () => {
     dispatch({
       type: "CREATE_USER",
-      userName,
-      userAvatar,
+      userName: user.name,
+      userAvatar: user.avatar,
     });
   };
 
-  return !userName ? (
-    <CreateUserName setUserName={setUserName} />
+  return !user.name ? (
+    <CreateUserName setUser={setUser} />
   ) : (
-    <CreateUserAvatar avatar={userAvatar} setAvatar={setAvatar} handleClick={handleClick} />
+    <CreateUserAvatar avatar={user.avatar} setUser={setUser} handleClick={handleClick} />
   );
 }
 
