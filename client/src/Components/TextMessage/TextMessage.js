@@ -5,6 +5,7 @@ import { BiCheckDouble } from "react-icons/bi";
 
 import socketClient from "../../socket-client";
 import testSocket from "../../test_utils/testSocket";
+import "./TextMessage.css";
 
 function TextMessage({ message }) {
   const theme = useContext(ThemeContext);

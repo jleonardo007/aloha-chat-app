@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
-import TextMessage from "./TextMessage";
-import VoiceNote from "./VoiceNote";
+import TextMessage from "../TextMessage/TextMessage";
+import VoiceNote from "../VoiceNote/VoiceNote";
 
 import socketClient from "../../socket-client";
 import { mockMessages } from "../../test_utils/mockData";

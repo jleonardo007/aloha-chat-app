@@ -6,6 +6,7 @@ import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 
 import socketClient from "../../socket-client";
 import testSocket from "../../test_utils/testSocket";
+import "./VoiceNote.css";
 
 function VoiceNote({ message }) {
   const theme = useContext(ThemeContext);

@@ -1,0 +1,11 @@
+.text-message-content {
+  font-size: 1rem;
+  overflow-wrap: break-word;
+}
+
+.message-info-label {
+  height: 30px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
