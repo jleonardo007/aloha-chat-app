@@ -40,7 +40,7 @@ function ActiveUser({ user, currentFriend, dispatch }) {
         setNewMessagesCounter(0);
       }}
     >
-      <img src={user.avatar} alt="User avatar" className="user-avatar" />
+      <div className="user-avatar" style={{ backgroundImage: `url(${user.avatar})` }} />
       <div className="user-name">
         <span>{user.name}</span>
       </div>

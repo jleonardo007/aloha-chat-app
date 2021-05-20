@@ -9,7 +9,7 @@ function User({ user, dispatch }) {
 
   return (
     <div className="user-info" data-testid="user-info">
-      <img src={user.avatar} alt="User Avatar" className="user-avatar" loading="lazy" />
+      <div className="user-avatar" style={{ backgroundImage: `url(${user.avatar})` }} />
       <div className="user-name">
         <span>{user.name}</span>
       </div>

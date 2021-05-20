@@ -109,7 +109,8 @@
 
 .avatar-image {
   border-radius: 50%;
-  color: #fff;
+  background-position: center;
+  background-size: cover;
   cursor: pointer;
 }
 
@@ -151,8 +152,8 @@
 }
 
 .custom-avatar-container {
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
   display: grid;
   place-content: center;
 }

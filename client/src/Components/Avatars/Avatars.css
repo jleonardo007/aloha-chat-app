@@ -6,8 +6,11 @@
   padding-top: 1rem;
 }
 
-.avatars-collection img {
-  width: 8vw;
+.avatars-collection .avatar {
+  width: 7vw;
+  height: 7vw;
   border-radius: 50%;
+  background-size: cover;
+  background-position: center;
   cursor: pointer;
 }

@@ -78,7 +78,7 @@ function Friend({ friend, setChatConfigObject }) {
 
   return (
     <div className="user-info" data-testid="friend">
-      <img src={friend.avatar} alt={friend.name} className="user-avatar" />
+      <div className="user-avatar" style={{ backgroundImage: `url(${friend.avatar})` }} />
       <div className="user-name">
         <span>{friend.name}</span>
         <span className="action-label" data-testid="action-label">

@@ -31,6 +31,8 @@
   height: 150px;
   margin: 0 auto 1rem auto;
   border-radius: 50%;
+  background-size: cover;
+  background-position: center;
 }
 
 .profile-name {
