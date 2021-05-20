@@ -5,6 +5,7 @@ import Picker from "emoji-picker-react";
 import { BsTrash } from "react-icons/bs";
 
 import socketClient from "../../socket-client";
+import "./TextBox.css";
 
 const emojiPickerStyle = {
   width: "65%",

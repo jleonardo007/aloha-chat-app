@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import TextBox from "./TextBox";
-import VoiceNoteRecorder from "./VoiceNoteRecorder";
+import TextBox from "../TextBox/TextBox";
+import VoiceNoteRecorder from "../VoiceNoteRecorder/VoiceNoteRecorder";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { BsFillMicFill } from "react-icons/bs";
 import { BiSend } from "react-icons/bi";

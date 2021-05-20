@@ -1,0 +1,59 @@
+.recorder-container {
+  width: 30%;
+  height: 3vw;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.recording-time {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+}
+
+.recorder-btn-container button {
+  display: grid;
+  place-content: center;
+  font-size: 1.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.recorder-btn-container button:active {
+  font-size: 2.25rem;
+}
+
+.cancel-recorder-btn {
+  color: red;
+}
+
+.send-voice-note-btn {
+  color: green;
+}
+
+.recording-animation {
+  align-self: center;
+  margin-right: 0.25rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: red;
+  animation-name: animated-block;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.recording-time-label {
+  font-size: 2rem;
+}
+
+@keyframes animated-block {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
