@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { GiCancel, GiConfirmed } from "react-icons/gi";
 import socketClient from "../../socket-client";
+import "./VoiceNoteRecorder.css";
 
 function VoiceNoteRecorder({ user, friend, controls, setControls, handleSentMessage }) {
   const [recordingState, setRecordingState] = useState({
@@ -10,6 +11,7 @@ function VoiceNoteRecorder({ user, friend, controls, setControls, handleSentMess
     recordingMedia: null,
     content: "",
   });
+  const sendButtonRef = useRef(null);
 
   useEffect(() => {
     let recordingInterval = null;
@@ -17,13 +19,13 @@ function VoiceNoteRecorder({ user, friend, controls, setControls, handleSentMess
 
     recordingInterval = setInterval(() => {
       setRecordingState((prevState) => {
-        if (prevState.minutes === 15)
+        if (prevState.minutes === 0 && prevState.seconds === 59) {
           return {
             ...prevState,
             minutes: 0,
             seconds: 0,
           };
-        else if (prevState.seconds >= 0 && prevState.seconds < 59) {
+        } else if (prevState.seconds >= 0 && prevState.seconds < 59) {
           return {
             ...prevState,
             seconds: prevState.seconds + 1,
@@ -43,6 +45,23 @@ function VoiceNoteRecorder({ user, friend, controls, setControls, handleSentMess
     return () => {
       clearInterval(recordingInterval);
     };
+  });
+
+  useEffect(() => {
+    if (recordingState.content) {
+      handleSentMessage({
+        content: recordingState.content,
+        type: "voice-note",
+        minutes: recordingState.minutes,
+        seconds: recordingState.seconds,
+      });
+      handleCloseRecorder();
+    }
+  });
+
+  useEffect(() => {
+    if (recordingState.minutes === 0 && recordingState.seconds === 59)
+      sendButtonRef.current.click();
   });
 
   useEffect(() => {
@@ -81,19 +100,10 @@ function VoiceNoteRecorder({ user, friend, controls, setControls, handleSentMess
     };
   }, [recordingState.recordingMedia, controls.mediaStream]);
 
-  useEffect(() => {
-    if (recordingState.content) {
-      handleSentMessage({
-        content: recordingState.content,
-        type: "voice-note",
-        minutes: recordingState.minutes,
-        seconds: recordingState.seconds,
-      });
-      handleCloseRecorder();
-    }
-  });
-
   function handleCloseRecorder() {
+    if (recordingState.minutes === 0 && recordingState.seconds === 59)
+      alert("Has reached max recording time");
+
     setControls((prevState) => {
       return {
         ...prevState,
@@ -103,7 +113,7 @@ function VoiceNoteRecorder({ user, friend, controls, setControls, handleSentMess
   }
 
   function handleAudioBlob() {
-    recordingState.recordingMedia.stop();
+    if (recordingState.recordingMedia.state !== "inactive") recordingState.recordingMedia.stop();
   }
 
   return (
@@ -132,7 +142,7 @@ function VoiceNoteRecorder({ user, friend, controls, setControls, handleSentMess
         </div>
       </div>
       <div className="recorder-btn-container">
-        <button className="send-voice-note-btn" onClick={() => handleAudioBlob()}>
+        <button className="send-voice-note-btn" onClick={handleAudioBlob} ref={sendButtonRef}>
           <GiConfirmed />
         </button>
       </div>

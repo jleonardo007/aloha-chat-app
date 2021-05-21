@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { ThemeContext } from "../../theme-context";
 
 import { BiCheckDouble } from "react-icons/bi";
@@ -15,14 +15,10 @@ function TextMessage({ message }) {
     minutes: null,
   });
 
-  const messageContentRef = useRef(null);
-
   useEffect(() => {
     const currentDate = Date.now();
     let currentHours = null;
     let currentMinutes = null;
-
-    if (messageContentRef.current) messageContentRef.current.innerText = message.content;
 
     if (!message.time.hours && !message.time.minutes) {
       currentHours = `${
@@ -96,7 +92,7 @@ function TextMessage({ message }) {
       }}
       data-testid="text-message-content"
     >
-      <p className="text-message-content" ref={messageContentRef}></p>
+      <p className="text-message-content">{message.content}</p>
       <p className="message-info-label">
         <span className="time-label">{message.time.hours}</span>:
         <span className="time-label">{message.time.minutes}</span>{" "}

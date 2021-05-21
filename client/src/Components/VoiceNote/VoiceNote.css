@@ -12,7 +12,8 @@
 }
 
 .voice-note-container .user-avatar {
-  width: 15%;
+  width: 10vh;
+  height: 10vh;
 }
 
 .voice-note {

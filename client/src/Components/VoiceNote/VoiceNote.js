@@ -16,7 +16,6 @@ function VoiceNote({ message }) {
     minutes: message.duration.minutes,
     seconds: message.duration.seconds,
   };
-
   const voiceNoteRef = useRef(null);
   const progressBarRef = useRef(null);
   const [voiceNoteState, setVoiceNoteState] = useState(initialState);
@@ -37,21 +36,25 @@ function VoiceNote({ message }) {
               ...prevState,
               seconds: prevState.seconds - 1,
             };
-          else if (prevState.seconds <= 0)
+          else if (prevState.seconds === 0)
             return {
               ...prevState,
               minutes: prevState.minutes - 1,
               seconds: 59,
             };
+          else if (prevState.minutes < 0) {
+            clearInterval(interval);
+            return prevState;
+          }
         });
       }, 1000);
     else clearInterval(interval);
 
-    if (audio) audio.addEventListener("ended", audioEventHandler);
+    audio.addEventListener("ended", audioEventHandler);
 
     return () => {
       clearInterval(interval);
-      if (audio) audio.removeEventListener("ended", audioEventHandler);
+      audio.removeEventListener("ended", audioEventHandler);
     };
   });
 
@@ -68,10 +71,8 @@ function VoiceNote({ message }) {
   });
 
   useEffect(() => {
-    if (voiceNoteRef.current) {
-      if (voiceNoteState.toggleButton) voiceNoteRef.current.play();
-      else voiceNoteRef.current.pause();
-    }
+    if (voiceNoteState.toggleButton) voiceNoteRef.current.play();
+    else voiceNoteRef.current.pause();
   }, [voiceNoteState.toggleButton]);
 
   useEffect(() => {
@@ -151,7 +152,7 @@ function VoiceNote({ message }) {
       }}
     >
       <div className={`${message.status === "send" ? "voice-note-send " : "voice-note-received "}`}>
-        <img src={message.from.avatar} alt={message.from.name} className="user-avatar" />
+        <div className="user-avatar" style={{ backgroundImage: `url(${message.from.avatar})` }} />
         <div className="voice-note">
           {!voiceNoteState.toggleButton ? (
             <button

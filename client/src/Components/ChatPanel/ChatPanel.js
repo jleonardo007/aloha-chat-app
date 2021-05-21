@@ -63,6 +63,12 @@ function ChatPanel(props) {
         });
     });
 
+    return () => {
+      socketClient.off("new-message");
+    };
+  }, [props.friend]);
+
+  useEffect(() => {
     if (props.friend)
       setChatMessagesObject((prevState) => {
         if (prevState.undeliveredMessages.some((message) => message.from.id === props.friend.id))
@@ -88,8 +94,6 @@ function ChatPanel(props) {
             receivedMessage: null,
           };
       });
-
-      socketClient.off("new-message");
     };
   }, [props.friend]);
 
@@ -121,7 +125,6 @@ function ChatPanel(props) {
           ) : props.settingOption === "background-settings" ? (
             <Backgrounds
               dispatch={props.dispatch}
-              chatConfigObject={props.chatConfigObject}
               setChatConfigObject={props.setChatConfigObject}
             />
           ) : (

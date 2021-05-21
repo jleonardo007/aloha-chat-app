@@ -26,25 +26,28 @@ function TextBox({
 }) {
   const theme = useContext(ThemeContext);
   const messageInputRef = useRef(null);
+  const selectedMessagesCounterRef = useRef(null);
   const [textBoxState, setTextBoxState] = useState({
     content: "",
     type: "text",
   });
 
   useEffect(() => {
-    if (messageInputRef.current) messageInputRef.current.focus();
+    if (!chatConfigObject.toggleMessageSelector) {
+      messageInputRef.current.focus();
 
-    if (textBoxState.content) {
-      const range = document.createRange();
-      const selection = window.getSelection();
+      if (textBoxState.content) {
+        const range = document.createRange();
+        const selection = window.getSelection();
 
-      messageInputRef.current.innerText = textBoxState.content;
-
-      range.selectNodeContents(messageInputRef.current);
-      range.collapse(false);
-      selection.removeAllRanges();
-      selection.addRange(range);
-    } else if (messageInputRef.current) messageInputRef.current.innerText = "";
+        messageInputRef.current.innerText = textBoxState.content;
+        range.selectNodeContents(messageInputRef.current);
+        range.collapse(false);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      } else messageInputRef.current.innerText = "";
+    } else if (selectedMessagesCounterRef.current.firstChild.nodeName === "#text")
+      selectedMessagesCounterRef.current.removeChild(selectedMessagesCounterRef.current.firstChild);
   });
 
   useEffect(() => {
@@ -98,7 +101,7 @@ function TextBox({
             return {
               ...prevState,
               textContent: e.target.innerText.trimStart(),
-              toggleVoiceNoteButton: e.target.innerText ? true : false,
+              toggleVoiceNoteButton: e.target.innerText.trimStart() ? true : false,
             };
           });
 
@@ -116,17 +119,12 @@ function TextBox({
 
   return (
     <>
-      <div
-        className="textbox-container"
-        style={{ backgroundColor: theme.secondaryColor, color: theme.fontColor }}
-      >
-        {!textBoxState.content && !chatConfigObject.toggleMessageSelector && (
-          <div className="textbox-placeholder" onClick={setTextBoxFocus}>
-            <span>Write a message</span>
-          </div>
-        )}
-        {chatConfigObject.toggleMessageSelector ? (
-          <div className="selected-messages">
+      {chatConfigObject.toggleMessageSelector ? (
+        <div
+          className="selected-messages-container"
+          style={{ backgroundColor: theme.secondaryColor, color: theme.fontColor }}
+        >
+          <div className="selected-messages" ref={selectedMessagesCounterRef}>
             <p>
               <span data-testid="selected-messages-counter">
                 {chatConfigObject.selectedMessagesCounter}
@@ -141,7 +139,17 @@ function TextBox({
               <BsTrash />
             </button>
           </div>
-        ) : (
+        </div>
+      ) : (
+        <div
+          className="textbox-container"
+          style={{ backgroundColor: theme.secondaryColor, color: theme.fontColor }}
+        >
+          {!textBoxState.content && !chatConfigObject.toggleMessageSelector && (
+            <div className="textbox-placeholder" onClick={setTextBoxFocus}>
+              <span>Write a message</span>
+            </div>
+          )}
           <div
             className="textbox-input"
             role="textbox"
@@ -151,8 +159,8 @@ function TextBox({
             onClick={setTextBoxFocus}
             onInput={handleTextMessage}
           ></div>
-        )}
-      </div>
+        </div>
+      )}
       {controls.toggleEmojiPicker && (
         <Picker
           pickerStyle={emojiPickerStyle}

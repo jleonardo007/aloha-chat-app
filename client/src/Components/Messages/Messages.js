@@ -20,7 +20,7 @@ function Messages({
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    if (messageRef.current) messageRef.current.scrollIntoView(false);
+    messageRef.current.scrollIntoView(false);
   });
 
   useEffect(() => {
