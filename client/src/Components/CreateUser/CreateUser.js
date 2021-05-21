@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 
 import { FaUpload } from "react-icons/fa";
+import validateImage from "../../validate-image";
 import "./CreateUser.css";
 
 import astronauta from "../../default-avatars/astronauta.png";
@@ -90,7 +91,10 @@ function CreateUserAvatar({ avatar, setUser, handleClick }) {
       });
     });
 
-    reader.readAsDataURL(file);
+    if (file) {
+      if (validateImage(file)) reader.readAsDataURL(file);
+      else alert("Upload a image only!");
+    }
   }
 
   return (
@@ -131,7 +135,7 @@ function CreateUserAvatar({ avatar, setUser, handleClick }) {
                 type="file"
                 name="custom-avatar"
                 className="custom-avatar-input"
-                accept=".jpg, .jpeg, .png"
+                accept=".png, .jpeg,.jpg, .webp"
                 ref={fileInputRef}
                 onChange={(e) => handleAvatarUpload(e)}
               />

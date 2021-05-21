@@ -2,6 +2,8 @@ import { useRef, useContext } from "react";
 import { ThemeContext } from "../../theme-context";
 
 import { FaUpload } from "react-icons/fa";
+import validateImage from "../../validate-image";
+import "./Avatars.css";
 
 import astronauta from "../../default-avatars/astronauta.png";
 import hacker from "../../default-avatars/hacker.png";
@@ -11,8 +13,6 @@ import niña3 from "../../default-avatars/nina-3.png";
 import niña4 from "../../default-avatars/nina-4.png";
 import ninja from "../../default-avatars/ninja.png";
 import rey from "../../default-avatars/rey.png";
-
-import "./Avatars.css";
 
 const avatarsCollection = [astronauta, hacker, niña1, niña2, niña3, niña4, ninja, rey];
 
@@ -40,7 +40,10 @@ function Avatars({ user, newProfile, setNewProfile }) {
       });
     });
 
-    reader.readAsDataURL(file);
+    if (file) {
+      if (validateImage(file)) reader.readAsDataURL(file);
+      else alert("Upload a image only!");
+    }
   }
 
   return (
@@ -61,7 +64,7 @@ function Avatars({ user, newProfile, setNewProfile }) {
           type="file"
           name="custom-avatar"
           className="custom-avatar-input"
-          accept=".jpg, .jpeg, .png"
+          accept=".png, .jpeg,.jpg, .webp"
           ref={fileInputRef}
           onChange={(e) => handleAvatarUpload(e)}
         />
