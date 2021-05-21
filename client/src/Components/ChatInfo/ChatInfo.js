@@ -9,23 +9,34 @@ import testSocket from "../../test_utils/testSocket";
 import noUsers from "../../chat-icons/no-active-users.png";
 import "./ChatInfo.css";
 
-function ActiveUser({ user, currentFriend, dispatch }) {
+function ActiveUser({ user, activeUser, currentFriend, dispatch }) {
   const theme = useContext(ThemeContext);
-  const [newMessagesCounter, setNewMessagesCounter] = useState(0);
+  const [newMessagesCounter, setNewMessagesCounter] = useState(() =>
+    localStorage.getItem(`${user.id}_${activeUser.id}` || 0)
+  );
 
   useEffect(() => {
     if (currentFriend)
       socketClient.on("new-messages-counter", (friend) => {
-        if (user.id === friend.id && currentFriend.id !== friend.id)
+        if (activeUser.id === friend.id && currentFriend.id !== friend.id)
           setNewMessagesCounter((prevState) => prevState + 1);
       });
     else
       socketClient.on("new-messages-counter", (friend) => {
-        if (user.id === friend.id) setNewMessagesCounter((prevState) => prevState + 1);
+        if (activeUser.id === friend.id) setNewMessagesCounter((prevState) => prevState + 1);
       });
 
-    return () => socketClient.off("new-messages-counter");
-  }, [user, currentFriend]);
+    return () => {
+      socketClient.off("new-messages-counter");
+    };
+  }, [activeUser, currentFriend]);
+
+  useEffect(() => {
+    if (newMessagesCounter > 0)
+      localStorage.setItem(`${user.id}_${activeUser.id}`, newMessagesCounter);
+    else if (newMessagesCounter === 0 && localStorage.getItem(`${user.id}_${activeUser.id}`))
+      localStorage.removeItem(`${user.id}_${activeUser.id}`);
+  });
 
   return (
     <div
@@ -34,15 +45,15 @@ function ActiveUser({ user, currentFriend, dispatch }) {
       onClick={() => {
         dispatch({
           type: "GET_FRIEND",
-          user,
+          user: activeUser,
         });
 
         setNewMessagesCounter(0);
       }}
     >
-      <div className="user-avatar" style={{ backgroundImage: `url(${user.avatar})` }} />
+      <div className="user-avatar" style={{ backgroundImage: `url(${activeUser.avatar})` }} />
       <div className="user-name">
-        <span>{user.name}</span>
+        <span>{activeUser.name}</span>
       </div>
       {newMessagesCounter > 0 && (
         <div className="new-messages-counter" style={{ backgroundColor: theme.primaryColor }}>
@@ -71,7 +82,7 @@ function ChatInfo({ user, currentFriend, dispatch }) {
       if (process.env.NODE_ENV === "test") testSocket.removeAllListeners("test:active-users");
       else socketClient.off("get:active-users");
     };
-  }, []);
+  }, [currentFriend]);
 
   return (
     <div className="chat-info" data-testid="chat-info">
@@ -87,8 +98,14 @@ function ChatInfo({ user, currentFriend, dispatch }) {
         </div>
       ) : (
         <div className="active-users-container">
-          {activeUsers.map((user, index) => (
-            <ActiveUser key={index} user={user} currentFriend={currentFriend} dispatch={dispatch} />
+          {activeUsers.map((activeUser, index) => (
+            <ActiveUser
+              key={index}
+              user={user}
+              activeUser={activeUser}
+              currentFriend={currentFriend}
+              dispatch={dispatch}
+            />
           ))}
         </div>
       )}
