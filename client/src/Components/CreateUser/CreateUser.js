@@ -13,7 +13,7 @@ import niña4 from "../../default-avatars/nina-4.png";
 import ninja from "../../default-avatars/ninja.png";
 import rey from "../../default-avatars/rey.png";
 import noAvatar from "../../default-avatars/no-avatar.png";
-import heroImage from "../../chat-icons/hero-image.jpg";
+import heroImage from "../../chat-icons/hero-image.webp";
 
 const avatarsCollection = [astronauta, hacker, niña1, niña2, niña3, niña4, ninja, rey];
 

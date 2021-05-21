@@ -1,4 +1,3 @@
-import audioSample from "./audio_sample.mp3";
 import userAvatar1 from "../default-avatars/astronauta.png";
 import userAvatar2 from "../default-avatars/nina-2.png";
 import userAvatar3 from "../default-avatars/rey.png";
@@ -84,7 +83,6 @@ const mockMessages = [
   {
     type: "voice-note",
     status: "send",
-    content: audioSample,
     user: {
       name: "Jonh Doe",
       avatar: userAvatar1,
@@ -93,7 +91,6 @@ const mockMessages = [
   {
     type: "voice-note",
     status: "received",
-    content: audioSample,
     user: {
       name: "Jane Doe",
       avatar: userAvatar2,
