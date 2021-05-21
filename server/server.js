@@ -3,6 +3,7 @@ const options = {
   cors: {
     origin: "https://aloha-chat-app-fc64f.web.app",
   },
+  maxHttpBufferSize: 10e6,
 };
 const PORT = process.env.PORT || 4000;
 const io = require("socket.io")(PORT, options);
@@ -49,6 +50,7 @@ io.on("connection", (socket) => {
     activeUsers.forEach((user, index, usersArray) => {
       if (user.id === updatedUser.id) usersArray[index] = { ...updatedUser };
     });
+
     io.emit("get:active-users", activeUsers);
   });
 
