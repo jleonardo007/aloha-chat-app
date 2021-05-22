@@ -1,9 +1,9 @@
 .avatars-collection {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 0.75vw;
   place-items: center;
-  padding-top: 1rem;
+  padding-top: 1.2vw;
 }
 
 .avatars-collection .avatar {
@@ -13,4 +13,17 @@
   background-size: cover;
   background-position: center;
   cursor: pointer;
+}
+
+.profile-avatar-container {
+  width: 7vw;
+  height: 7vw;
+  display: grid;
+  place-items: center;
+}
+
+.profile-avatar-btn {
+  width: 5vw;
+  height: 5vw;
+  font-size: 2vw;
 }

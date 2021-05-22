@@ -1,8 +1,8 @@
 .name-settings-container {
   height: 100%;
-  padding-top: 3rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-top: 3.6vw;
+  padding-left: 2.4vw;
+  padding-right: 2.4vw;
   position: relative;
 }
 
@@ -11,14 +11,14 @@
 }
 
 .name-settings button {
-  width: 30px;
-  height: 30px;
+  width: 2.4vw;
+  height: 2.4vw;
   display: grid;
   place-content: center;
-  margin-left: 0.5rem;
+  margin-left: 0.6vw;
   border: none;
   border-radius: 50%;
-  font-size: 1.5rem;
+  font-size: 1.8vw;
   cursor: pointer;
 }
 
@@ -28,10 +28,11 @@
 
 .change-name-input {
   width: 70%;
-  height: 30px;
-  padding-left: 0.5rem;
+  height: 2.4vw;
+  padding-left: 0.6vw;
   border: none;
-  border-radius: 1rem;
+  border-radius: 1.2vw;
+  font-size: 1.2vw;
 }
 
 .change-name-input:focus {

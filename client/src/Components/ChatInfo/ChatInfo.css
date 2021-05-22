@@ -10,25 +10,25 @@
 
 .no-active-users-container span {
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2vw;
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.5vw;
 }
 
 .no-active-users-container img {
-  width: 50%;
+  width: 15vw;
   display: block;
   margin: 0 auto;
 }
 
 .active-users-container {
   max-height: 92vh;
-  padding: 1rem;
+  padding: 1.2vw;
   overflow-y: auto;
 }
 
 .active-users-container::-webkit-scrollbar {
-  width: 10px;
+  width: 0.75vw;
 }
 
 .active-users-container::-webkit-scrollbar-track {
@@ -45,8 +45,8 @@
 
 .active-users-container .user-info {
   justify-content: start;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
+  padding-bottom: 0.6vw;
+  margin-bottom: 1.2vw;
   border-bottom: 1px solid #536162;
 }
 
@@ -67,9 +67,10 @@
 }
 
 .active-users-container .new-messages-counter {
-  width: 30px;
-  height: 30px;
+  width: 2.3vw;
+  height: 2.3vw;
   display: grid;
   place-content: center;
   border-radius: 50%;
+  font-size: 1.2vw;
 }

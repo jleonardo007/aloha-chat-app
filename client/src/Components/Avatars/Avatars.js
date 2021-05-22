@@ -59,7 +59,7 @@ function Avatars({ user, newProfile, setNewProfile }) {
           />
         );
       })}
-      <div className="custom-avatar-container">
+      <div className="profile-avatar-container">
         <input
           type="file"
           name="custom-avatar"
@@ -69,7 +69,7 @@ function Avatars({ user, newProfile, setNewProfile }) {
           onChange={(e) => handleAvatarUpload(e)}
         />
         <button
-          className="custom-avatar-btn"
+          className="custom-avatar-btn profile-avatar-btn"
           title="Pick a custom avatar!"
           style={{ backgroundColor: theme.primaryColor, color: theme.fontColor }}
           onClick={() => fileInputRef.current.click()}

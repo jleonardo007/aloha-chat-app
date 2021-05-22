@@ -1,22 +1,22 @@
 .menu-icon {
-  font-size: 1.5rem;
+  font-size: 1.8vw;
 }
 
 .menu {
   display: block;
   min-width: 20vw;
-  padding: 1rem;
+  padding: 1.2vw;
   position: absolute;
   top: 120%;
   right: 25%;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  font-size: 1rem;
+  font-size: 1.2vw;
   font-weight: normal;
 }
 
 .menu__item {
-  margin-bottom: 1rem;
+  margin-bottom: 1.2vw;
 }
 
 .menu-icon,

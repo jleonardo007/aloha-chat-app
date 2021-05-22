@@ -17,13 +17,13 @@
 
 .no-chat-container span {
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2vw;
   text-align: center;
-  font-size: 3rem;
+  font-size: 3.6vw;
 }
 
 .no-chat-container img {
-  width: 50%;
+  width: 20vw;
   display: block;
   margin: 0 auto;
 }
@@ -50,7 +50,7 @@
 }
 
 .messages-container::-webkit-scrollbar {
-  width: 5px;
+  width: 0.4vw;
 }
 
 .messages-container::-webkit-scrollbar-track {
@@ -91,7 +91,7 @@
 .user-name {
   display: grid;
   align-content: center;
-  font-size: 1rem;
+  font-size: 1.2vw;
 }
 
 .menu-container {

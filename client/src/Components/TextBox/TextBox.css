@@ -4,29 +4,31 @@
   min-height: 3vw;
   display: grid;
   align-content: center;
-  border-radius: 1rem;
+  border-radius: 1.2vw;
   position: relative;
 }
 
 .textbox-placeholder {
-  height: 20px;
+  height: 1.4vw;
   position: absolute;
   top: 0.8vw;
   left: 0.75vw;
   z-index: 1;
+  font-size: 1.2vw;
 }
 
 .textbox-input {
-  min-height: 20px;
+  min-height: 1.5vw;
   max-height: 12vh;
-  margin: 0 10px;
-  font-size: 1rem;
+  margin: 0 0.75vw;
+  padding: 0.75vw 0.75vw 0.75vw 0;
+  font-size: 1.2vw;
   overflow-wrap: break-word;
   overflow-y: auto;
 }
 
 .textbox-input::-webkit-scrollbar {
-  width: 5px;
+  width: 0.4vw;
 }
 
 .textbox-input::-webkit-scrollbar-track {
@@ -38,22 +40,23 @@
 }
 
 .selected-messages {
-  margin-left: 2rem;
   display: flex;
   align-items: center;
+  margin-left: 2.4vw;
+  font-size: 1.2vw;
 }
 
 .delete-messages-btn {
-  width: 35px;
-  height: 35px;
+  width: 2.6vw;
+  height: 2.6vw;
   display: grid;
   place-content: center;
-  margin-left: 0.5rem;
+  margin-left: 0.6vw;
   border: none;
   border-radius: 50%;
   background: none;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.8vw;
   color: inherit;
 }
 

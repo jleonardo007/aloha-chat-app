@@ -15,14 +15,14 @@
 .recorder-btn-container button {
   display: grid;
   place-content: center;
-  font-size: 1.75rem;
+  font-size: 2vw;
   background: none;
   border: none;
   cursor: pointer;
 }
 
 .recorder-btn-container button:active {
-  font-size: 2.25rem;
+  font-size: 2.7vw;
 }
 
 .cancel-recorder-btn {
@@ -35,9 +35,9 @@
 
 .recording-animation {
   align-self: center;
-  margin-right: 0.25rem;
-  width: 10px;
-  height: 10px;
+  margin-right: 0.3vw;
+  width: 0.75vw;
+  height: 0.75vw;
   border-radius: 50%;
   background-color: red;
   animation-name: animated-block;
@@ -46,7 +46,7 @@
 }
 
 .recording-time-label {
-  font-size: 2rem;
+  font-size: 2.4vw;
 }
 
 @keyframes animated-block {

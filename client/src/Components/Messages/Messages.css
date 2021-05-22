@@ -1,19 +1,19 @@
 .messages {
-  padding: 2rem 4rem;
+  padding: 2.6vw 4.8vw;
   min-height: 100%;
 }
 
 .messages li {
   display: flex;
-  margin-bottom: 2rem;
+  margin-bottom: 2.6vw;
 }
 
 .message div[class^="message"] {
-  min-width: 70px;
-  max-width: 400px;
-  min-height: 40px;
-  padding: 0.5rem;
-  border-radius: 0.55rem;
+  min-width: 5vw;
+  max-width: 30vw;
+  min-height: 3vw;
+  padding: 0.6vw;
+  border-radius: 0.7vw;
   text-align: justify;
 }
 
@@ -26,12 +26,12 @@
 }
 
 .time-label {
-  font-size: 0.85rem;
+  font-size: 1vw;
 }
 
 .message-status-label {
-  margin-left: 0.5rem;
-  font-size: 1.2rem;
+  margin-left: 0.6vw;
+  font-size: 1.5vw;
 }
 
 .seen-status-color {
@@ -40,7 +40,7 @@
 
 .select-box {
   align-self: center;
-  width: 30px;
-  height: 30px;
-  margin-right: 2rem;
+  width: 2.3vw;
+  height: 2.3vw;
+  margin-right: 2.6vw;
 }

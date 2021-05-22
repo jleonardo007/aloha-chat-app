@@ -1,13 +1,13 @@
 .profile-container {
   height: 45%;
-  padding: 1rem;
+  padding: 1.2vw;
 }
 
 .profile-image,
 .change-profile {
   display: grid;
   justify-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2vw;
 }
 
 .change-avatar-btn,
@@ -19,17 +19,17 @@
 .change-avatar-btn,
 .edit-name-btn,
 .change-profile-btn {
-  padding: 0.5rem;
+  padding: 0.6vw;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.2vw;
 }
 
 .profile-image {
   place-content: center;
-  width: 150px;
-  height: 150px;
-  margin: 0 auto 1rem auto;
+  width: 12vw;
+  height: 12vw;
+  margin: 0 auto 1.2vw auto;
   border-radius: 50%;
   background-size: cover;
   background-position: center;
@@ -37,10 +37,10 @@
 
 .profile-name {
   width: 80%;
-  margin: 0 auto;
+  margin: 0 auto 1.2vw auto;
   display: flex;
   justify-content: center;
-  margin-bottom: 1rem;
+  font-size: 1.2vw;
 }
 
 .profile-name span {
@@ -52,25 +52,24 @@
 }
 
 .change-avatar-btn {
-  width: 50px;
-  height: 50px;
-
+  width: 3.8vw;
+  height: 3.8vw;
   border-radius: 50%;
-  font-size: 2rem;
+  font-size: 2.5vw;
   cursor: pointer;
 }
 
 .edit-name-btn {
-  width: 32px;
-  height: 32px;
-  margin-left: 1rem;
+  width: 2.4vw;
+  height: 2.4vw;
+  margin-left: 1.2vw;
   border-radius: 50%;
 }
 
 .change-profile-btn {
-  width: 150px;
-  height: 30px;
-  border-radius: 1rem;
+  width: 12vw;
+  height: 2.5vw;
+  border-radius: 1.2vw;
 }
 
 .settings-container {

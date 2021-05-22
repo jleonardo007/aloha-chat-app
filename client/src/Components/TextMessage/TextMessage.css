@@ -1,10 +1,10 @@
 .text-message-content {
-  font-size: 1rem;
+  font-size: 1.2vw;
   overflow-wrap: break-word;
 }
 
 .message-info-label {
-  height: 30px;
+  height: 2.3vw;
   display: flex;
   justify-content: flex-end;
   align-items: center;
