@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { ThemeContext } from "../../theme-context";
-
-import "./Backgrounds.css";
+import "./styles.css";
 
 function Backgrounds({ dispatch, setChatConfigObject }) {
   const theme = useContext(ThemeContext);

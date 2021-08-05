@@ -3,7 +3,7 @@ import { ThemeContext } from "../../theme-context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import validateImage from "../../validate-image";
-import "./Avatars.css";
+import "./styles.css";
 
 import astronauta from "../../default-avatars/astronauta.png";
 import hacker from "../../default-avatars/hacker.png";

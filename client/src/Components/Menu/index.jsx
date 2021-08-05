@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
-
-import "./Menu.css";
+import "./styles.css";
 
 function Menu({ children }) {
   const [toogleMenu, setToggleMenu] = useState(false);

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import TextBox from "../TextBox/TextBox";
-import VoiceNoteRecorder from "../VoiceNoteRecorder/VoiceNoteRecorder";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmile, faMicrophone, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import TextBox from "../TextBox";
+import VoiceNoteRecorder from "../VoiceNoteRecorder";
 import socketClient from "../../socket-client";
-import "./ChatControls.css";
+import "./styles.css";
 
 function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatConfigObject }) {
   const [controls, setControls] = useState({

@@ -3,7 +3,7 @@ import { ThemeContext } from "../../theme-context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmile, faCheck } from "@fortawesome/free-solid-svg-icons";
 import Picker from "emoji-picker-react";
-import "./NameSettings.css";
+import "./styles.css";
 
 const emojiPickerStyle = {
   width: "100%",

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckDouble, faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 import socketClient from "../../socket-client";
 import testSocket from "../../test_utils/testSocket";
-import "./VoiceNote.css";
+import "./styles.css";
 
 function VoiceNote({ message }) {
   const theme = useContext(ThemeContext);

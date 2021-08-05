@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import validateImage from "../../validate-image";
-import "./CreateUser.css";
+import "./styles.css";
 
 import astronauta from "../../default-avatars/astronauta.png";
 import hacker from "../../default-avatars/hacker.png";

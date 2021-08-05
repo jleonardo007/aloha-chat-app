@@ -1,12 +1,11 @@
 import { useState, useContext } from "react";
 import { ThemeContext } from "../../theme-context";
-import Avatars from "../Avatars/Avatars";
-import NameSettings from "../NameSettings/NameSettings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt, faCamera } from "@fortawesome/free-solid-svg-icons";
-
+import Avatars from "../Avatars";
+import NameSettings from "../NameSettings";
 import socketClient from "../../socket-client";
-import "./Profile.css";
+import "./styles.css";
 
 function Profile({ user, dispatch }) {
   const theme = useContext(ThemeContext);

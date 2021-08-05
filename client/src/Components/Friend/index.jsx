@@ -1,11 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import { ThemeContext } from "../../theme-context";
-
-import Menu from "../Menu/Menu";
-
+import Menu from "../Menu";
 import socketClient from "../../socket-client";
 import testSocket from "../../test_utils/testSocket";
-import "./Friend.css";
+import "./styles.css";
 
 function Friend({ friend, setChatConfigObject }) {
   const theme = useContext(ThemeContext);

@@ -1,8 +1,7 @@
 import { useContext } from "react";
 import { ThemeContext } from "../../theme-context";
-
-import Menu from "../Menu/Menu";
-import "./User.css";
+import Menu from "../Menu";
+import "./styles.css";
 
 function User({ user, dispatch }) {
   const theme = useContext(ThemeContext);

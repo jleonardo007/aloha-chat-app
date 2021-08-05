@@ -1,14 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import { ThemeContext } from "../../theme-context";
-
-import Messages from "../Messages/Messages";
-import ChatControls from "../ChatControls/ChatControls";
-import Backgrounds from "../Backgrounds/Backgrounds";
-import Theme from "../Theme/Theme";
-
+import Messages from "../Messages";
+import ChatControls from "../ChatControls";
+import Backgrounds from "../Backgrounds";
+import Theme from "../Theme";
 import socketClient from "../../socket-client";
 import talk from "../../chat-icons/charla.png";
-import "./ChatPanel.css";
+import "./styles.css";
 
 function ChatPanel(props) {
   const theme = useContext(ThemeContext);

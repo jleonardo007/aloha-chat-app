@@ -1,7 +1,6 @@
 import { useEffect, useRef, useContext } from "react";
 import { ThemeContext, themes } from "../../theme-context";
-
-import "./Theme.css";
+import "./styles.css";
 
 function Theme({ dispatch }) {
   const theme = useContext(ThemeContext);

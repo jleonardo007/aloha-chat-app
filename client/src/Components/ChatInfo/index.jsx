@@ -1,13 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import { ThemeContext } from "../../theme-context";
-
-import User from "../User/User";
-
+import User from "../User";
 import socketClient from "../../socket-client";
 import testSocket from "../../test_utils/testSocket";
-
 import noUsers from "../../chat-icons/no-active-users.png";
-import "./ChatInfo.css";
+import "./styles.css";
 
 function ActiveUser({ user, activeUser, currentFriend, dispatch }) {
   const theme = useContext(ThemeContext);

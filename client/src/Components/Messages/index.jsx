@@ -1,12 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-
-import TextMessage from "../TextMessage/TextMessage";
-import VoiceNote from "../VoiceNote/VoiceNote";
-
+import TextMessage from "../TextMessage";
+import VoiceNote from "../VoiceNote";
 import socketClient from "../../socket-client";
 import { mockMessages } from "../../test_utils/mockData";
 import messagesBackground from "../../chat-icons/messages_bg.png";
-import "./Messages.css";
+import "./styles.css";
 
 function Messages({
   userId,

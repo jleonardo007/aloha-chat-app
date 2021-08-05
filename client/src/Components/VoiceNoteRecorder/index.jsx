@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import socketClient from "../../socket-client";
-import "./VoiceNoteRecorder.css";
+import "./styles.css";
 
 function VoiceNoteRecorder({ user, friend, controls, setControls, handleSentMessage }) {
   const [recordingState, setRecordingState] = useState({

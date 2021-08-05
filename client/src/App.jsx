@@ -1,11 +1,11 @@
 import { useState, useEffect, useReducer } from "react";
 import { ThemeContext, themes } from "./theme-context";
 
-import ChatPanel from "./Components/ChatPanel/ChatPanel";
-import CreateUser from "./Components/CreateUser/CreateUser";
-import ChatInfo from "./Components/ChatInfo/ChatInfo";
-import Friend from "./Components/Friend/Friend";
-import Profile from "./Components/Profile/Profile";
+import ChatPanel from "./Components/ChatPanel";
+import CreateUser from "./Components/CreateUser";
+import ChatInfo from "./Components/ChatInfo";
+import Friend from "./Components/Friend";
+import Profile from "./Components/Profile";
 
 const initialState = {
   userIsCreated: false,

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import Picker from "emoji-picker-react";
 import socketClient from "../../socket-client";
-import "./TextBox.css";
+import "./styles.css";
 
 const emojiPickerStyle = {
   width: "65%",
