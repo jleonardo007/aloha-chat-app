@@ -22,7 +22,7 @@
   padding: 0.6vw;
   border: none;
   cursor: pointer;
-  font-size: 1.2vw;
+  font-size: 1vw;
 }
 
 .profile-image {
@@ -55,7 +55,7 @@
   width: 3.8vw;
   height: 3.8vw;
   border-radius: 50%;
-  font-size: 2.5vw;
+  font-size: 2vw;
   cursor: pointer;
 }
 
