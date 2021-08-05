@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import { ThemeContext } from "../../theme-context";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import Picker from "emoji-picker-react";
-import { BsTrash } from "react-icons/bs";
-
 import socketClient from "../../socket-client";
 import "./TextBox.css";
 
@@ -136,7 +135,7 @@ function TextBox({
               aria-label="delete messages button"
               onClick={() => handleSelectedMessagesDeletion()}
             >
-              <BsTrash />
+              <FontAwesomeIcon icon={faTrashAlt} />
             </button>
           </div>
         </div>

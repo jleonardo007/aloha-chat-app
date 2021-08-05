@@ -1,10 +1,9 @@
 import { useState, useContext } from "react";
 import { ThemeContext } from "../../theme-context";
-
 import Avatars from "../Avatars/Avatars";
 import NameSettings from "../NameSettings/NameSettings";
-import { BsPencil } from "react-icons/bs";
-import { AiOutlineCamera } from "react-icons/ai";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt, faCamera } from "@fortawesome/free-solid-svg-icons";
 
 import socketClient from "../../socket-client";
 import "./Profile.css";
@@ -100,7 +99,7 @@ function Profile({ user, dispatch }) {
               onClick={(e) => handleSelectOptions(e)}
               style={{ backgroundColor: theme.primaryColor, color: theme.fontColor }}
             >
-              <AiOutlineCamera data-trigger-value="change-avatar" />
+              <FontAwesomeIcon icon={faCamera} data-trigger-value="change-avatar" />
             </button>
           )}
         </div>
@@ -113,7 +112,7 @@ function Profile({ user, dispatch }) {
             data-trigger-value="edit-name"
             style={{ backgroundColor: theme.primaryColor, color: theme.fontColor }}
           >
-            <BsPencil data-trigger-value="edit-name" />
+            <FontAwesomeIcon icon={faPencilAlt} data-trigger-value="edit-name" />
           </button>
         </div>
         <div className="change-profile">

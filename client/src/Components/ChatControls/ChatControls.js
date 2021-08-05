@@ -1,11 +1,8 @@
 import { useState } from "react";
-
 import TextBox from "../TextBox/TextBox";
 import VoiceNoteRecorder from "../VoiceNoteRecorder/VoiceNoteRecorder";
-import { HiOutlineEmojiHappy } from "react-icons/hi";
-import { BsFillMicFill } from "react-icons/bs";
-import { BiSend } from "react-icons/bi";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSmile, faMicrophone, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import socketClient from "../../socket-client";
 import "./ChatControls.css";
 
@@ -115,7 +112,7 @@ function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatC
   return (
     <>
       <button className="emoji-btn" aria-label="emoji button" onClick={() => handleEmojiPicker()}>
-        <HiOutlineEmojiHappy />
+        <FontAwesomeIcon icon={faSmile} />
       </button>
       <TextBox
         user={user}
@@ -142,7 +139,7 @@ function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatC
               aria-label="send message button"
               onClick={() => handleSentMessage({ content: controls.textContent, type: "text" })}
             >
-              <BiSend />
+              <FontAwesomeIcon icon={faPaperPlane} />
             </button>
           ) : (
             <button
@@ -150,7 +147,7 @@ function ChatControls({ friend, user, setSentMessage, chatConfigObject, setChatC
               aria-label="voice note button"
               onClick={() => handleUserMediaRequest()}
             >
-              <BsFillMicFill />
+              <FontAwesomeIcon icon={faMicrophone} />
             </button>
           )}
         </>

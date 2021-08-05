@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
-
-import { FaUpload } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import validateImage from "../../validate-image";
 import "./CreateUser.css";
 
@@ -144,7 +144,7 @@ function CreateUserAvatar({ avatar, setUser, handleClick }) {
                 title="Pick a custom avatar!"
                 onClick={() => fileInputRef.current.click()}
               >
-                <FaUpload />
+                <FontAwesomeIcon icon={faUpload} />
               </button>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-
-import { GiCancel, GiConfirmed } from "react-icons/gi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import socketClient from "../../socket-client";
 import "./VoiceNoteRecorder.css";
 
@@ -120,7 +120,7 @@ function VoiceNoteRecorder({ user, friend, controls, setControls, handleSentMess
     <div className="recorder-container">
       <div className="recorder-btn-container">
         <button className="cancel-recorder-btn" onClick={() => handleCloseRecorder()}>
-          <GiCancel />
+          <FontAwesomeIcon icon={faTimesCircle} />
         </button>
       </div>
       <div className="recording-time">
@@ -143,7 +143,7 @@ function VoiceNoteRecorder({ user, friend, controls, setControls, handleSentMess
       </div>
       <div className="recorder-btn-container">
         <button className="send-voice-note-btn" onClick={handleAudioBlob} ref={sendButtonRef}>
-          <GiConfirmed />
+          <FontAwesomeIcon icon={faCheckCircle} />
         </button>
       </div>
     </div>

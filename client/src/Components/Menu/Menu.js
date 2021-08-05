@@ -1,6 +1,6 @@
 import { useState } from "react";
-
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 
 import "./Menu.css";
 
@@ -9,7 +9,8 @@ function Menu({ children }) {
 
   return (
     <>
-      <BsThreeDotsVertical
+      <FontAwesomeIcon
+        icon={faEllipsisV}
         tabIndex="0"
         className="menu-icon"
         data-testid="menu"

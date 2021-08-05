@@ -1,10 +1,8 @@
 import { useState, useContext } from "react";
 import { ThemeContext } from "../../theme-context";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSmile, faCheck } from "@fortawesome/free-solid-svg-icons";
 import Picker from "emoji-picker-react";
-import { HiOutlineEmojiHappy } from "react-icons/hi";
-import { BiCheck } from "react-icons/bi";
-
 import "./NameSettings.css";
 
 const emojiPickerStyle = {
@@ -62,7 +60,7 @@ function NameSettings({ user, newProfile, setNewProfile }) {
           onClick={handleEmojiButtonClick}
           style={{ backgroundColor: theme.primaryColor, color: theme.fontColor }}
         >
-          <HiOutlineEmojiHappy />
+          <FontAwesomeIcon icon={faSmile} />
         </button>
         <button
           id="change-name"
@@ -71,7 +69,7 @@ function NameSettings({ user, newProfile, setNewProfile }) {
           aria-label="change name button"
           style={{ backgroundColor: theme.primaryColor, color: theme.fontColor }}
         >
-          <BiCheck />
+          <FontAwesomeIcon icon={faCheck} />
         </button>
       </form>
       {toggleEmojiPicker && (

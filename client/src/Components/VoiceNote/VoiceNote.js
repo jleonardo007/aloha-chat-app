@@ -1,9 +1,7 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import { ThemeContext } from "../../theme-context";
-
-import { BiCheckDouble } from "react-icons/bi";
-import { BsPlayFill, BsPauseFill } from "react-icons/bs";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckDouble, faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 import socketClient from "../../socket-client";
 import testSocket from "../../test_utils/testSocket";
 import "./VoiceNote.css";
@@ -161,7 +159,7 @@ function VoiceNote({ message }) {
               style={{ color: theme.primaryColor }}
               onClick={() => handlePlayVoiceNoteButton()}
             >
-              <BsPlayFill />
+              <FontAwesomeIcon icon={faPlay} />
             </button>
           ) : (
             <button
@@ -170,7 +168,7 @@ function VoiceNote({ message }) {
               style={{ color: theme.primaryColor }}
               onClick={() => handlePlayVoiceNoteButton()}
             >
-              <BsPauseFill />
+              <FontAwesomeIcon icon={faPause} />
             </button>
           )}
 
@@ -196,7 +194,8 @@ function VoiceNote({ message }) {
         </span>
         {message.status === "send" && (
           <span className="message-status-label">
-            <BiCheckDouble
+            <FontAwesomeIcon
+              icon={faCheckDouble}
               className={
                 message.seenByFriend
                   ? "seen-status-color"

@@ -1,7 +1,7 @@
 import { useRef, useContext } from "react";
 import { ThemeContext } from "../../theme-context";
-
-import { FaUpload } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import validateImage from "../../validate-image";
 import "./Avatars.css";
 
@@ -74,7 +74,7 @@ function Avatars({ user, newProfile, setNewProfile }) {
           style={{ backgroundColor: theme.primaryColor, color: theme.fontColor }}
           onClick={() => fileInputRef.current.click()}
         >
-          <FaUpload />
+          <FontAwesomeIcon icon={faUpload} />
         </button>
       </div>
     </div>
