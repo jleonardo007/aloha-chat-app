@@ -1,87 +1,13 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "../../theme-context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckDouble } from "@fortawesome/free-solid-svg-icons";
-import socketClient from "../../socket-client";
-import testSocket from "../../test_utils/testSocket";
+import useTextMessage from "./hooks";
 import "./styles.css";
 
-function TextMessage({ message }) {
+export default function TextMessage({ message }) {
   const theme = useContext(ThemeContext);
-  const [textMessageState, setTextMessageState] = useState({
-    seenByFriend: false,
-    hours: null,
-    minutes: null,
-  });
-
-  useEffect(() => {
-    const currentDate = Date.now();
-    let currentHours = null;
-    let currentMinutes = null;
-
-    if (!message.time.hours && !message.time.minutes) {
-      currentHours = `${
-        new Date(currentDate).getHours() >= 10
-          ? new Date(currentDate).getHours()
-          : `0${new Date(currentDate).getHours()}`
-      }`;
-      currentMinutes = `${
-        new Date(currentDate).getMinutes() >= 10
-          ? new Date(currentDate).getMinutes()
-          : `0${new Date(currentDate).getMinutes()}`
-      }`;
-
-      setTextMessageState((prevState) => {
-        message.time.hours = currentHours;
-        message.time.minutes = currentMinutes;
-
-        return {
-          ...prevState,
-          hours: currentHours,
-          minutes: currentMinutes,
-        };
-      });
-    }
-  }, [message]);
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === "test")
-      testSocket.on("test:seen-messages", () => {
-        setTextMessageState((prevState) => {
-          message.seenByFriend = true;
-          return {
-            ...prevState,
-            seenByFriend: true,
-          };
-        });
-      });
-
-    switch (message.status) {
-      case "send":
-        if (!message.seenByFriend)
-          socketClient.on("seen-message", () => {
-            setTextMessageState((prevState) => {
-              message.seenByFriend = true;
-              return {
-                ...prevState,
-                seenByFriend: true,
-              };
-            });
-          });
-        break;
-
-      case "received":
-        socketClient.emit("seen-message", message.from);
-        break;
-
-      default:
-    }
-
-    return () => {
-      if (process.env.NODE_ENV === "test") testSocket.removeAllListeners("test:seen-messages");
-      socketClient.off("seen-message");
-    };
-  }, [message]);
+  const textMessageState = useTextMessage(message);
 
   return (
     <div
@@ -105,7 +31,9 @@ function TextMessage({ message }) {
               className={
                 message.seenByFriend
                   ? "seen-status-color"
-                  : textMessageState.seenByFriend && "seen-status.color"
+                  : textMessageState.seenByFriend
+                  ? "seen-status.color"
+                  : ""
               }
               data-testid="message status"
             />
@@ -115,5 +43,3 @@ function TextMessage({ message }) {
     </div>
   );
 }
-
-export default TextMessage;

@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
-import validateImage from "../../validate-image";
+import useCreateUser from "./hooks";
 import "./styles.css";
 
 import astronauta from "../../default-avatars/astronauta.png";
@@ -17,17 +17,12 @@ import heroImage from "../../chat-icons/hero-image.webp";
 
 const avatarsCollection = [astronauta, hacker, niña1, niña2, niña3, niña4, ninja, rey];
 
-function CreateUserName({ setUser }) {
+function CreateUserName({ createUserName }) {
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUser((prevState) => {
-      return {
-        ...prevState,
-        name: inputValue,
-      };
-    });
+    createUserName(e, inputValue);
   };
 
   return (
@@ -65,37 +60,8 @@ function CreateUserName({ setUser }) {
   );
 }
 
-function CreateUserAvatar({ avatar, setUser, handleClick }) {
+function CreateUserAvatar({ avatar, avatarSelection, avatarUpload, createUser }) {
   const fileInputRef = useRef(null);
-
-  function handleAvatarSelection(e) {
-    const avatar = e.target.getAttribute("data-image");
-    setUser((prevState) => {
-      return {
-        ...prevState,
-        avatar,
-      };
-    });
-  }
-
-  function handleAvatarUpload(e) {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.addEventListener("load", (e) => {
-      setUser((prevState) => {
-        return {
-          ...prevState,
-          avatar: e.target.result,
-        };
-      });
-    });
-
-    if (file) {
-      if (validateImage(file)) reader.readAsDataURL(file);
-      else alert("Upload a image only!");
-    }
-  }
 
   return (
     <section className="avatar-page" data-testid="avatar-page">
@@ -108,13 +74,12 @@ function CreateUserAvatar({ avatar, setUser, handleClick }) {
             className="avatar-image"
             style={{ backgroundImage: `url(${avatar ? avatar : noAvatar})` }}
           />
-
           <div className="join-btn-container">
-            {avatar ? (
-              <button className="create-btn" onClick={() => handleClick()}>
+            {avatar && (
+              <button className="create-btn" onClick={() => createUser()}>
                 Join!
               </button>
-            ) : null}
+            )}
           </div>
         </div>
         <div className="default-avatars">
@@ -126,7 +91,7 @@ function CreateUserAvatar({ avatar, setUser, handleClick }) {
                   style={{ backgroundImage: `url(${avatarSrc})` }}
                   data-image={avatarSrc}
                   className="avatar-image"
-                  onClick={(e) => handleAvatarSelection(e)}
+                  onClick={(e) => avatarSelection(e)}
                 />
               );
             })}
@@ -137,7 +102,7 @@ function CreateUserAvatar({ avatar, setUser, handleClick }) {
                 className="custom-avatar-input"
                 accept=".png, .jpeg,.jpg, .webp"
                 ref={fileInputRef}
-                onChange={(e) => handleAvatarUpload(e)}
+                onChange={(e) => avatarUpload(e)}
               />
               <button
                 className="custom-avatar-btn"
@@ -154,25 +119,17 @@ function CreateUserAvatar({ avatar, setUser, handleClick }) {
   );
 }
 
-function CreateUser({ dispatch }) {
-  const [user, setUser] = useState({
-    name: "",
-    avatar: "",
-  });
-
-  const handleClick = () => {
-    dispatch({
-      type: "CREATE_USER",
-      userName: user.name,
-      userAvatar: user.avatar,
-    });
-  };
+export default function CreateUser({ dispatch }) {
+  const { user, ...features } = useCreateUser(dispatch);
 
   return !user.name ? (
-    <CreateUserName setUser={setUser} />
+    <CreateUserName createUserName={features.createUserName} />
   ) : (
-    <CreateUserAvatar avatar={user.avatar} setUser={setUser} handleClick={handleClick} />
+    <CreateUserAvatar
+      avatar={user.avatar}
+      avatarSelection={features.avatarSelection}
+      avatarUpload={features.avatarUpload}
+      createUser={features.createUser}
+    />
   );
 }
-
-export default CreateUser;

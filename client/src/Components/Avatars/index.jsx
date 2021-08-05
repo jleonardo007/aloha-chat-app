@@ -2,7 +2,6 @@ import { useRef, useContext } from "react";
 import { ThemeContext } from "../../theme-context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
-import validateImage from "../../validate-image";
 import "./styles.css";
 
 import astronauta from "../../default-avatars/astronauta.png";
@@ -16,35 +15,9 @@ import rey from "../../default-avatars/rey.png";
 
 const avatarsCollection = [astronauta, hacker, niña1, niña2, niña3, niña4, ninja, rey];
 
-function Avatars({ user, newProfile, setNewProfile }) {
+export default function Avatars({ avatarSelection, avatarUpload }) {
   const theme = useContext(ThemeContext);
   const fileInputRef = useRef(null);
-
-  function handleAvatarSelection(e) {
-    const avatar = e.target.getAttribute("data-image");
-
-    setNewProfile({
-      name: newProfile.name ? newProfile.name : user.name,
-      avatar,
-    });
-  }
-
-  function handleAvatarUpload(e) {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.addEventListener("load", (e) => {
-      setNewProfile({
-        name: newProfile.name ? newProfile.name : user.name,
-        avatar: e.target.result,
-      });
-    });
-
-    if (file) {
-      if (validateImage(file)) reader.readAsDataURL(file);
-      else alert("Upload a image only!");
-    }
-  }
 
   return (
     <div className="avatars-collection" data-testid="avatars">
@@ -55,7 +28,7 @@ function Avatars({ user, newProfile, setNewProfile }) {
             key={index}
             style={{ backgroundImage: `url(${avatarSrc})` }}
             data-image={avatarSrc}
-            onClick={(e) => handleAvatarSelection(e)}
+            onClick={(e) => avatarSelection(e)}
           />
         );
       })}
@@ -66,7 +39,7 @@ function Avatars({ user, newProfile, setNewProfile }) {
           className="custom-avatar-input"
           accept=".png, .jpeg,.jpg, .webp"
           ref={fileInputRef}
-          onChange={(e) => handleAvatarUpload(e)}
+          onChange={(e) => avatarUpload(e)}
         />
         <button
           className="custom-avatar-btn profile-avatar-btn"
@@ -80,5 +53,3 @@ function Avatars({ user, newProfile, setNewProfile }) {
     </div>
   );
 }
-
-export default Avatars;

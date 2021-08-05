@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "../../theme-context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import Picker from "emoji-picker-react";
-import socketClient from "../../socket-client";
+import useTextBox from "./hooks";
 import "./styles.css";
 
 const emojiPickerStyle = {
@@ -14,107 +14,21 @@ const emojiPickerStyle = {
   boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.4)",
 };
 
-function TextBox({
-  user,
-  friend,
+export default function TextBox({
   controls,
   chatConfigObject,
-  setControls,
-  handleSentMessage,
-  handleSelectedMessagesDeletion,
+  createTextMessage,
+  sendMessage,
+  deleteSelectedMessages,
 }) {
   const theme = useContext(ThemeContext);
-  const messageInputRef = useRef(null);
-  const selectedMessagesCounterRef = useRef(null);
-  const [textBoxState, setTextBoxState] = useState({
-    content: "",
-    type: "text",
-  });
-
-  useEffect(() => {
-    if (!chatConfigObject.toggleMessageSelector) {
-      messageInputRef.current.focus();
-
-      if (textBoxState.content) {
-        const range = document.createRange();
-        const selection = window.getSelection();
-
-        messageInputRef.current.innerText = textBoxState.content;
-        range.selectNodeContents(messageInputRef.current);
-        range.collapse(false);
-        selection.removeAllRanges();
-        selection.addRange(range);
-      } else messageInputRef.current.innerText = "";
-    } else if (selectedMessagesCounterRef.current.firstChild.nodeName === "#text")
-      selectedMessagesCounterRef.current.removeChild(selectedMessagesCounterRef.current.firstChild);
-  });
-
-  useEffect(() => {
-    if (!controls.toggleVoiceNoteButton) {
-      setTextBoxState((prevState) => {
-        return {
-          ...prevState,
-          content: "",
-        };
-      });
-      messageInputRef.current.innerText = "";
-    }
-  }, [controls.toggleVoiceNoteButton]);
-
-  function setTextBoxFocus() {
-    messageInputRef.current.focus();
-  }
-
-  function handleTextMessage(e, emojiObject) {
-    socketClient.emit("friend-actions", { user, friend, action: "Writing a message..." });
-
-    switch (e.type) {
-      case "click":
-        setControls((prevState) => {
-          return {
-            ...prevState,
-            textContent: `${prevState.textContent || ""}${emojiObject.emoji}`,
-            toggleVoiceNoteButton: true,
-          };
-        });
-
-        setTextBoxState((prevState) => {
-          return {
-            ...prevState,
-            content: `${prevState.content || ""}${emojiObject.emoji}`,
-          };
-        });
-        break;
-
-      case "input":
-        if (e.target.innerText.includes("\n") && chatConfigObject.shouldSetEnterToSend) {
-          handleSentMessage(textBoxState);
-          setTextBoxState((prevState) => {
-            return {
-              ...prevState,
-              content: "",
-            };
-          });
-        } else {
-          setControls((prevState) => {
-            return {
-              ...prevState,
-              textContent: e.target.innerText.trimStart(),
-              toggleVoiceNoteButton: e.target.innerText.trimStart() ? true : false,
-            };
-          });
-
-          setTextBoxState((prevState) => {
-            return {
-              ...prevState,
-              content: e.target.innerText.trimStart(),
-            };
-          });
-        }
-        break;
-      default:
-    }
-  }
+  const {
+    textBoxState,
+    messageInputRef,
+    selectedMessagesCounterRef,
+    setTextBoxState,
+    setTextBoxFocus,
+  } = useTextBox(controls, chatConfigObject);
 
   return (
     <>
@@ -133,7 +47,7 @@ function TextBox({
             <button
               className="delete-messages-btn"
               aria-label="delete messages button"
-              onClick={() => handleSelectedMessagesDeletion()}
+              onClick={() => deleteSelectedMessages()}
             >
               <FontAwesomeIcon icon={faTrashAlt} />
             </button>
@@ -154,9 +68,9 @@ function TextBox({
             role="textbox"
             aria-label="message input"
             ref={messageInputRef}
-            contentEditable
+            contentEditable={controls.mediaStream ? false : true}
             onClick={setTextBoxFocus}
-            onInput={handleTextMessage}
+            onInput={(e) => createTextMessage(e, null, textBoxState, sendMessage, setTextBoxState)}
           ></div>
         </div>
       )}
@@ -166,11 +80,11 @@ function TextBox({
           disableAutoFocus={true}
           disableSearchBar={true}
           data-testid="emoji-picker"
-          onEmojiClick={handleTextMessage}
+          onEmojiClick={(e, emojiObject) =>
+            createTextMessage(e, emojiObject, textBoxState, null, setTextBoxState)
+          }
         />
       )}
     </>
   );
 }
-
-export default TextBox;

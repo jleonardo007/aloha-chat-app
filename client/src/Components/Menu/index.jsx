@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import "./styles.css";
 
-function Menu({ children }) {
+export default function Menu({ children }) {
   const [toogleMenu, setToggleMenu] = useState(false);
 
   return (
@@ -21,5 +21,3 @@ function Menu({ children }) {
     </>
   );
 }
-
-export default Menu;

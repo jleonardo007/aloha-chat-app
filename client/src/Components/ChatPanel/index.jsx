@@ -1,99 +1,16 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { ThemeContext } from "../../theme-context";
 import Messages from "../Messages";
 import ChatControls from "../ChatControls";
 import Backgrounds from "../Backgrounds";
 import Theme from "../Theme";
-import socketClient from "../../socket-client";
+import useChat from "./hooks";
 import talk from "../../chat-icons/charla.png";
 import "./styles.css";
 
-function ChatPanel(props) {
+export default function ChatPanel(props) {
   const theme = useContext(ThemeContext);
-  const [chatMessagesObject, setChatMessagesObject] = useState({
-    sentMessage: null,
-    receivedMessage: null,
-    undeliveredMessages: [],
-  });
-
-  useEffect(() => {
-    if (!props.user.id) socketClient.emit("new-user", props.user);
-
-    socketClient.on("user-connected", (user) => {
-      props.dispatch({
-        type: "USER_CONNECTED",
-        user,
-      });
-    });
-
-    return () => {
-      socketClient.off("user-connected");
-    };
-  });
-
-  useEffect(() => {
-    socketClient.on("new-message", (message) => {
-      if (props.friend)
-        setChatMessagesObject((prevState) => {
-          if (message.from.id === props.friend.id)
-            return {
-              ...prevState,
-              receivedMessage: { ...message, status: "received" },
-            };
-          else
-            return {
-              ...prevState,
-              undeliveredMessages: [
-                ...prevState.undeliveredMessages,
-                { ...message, status: "received" },
-              ],
-            };
-        });
-      else
-        setChatMessagesObject((prevState) => {
-          return {
-            ...prevState,
-            undeliveredMessages: [
-              ...prevState.undeliveredMessages,
-              { ...message, status: "received" },
-            ],
-          };
-        });
-    });
-
-    return () => {
-      socketClient.off("new-message");
-    };
-  }, [props.friend]);
-
-  useEffect(() => {
-    if (props.friend)
-      setChatMessagesObject((prevState) => {
-        if (prevState.undeliveredMessages.some((message) => message.from.id === props.friend.id))
-          return {
-            ...prevState,
-            receivedMessage: prevState.undeliveredMessages.filter(
-              (message) => message.from.id === props.friend.id
-            ),
-            undeliveredMessages: prevState.undeliveredMessages.filter(
-              (message) => message.from.id !== props.friend.id
-            ),
-          };
-        else return prevState;
-      });
-
-    return () => {
-      setChatMessagesObject((prevState) => {
-        if (!prevState.sentMessage && !prevState.receivedMessage) return prevState;
-        else
-          return {
-            ...prevState,
-            sentMessage: null,
-            receivedMessage: null,
-          };
-      });
-    };
-  }, [props.friend]);
+  const { chatMessagesObject, setChatMessagesObject } = useChat(props);
 
   useEffect(() => {
     if (
@@ -107,7 +24,7 @@ function ChatPanel(props) {
           receivedMessage: null,
         };
       });
-  }, [props.chatConfigObject]);
+  });
 
   return (
     <section
@@ -115,11 +32,11 @@ function ChatPanel(props) {
       style={{ backgroundColor: theme.background, color: theme.fontColor }}
     >
       {props.settingOption === "no-render-options" ? (
-        props.chatInfo
+        props.ChatInfo
       ) : (
         <div className="settings-components-container">
           {props.settingOption === "profile-settings" ? (
-            props.profile
+            props.Profile
           ) : props.settingOption === "background-settings" ? (
             <Backgrounds
               dispatch={props.dispatch}
@@ -140,7 +57,7 @@ function ChatPanel(props) {
         </div>
       ) : (
         <div className="chat" data-testid="chat">
-          <div className="friend-container">{props.friendComponent}</div>
+          <div className="friend-container">{props.Friend}</div>
           <div className="messages-container">
             <Messages
               userId={props.user.id}
@@ -155,9 +72,9 @@ function ChatPanel(props) {
             <ChatControls
               friend={props.friend}
               user={props.user}
-              setSentMessage={setChatMessagesObject}
               chatConfigObject={props.chatConfigObject}
               setChatConfigObject={props.setChatConfigObject}
+              setChatMessagesObject={setChatMessagesObject}
             />
           </div>
         </div>
@@ -165,5 +82,3 @@ function ChatPanel(props) {
     </section>
   );
 }
-
-export default ChatPanel;

@@ -3,7 +3,7 @@ import { ThemeContext } from "../../theme-context";
 import Menu from "../Menu";
 import "./styles.css";
 
-function User({ user, dispatch }) {
+export default function User({ user, dispatch }) {
   const theme = useContext(ThemeContext);
 
   return (
@@ -46,5 +46,3 @@ function User({ user, dispatch }) {
     </div>
   );
 }
-
-export default User;

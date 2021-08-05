@@ -1,42 +1,10 @@
 import { useContext } from "react";
 import { ThemeContext } from "../../theme-context";
+import { changeBackground, selectBackground } from "./handlers";
 import "./styles.css";
 
-function Backgrounds({ dispatch, setChatConfigObject }) {
+export default function Backgrounds({ dispatch, setChatConfigObject }) {
   const theme = useContext(ThemeContext);
-
-  function handleBackgroundChange(e) {
-    setChatConfigObject((prevState) => {
-      return {
-        ...prevState,
-        backgroundColor: e.target.getAttribute("data-color-value"),
-        toggleBackgroundColor: "",
-      };
-    });
-  }
-
-  function handleSelectBackground(e) {
-    if (e.type === "mouseenter")
-      setChatConfigObject((prevState) => {
-        return {
-          ...prevState,
-          toggleBackgroundColor: e.target.getAttribute("data-color-value"),
-        };
-      });
-    else if (e.type === "mouseleave")
-      setChatConfigObject((prevState) => {
-        return {
-          ...prevState,
-          toggleBackgroundColor: "",
-        };
-      });
-    else
-      setChatConfigObject((prevState) => {
-        return {
-          ...prevState,
-        };
-      });
-  }
 
   return (
     <div className="backgrounds-container" data-testid="backgrounds">
@@ -48,9 +16,9 @@ function Backgrounds({ dispatch, setChatConfigObject }) {
             style={{ backgroundColor: color }}
             data-color-value={color}
             key={index}
-            onClick={(e) => handleBackgroundChange(e)}
-            onMouseEnter={(e) => handleSelectBackground(e)}
-            onMouseLeave={(e) => handleSelectBackground(e)}
+            onClick={(e) => changeBackground(e, setChatConfigObject)}
+            onMouseEnter={(e) => selectBackground(e, setChatConfigObject)}
+            onMouseLeave={(e) => selectBackground(e, setChatConfigObject)}
           ></div>
         );
       })}
@@ -66,5 +34,3 @@ function Backgrounds({ dispatch, setChatConfigObject }) {
     </div>
   );
 }
-
-export default Backgrounds;

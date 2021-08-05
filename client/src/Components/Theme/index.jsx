@@ -2,7 +2,7 @@ import { useEffect, useRef, useContext } from "react";
 import { ThemeContext, themes } from "../../theme-context";
 import "./styles.css";
 
-function Theme({ dispatch }) {
+export default function Theme({ dispatch }) {
   const theme = useContext(ThemeContext);
   const darkRef = useRef(null);
   const lightRef = useRef(null);
@@ -57,5 +57,3 @@ function Theme({ dispatch }) {
     </div>
   );
 }
-
-export default Theme;
